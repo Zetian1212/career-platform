@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="card">
+  <h1>Portfolio</h1>
+  {% for project in projects %}
+  <article>
+    <h2>{{ project.title }}</h2>
+    <p>{{ project.summary }}</p>
+    <a href="/portfolio/{{ project.slug }}">Read case study</a>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}

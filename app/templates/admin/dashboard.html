@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="card">
+  <h1>Admin dashboard</h1>
+  <p><a href="/admin/profile">Edit profile</a></p>
+  <p><a href="/admin/projects/new">Add project</a></p>
+  <form method="post" action="/admin/logout">
+    <button type="submit">Log out</button>
+  </form>
+</section>
+<section class="card"><h2>Projects</h2>{% for project in projects %}<p>{{ project.title }} ({{ project.state }})</p>{% endfor %}</section>
+{% endblock %}

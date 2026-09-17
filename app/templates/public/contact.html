@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="card">
+  <h1>Contact</h1>
+  <p>{{ profile.name }}</p>
+  <ul>{% for link in links %}<li><a href="{{ link.url }}">{{ link.label }}</a></li>{% endfor %}</ul>
+</section>
+{% endblock %}

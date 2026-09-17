@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero card">
+  <h1>{{ profile.name }}</h1>
+  <p class="headline">{{ profile.headline }}</p>
+  <p>{{ profile.summary }}</p>
+  {% if links %}
+    <div class="link-row">
+      {% for link in links %}
+        <a href="{{ link.url }}">{{ link.label }}</a>
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>
+<section class="card">
+  <h2>Skills</h2>
+  <ul class="chip-list">
+    {% for skill in skills %}
+      <li>{{ skill.name }}</li>
+    {% endfor %}
+  </ul>
+</section>
+<section class="card">
+  <h2>Featured projects</h2>
+  {% for project in projects %}
+  <article>
+    <h3>{{ project.title }}</h3>
+    <p>{{ project.summary }}</p>
+    <a href="/portfolio/{{ project.slug }}">View project</a>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}

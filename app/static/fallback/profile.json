@@ -1,0 +1,22 @@
+{
+  "profile": {
+    "name": "Demo Candidate",
+    "headline": "Full-Stack Product Engineer",
+    "summary": "I build reliable software that turns customer needs into measurable product outcomes.",
+    "location": "Remote",
+    "availability": "Open to roles",
+    "bio": "Product-minded engineer focused on measurable impact."
+  },
+  "links": [
+    {"label": "LinkedIn", "url": "https://www.linkedin.com/in/demo-candidate", "category": "social"},
+    {"label": "GitHub", "url": "https://github.com/demo-candidate", "category": "code"},
+    {"label": "Email", "url": "mailto:demo@example.com", "category": "contact"}
+  ],
+  "skills": [
+    {"name": "Python", "category": "language"},
+    {"name": "FastAPI", "category": "framework"},
+    {"name": "SQLite", "category": "database"}
+  ],
+  "highlights": ["Built reusable product workflows", "Improved team efficiency with measurable outcomes", "Created maintainable, accessible interfaces"],
+  "generated_at": "2026-09-17T00:00:00Z"
+}

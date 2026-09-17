@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<article class="card">
+  <h1>{{ project.title }}</h1>
+  <p>{{ project.summary }}</p>
+  {% if project.problem %}<h2>Problem</h2><p>{{ project.problem }}</p>{% endif %}
+  {% if project.impact %}<h2>Impact</h2><p>{{ project.impact }}</p>{% endif %}
+</article>
+{% endblock %}

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title or 'Career Platform' }}</title>
+    <link rel="stylesheet" href="/static/css/site.css">
+  </head>
+  <body>
+    {% if degraded %}
+      <div class="degraded-banner" role="status">Cached profile is showing while the database is unavailable.</div>
+    {% endif %}
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <nav aria-label="Primary navigation" class="nav">
+        <a href="/">Home</a>
+        <a href="/resume">Resume</a>
+        <a href="/portfolio">Portfolio</a>
+        <a href="/contact">Contact</a>
+        <a href="/admin">Admin</a>
+      </nav>
+    </header>
+    <main id="main-content" class="container">
+    {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>
