@@ -24,3 +24,7 @@ button { background: var(--brand); color: white; border: none; cursor: pointer; 
 .skip-link:focus { left: 1rem; top: 1rem; }
 .degraded-banner { background: #fff3d5; border-bottom: 1px solid #f5d38f; padding: .85rem 1rem; text-align: center; }
 .error { color: #b91c1c; }
+.meta { color: var(--muted); margin: .25rem 0; }
+.entry + .entry { border-top: 1px solid var(--line); margin-top: 1rem; padding-top: 1rem; }
+.entry h3 { margin-bottom: .25rem; }
+.entry ul { padding-left: 1.25rem; line-height: 1.5; }

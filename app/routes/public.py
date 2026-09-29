@@ -37,7 +37,7 @@ def resume(request: Request, db: Session = Depends(get_db)):
     return templates.TemplateResponse(
         request,
         'public/resume.html',
-        {'profile': snapshot.profile, 'links': snapshot.links, 'skills': repo.list_skills(), 'experience': repo.list_experience(), 'education': repo.list_education(), 'degraded': degraded},
+        {'profile': snapshot.profile, 'links': snapshot.links, 'skills': repo.list_skills(), 'experience': repo.list_experience(), 'education': repo.list_education(), 'certifications': repo.list_certifications(), 'degraded': degraded},
     )
 
 

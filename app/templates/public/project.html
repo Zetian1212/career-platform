@@ -3,6 +3,9 @@
 <article class="card">
   <h1>{{ project.title }}</h1>
   <p>{{ project.summary }}</p>
+  {% if project.role %}<p class="meta">Role: {{ project.role }}</p>{% endif %}
+  {% if project.technology %}<p class="meta">Built with: {{ project.technology }}</p>{% endif %}
+  {% if project.repo_url %}<p><a href="{{ project.repo_url }}">Source code</a></p>{% endif %}
   {% if project.problem %}<h2>Problem</h2><p>{{ project.problem }}</p>{% endif %}
   {% if project.impact %}<h2>Impact</h2><p>{{ project.impact }}</p>{% endif %}
 </article>

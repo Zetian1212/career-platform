@@ -3,23 +3,42 @@
 <section class="card">
   <h1>Resume</h1>
   <p><strong>{{ profile.name }}</strong> — {{ profile.headline }}</p>
+  {% if profile.location %}<p class="meta">{{ profile.location }}</p>{% endif %}
 </section>
 <section class="card">
   <h2>Experience</h2>
   {% for item in experience %}
-    <article>
+    <article class="entry">
       <h3>{{ item.role }} — {{ item.company }}</h3>
-      <p>{{ item.description }}</p>
+      {% if item.start_date %}<p class="meta">{{ item.start_date.strftime('%b %Y') }} – {{ item.end_date.strftime('%b %Y') if item.end_date else 'Present' }}</p>{% endif %}
+      {% if item.description %}
+        <ul>
+          {% for line in item.description.splitlines() if line.strip() %}
+            <li>{{ line }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
     </article>
   {% endfor %}
 </section>
 <section class="card">
   <h2>Education</h2>
   {% for item in education %}
-    <article>
+    <article class="entry">
       <h3>{{ item.school }}</h3>
       <p>{{ item.degree }}{% if item.field_of_study %} — {{ item.field_of_study }}{% endif %}</p>
+      {% if item.start_date %}<p class="meta">{{ item.start_date.strftime('%b %Y') }} – {{ item.end_date.strftime('%b %Y') if item.end_date else 'Present' }}</p>{% endif %}
     </article>
   {% endfor %}
 </section>
+{% if certifications %}
+<section class="card">
+  <h2>Certifications</h2>
+  <ul class="chip-list">
+    {% for cert in certifications %}
+      <li>{{ cert.name }}{% if cert.issuer %} · {{ cert.issuer }}{% endif %}</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
 {% endblock %}

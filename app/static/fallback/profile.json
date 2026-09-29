@@ -1,22 +1,65 @@
 {
   "profile": {
-    "name": "Demo Candidate",
-    "headline": "Full-Stack Product Engineer",
-    "summary": "I build reliable software that turns customer needs into measurable product outcomes.",
-    "location": "Remote",
-    "availability": "Open to roles",
-    "bio": "Product-minded engineer focused on measurable impact."
+    "name": "Zetian Tao",
+    "headline": "Student at Loyola Marymount University",
+    "summary": "A Bachelor of Business Administration student at Loyola Marymount University, majoring in Finance and Information Systems and Business Analysis, expected to graduate in June 2027.",
+    "location": "Los Angeles, California, United States",
+    "availability": null,
+    "bio": null
   },
   "links": [
-    {"label": "LinkedIn", "url": "https://www.linkedin.com/in/demo-candidate", "category": "social"},
-    {"label": "GitHub", "url": "https://github.com/demo-candidate", "category": "code"},
-    {"label": "Email", "url": "mailto:demo@example.com", "category": "contact"}
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/zetian-tao-b375132b1",
+      "category": "social"
+    },
+    {
+      "label": "GitHub",
+      "url": "https://github.com/Zetian1212",
+      "category": "code"
+    },
+    {
+      "label": "Email",
+      "url": "mailto:Zetian1212@gmail.com",
+      "category": "contact"
+    }
   ],
   "skills": [
-    {"name": "Python", "category": "language"},
-    {"name": "FastAPI", "category": "framework"},
-    {"name": "SQLite", "category": "database"}
+    {
+      "name": "Financial modeling (DCF)",
+      "category": "finance"
+    },
+    {
+      "name": "Comparable company analysis",
+      "category": "finance"
+    },
+    {
+      "name": "Equity research",
+      "category": "finance"
+    },
+    {
+      "name": "Financial due diligence",
+      "category": "finance"
+    },
+    {
+      "name": "Excel",
+      "category": "tool"
+    },
+    {
+      "name": "Bloomberg",
+      "category": "tool"
+    },
+    {
+      "name": "Python",
+      "category": "language"
+    },
+    {
+      "name": "pandas",
+      "category": "library"
+    }
   ],
-  "highlights": ["Built reusable product workflows", "Improved team efficiency with measurable outcomes", "Created maintainable, accessible interfaces"],
-  "generated_at": "2026-09-17T00:00:00Z"
+  "highlights": [
+    "Career Platform"
+  ],
+  "generated_at": "2026-09-29T22:16:50.949943+00:00"
 }

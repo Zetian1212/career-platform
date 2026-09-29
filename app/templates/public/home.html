@@ -3,6 +3,7 @@
 <section class="hero card">
   <h1>{{ profile.name }}</h1>
   <p class="headline">{{ profile.headline }}</p>
+  {% if profile.location %}<p class="meta">{{ profile.location }}</p>{% endif %}
   <p>{{ profile.summary }}</p>
   {% if links %}
     <div class="link-row">
