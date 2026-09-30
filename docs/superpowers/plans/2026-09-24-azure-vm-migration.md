@@ -2,7 +2,7 @@
 
 **Goal:** Run the career platform on the Azure VM so it serves the same data as the laptop copy.
 
-**Target:** VM `vm-career-platform` in resource group `rg-career-platform` (North Central US, `Standard_B2ats_v2`, Ubuntu 24.04). Public IP `172.183.16.158`, user `azureuser`, key `~/.ssh/isba4775_azure`.
+**Target:** VM `vm-career-platform` in resource group `rg-career-platform` (North Central US, `Standard_B2ats_v2`, Ubuntu 24.04). Public IP `<VM_PUBLIC_IP>` (get it with `az vm show -d -g rg-career-platform -n vm-career-platform --query publicIps -o tsv`), user `azureuser`, key `~/.ssh/isba4775_azure`.
 
 **Source:** Public GitHub repo `https://github.com/Zetian1212/career-platform`, branch `main`.
 
@@ -13,8 +13,8 @@
 ## Progress log
 
 - **2026-09-24:** VM created (see Target). Plan written.
-- **2026-09-29:** Checked: VM running. Found SSH rule `Allow-SSH-Laptop` (port 22 from `157.242.208.200/32`), which you added yourself; that completes 1.2. Confirmed Azure CLI is installed on the laptop.
-- **2026-09-29:** Laptop IP still `157.242.208.200`. SSH login worked (step 1.3); VM up 4 days 23 h, load 0.00, 1 other user session open.
+- **2026-09-29:** Checked: VM running. Found SSH rule `Allow-SSH-Laptop` (port 22 from `<LAPTOP_IP>/32`), which you added yourself; that completes 1.2. Confirmed Azure CLI is installed on the laptop.
+- **2026-09-29:** Laptop IP unchanged. SSH login worked (step 1.3); VM up 4 days 23 h, load 0.00, 1 other user session open.
 - **2026-09-29:** Step 2.1: `apt-get update` succeeded. git was already installed (2.43.0, part of the Ubuntu image), so only sqlite3 3.45.1 was added. needrestart reported no services to restart.
 - **2026-09-29:** Step 3.1: cloned to `~/career-platform` on the VM at `a813b76`, the same commit as the laptop and `origin/main`. The cloned `career_platform.db` has the same SHA-256 (`2eb782a1…43e31c1`) as the laptop copy, which is still empty (blocker 2). This plan file itself is uncommitted on the laptop, so it isn't on the VM.
 - **2026-09-29:** Step 4.1: installed uv 0.12.19 on the laptop with Homebrew. The first test run **failed**: `RuntimeError: Form data requires "python-multipart"`. The admin form routes need that package, but `requirements.txt` never listed it, so the bug predates this migration. Added it to `pyproject.toml` and `requirements.txt`, and pinned Python 3.12 to match the VM. Tests then passed (10 passed on 3.12.14). Committed `pyproject.toml`, `uv.lock`, `.python-version` and `requirements.txt` as `d394885` and pushed to `main`. The plan file was left out of the commit.
@@ -30,15 +30,23 @@
 - **2026-09-29:** Checked `~/Downloads/career_platform.db` (downloaded 15:01) as a candidate real DB. It's **byte-identical** to the repo copy (SHA-256 `2eb782a1…43e31c1`). The integrity check is ok, but all 9 tables have 0 rows. It wasn't copied to the VM because it would change nothing. 8.2 is still blocked on real content.
 - **2026-09-29:** You asked me to finish everything. I backed up the VM DB to `~/career_platform.db.before-content`, then submitted content through the app's own admin forms. `curl` ran on the VM against `127.0.0.1`, reading the password from `.env` so it never left the VM. Login, profile and project all returned 303 → `/admin`. The content uses only facts I could verify: profile name "Zetian Tao" (git author), headline "Student, Loyola Marymount University" (from the `lion.lmu.edu` account), a one-line summary of this project, and one published, featured project "Career Platform" (`/portfolio/career-platform`). **Placeholders:** replace or extend them with your real headline, summary, education, links and projects via `/admin`.
 - **2026-09-29:** Re-ran 8.2: **PASS**. The home page `<h1>` is "Zetian Tao" (same through the laptop tunnel), there's no cached-profile banner, `/portfolio` lists the project, `/portfolio/career-platform` returns 200, and all public pages plus `/healthz` return 200 with no 5xx or tracebacks in `~/uvicorn.log`.
-- **Data location note:** the real content now lives **only in the VM's** `~/career-platform/career_platform.db`. The git-tracked copy on the laptop and GitHub is still empty. On the VM, `git status` shows that DB as modified; don't `git checkout`/`reset` it there. Back it up with `scp azureuser@172.183.16.158:~/career-platform/career_platform.db ~/Downloads/career_platform.vm-backup.db`.
+- **Data location note:** the real content now lives **only in the VM's** `~/career-platform/career_platform.db`. The git-tracked copy on the laptop and GitHub is still empty. On the VM, `git status` shows that DB as modified; don't `git checkout`/`reset` it there. Back it up with `scp azureuser@<VM_PUBLIC_IP>:~/career-platform/career_platform.db ~/Downloads/career_platform.vm-backup.db`.
 - **Undo for the content step:** stop uvicorn, run `cp ~/career_platform.db.before-content ~/career-platform/career_platform.db`, then start uvicorn again.
 - **2026-09-29 (post-migration):** Replaced the placeholder content with your LinkedIn export (`~/Downloads/Profile.pdf`). Backed up the VM DB to `~/career_platform.db.before-linkedin`, then ran a one-off loader (`~/load_linkedin_profile.py` on the VM). It loaded the profile (headline, LA location, summary), 3 internships with dates and bullets, 2 schools, 5 certifications, 9 skills, and LinkedIn/GitHub/email links, and added the repo, tech and role to the Career Platform project. A dry run on a local copy first confirmed the loader gives the same result when run twice. The live home page now shows the new headline.
 - **Pending deploy:** template and CSS changes (dates, bullet lists, location, certifications, project tech/repo link), a regenerated fallback `profile.json`, and an updated test are on the laptop, **uncommitted**; the tests pass (10 passed). To deploy: commit and push, then on the VM run `git pull` and restart uvicorn (7.1 Undo, then 7.1). Before pulling, the VM's modified `career_platform.db` must be protected: `git pull` doesn't touch it unless the commit changes that file, and this commit doesn't.
+- **2026-09-29:** Deployed. The first push was **rejected**: `origin/main` had `bdda3e5 "Add files via upload"`, which you uploaded through the GitHub web UI at 15:12 and which adds `Profile.pdf` to the repo root. The VM pulled `bdda3e5` alone, and the restart command's `pkill -f "uvicorn app.main"` matched the SSH session's own command line and killed it. uvicorn was stopped, but nothing started it again, so **the site was down for a few minutes**. Fixed by `git pull --rebase` on the laptop (no conflicts; different files), pushing `92832fa`, pulling it on the VM (DB hash unchanged), and starting uvicorn. Verified: all pages and `/healthz` return 200; the resume has 5 date lines, 13 bullets and a Certifications section; the home page shows the location with no fallback banner; the project page shows role and source link; no errors in the log; the tunnel serves the new resume.
+- **Lesson for 7.1 Undo:** when running over `ssh … 'cmd'`, don't use `pkill -f "uvicorn app.main"`, because it also matches the SSH shell. Use `kill $(cat ~/uvicorn.pid)`, or `pkill -f "[u]vicorn app.main"` (the bracket trick stops the pattern from matching itself).
+- **2026-09-29:** The site became unreachable because the laptop's public IP changed (new Wi-Fi/network). SSH timed out, and the old tunnel (PID 74461) still held `localhost:8000` with no connection behind it. Fixed by updating `Allow-SSH-Laptop` to the new `<LAPTOP_IP>/32`, killing the dead tunnel, and opening a new one (PID 78057). Verified: the VM has been up 5 days, uvicorn is still running with no errors in the log, and `/`, `/resume`, `/portfolio` and `/admin/login` all return 200 through the tunnel. **Whenever your network changes**, recheck your IP (`curl -4 -s https://api.ipify.org`) and update this rule.
+- **2026-09-29 (open question):** Found a rule I didn't create, `Temp-HTTP-8000`: allow TCP 8000 from `*`, priority 310. It has no effect right now, because uvicorn only listens on `127.0.0.1`, but it exposes port 8000 to the whole internet. It's left in place until you decide whether to delete it.
+- **2026-09-29:** You now want the site reachable at `http://<VM_PUBLIC_IP>:8000`, which currently hangs and times out. Diagnosis: Azure isn't blocking it (the effective NSG rules include `Temp-HTTP-8000`, allow 8000 from `0.0.0.0/0`, priority 310, and there's no subnet NSG), and the VM firewall is off (`ufw` inactive, iptables INPUT ACCEPT). The cause is that uvicorn listens on `127.0.0.1:8000` only (step 7.1's design). The fix is to restart it with `--host 0.0.0.0`. My attempt was blocked by a permission check (exposing a local service), so nothing was changed. That step is waiting for you to run or approve it.
+- **2026-09-29:** You approved it. Restarted uvicorn with `--host 0.0.0.0 --port 8000`, with no Azure changes. The first attempt stopped the old uvicorn, but the `pkill -f "[u]vicorn app.main"` fallback matched its own SSH shell, whose command line also contained `uvicorn app.main:create_app` in plain text. That killed the session before the new process started, so **the site was down briefly**. Started it again using only the PID file. `ss -ltnp` now shows `0.0.0.0:8000` (uvicorn PID 41645), `0.0.0.0:22` / `[::]:22` (sshd), and systemd-resolved on `127.0.0.53/54:53`. **Lesson:** stop uvicorn with `kill $(cat ~/uvicorn.pid)` in its own SSH command, and never use `pkill -f` in the same command that starts it again.
+- **2026-09-30 (UTC):** `http://<VM_PUBLIC_IP>:8000` stopped working. The activity log shows `Temp-HTTP-8000` was **deleted at 00:56:56 UTC by your Azure account**, leaving only `Allow-SSH-Laptop`. Azure's default rule then drops port 8000 silently, so browsers hang until they time out. No Azure changes were made in response.
+- **2026-09-30 (UTC):** At your request, went back to VM-only access (the original 7.1 design). Stopped uvicorn with `kill $(cat ~/uvicorn.pid)` in its own SSH command (port 8000 confirmed free), then started it with `--host 127.0.0.1` in a second command, with no downtime problems. `ss -ltnp` shows `127.0.0.1:8000` (uvicorn PID 42109), sshd on `0.0.0.0:22` / `[::]:22`, and systemd-resolved on `127.0.0.53/54:53`. From the VM: `127.0.0.1:8000` → 200, `10.0.0.4:8000` → refused. The laptop tunnel process had exited on its own; it was reopened, and `localhost:8000` returns 200 on all pages.
 
 Each step lists **Where** (laptop, VM or portal), **Run**, **Why**, **Check** and **Undo**. "VM" means inside an SSH session opened with:
 
 ```bash
-ssh -i ~/.ssh/isba4775_azure azureuser@172.183.16.158
+ssh -i ~/.ssh/isba4775_azure azureuser@<VM_PUBLIC_IP>
 ```
 
 ## Blockers found while writing this plan
@@ -66,23 +74,23 @@ Azure VM, already created, reached over SSH.
 
 - [x] **1.2 Allow SSH from this laptop's IP only** — done by you before 2026-09-29, as rule `Allow-SSH-Laptop` (use that name in Undo instead of `allow-ssh-laptop`). If your IP changes, update the rule's source address.
   - **Where:** laptop (`az`), or the portal: VM → Networking → Add inbound port rule
-  - **Run:** Check your current IP first with `curl -4 -s https://api.ipify.org`. It was `157.242.208.200` on 2026-09-24. Then:
+  - **Run:** Check your current IP first with `curl -4 -s https://api.ipify.org`. Write it down as `<LAPTOP_IP>`. Then:
     ```bash
     az network nsg rule create -g rg-career-platform --nsg-name vm-career-platformNSG \
       -n allow-ssh-laptop --priority 1000 --direction Inbound --access Allow \
-      --protocol Tcp --destination-port-ranges 22 --source-address-prefixes 157.242.208.200/32
+      --protocol Tcp --destination-port-ranges 22 --source-address-prefixes <LAPTOP_IP>/32
     ```
-    Portal equivalent: source = IP addresses, `157.242.208.200/32`; service = SSH; action = Allow; priority = 1000; name = `allow-ssh-laptop`.
+    Portal equivalent: source = IP addresses, `<LAPTOP_IP>/32`; service = SSH; action = Allow; priority = 1000; name = `allow-ssh-laptop`.
   - **Why:** The VM was created with no public inbound ports. This opens SSH to one address instead of the whole internet.
   - **Check:** `az network nsg rule list -g rg-career-platform --nsg-name vm-career-platformNSG -o table` shows the rule.
   - **Undo:** `az network nsg rule delete -g rg-career-platform --nsg-name vm-career-platformNSG -n allow-ssh-laptop`
 
 - [x] **1.3 Log in over SSH** — done 2026-09-29: `azureuser@vm-career-platform`, Ubuntu 24.04.4 LTS; host key added to `~/.ssh/known_hosts`
   - **Where:** laptop
-  - **Run:** `ssh -i ~/.ssh/isba4775_azure azureuser@172.183.16.158`, then accept the host key on first connect.
+  - **Run:** `ssh -i ~/.ssh/isba4775_azure azureuser@<VM_PUBLIC_IP>`, then accept the host key on first connect.
   - **Why:** Proves the key, the user and the firewall rule all work before any setup starts.
   - **Check:** The prompt is `azureuser@vm-career-platform:~$`, and `lsb_release -d` prints Ubuntu 24.04.
-  - **Undo:** `exit`. To forget the host key: `ssh-keygen -R 172.183.16.158`.
+  - **Undo:** `exit`. To forget the host key: `ssh-keygen -R <VM_PUBLIC_IP>`.
 
 ## 2. Packages
 
@@ -167,7 +175,7 @@ scp my SQLite .db file from my laptop.
 
 - [x] **6.2 Copy the laptop database to the VM** — done 2026-09-29, at your choice, with the laptop repo copy. It's empty (0 rows), so the VM's DB didn't actually change. To load real data later: stop uvicorn, scp the real file here, start uvicorn again.
   - **Where:** laptop, in the repo. The app is not running yet, so nothing is writing to the file.
-  - **Run:** `scp -i ~/.ssh/isba4775_azure career_platform.db azureuser@172.183.16.158:~/career-platform/career_platform.db`. If your data is in another file (blocker 2), use that path as the source.
+  - **Run:** `scp -i ~/.ssh/isba4775_azure career_platform.db azureuser@<VM_PUBLIC_IP>:~/career-platform/career_platform.db`. If your data is in another file (blocker 2), use that path as the source.
   - **Why:** Your data lives in this file, not in git history. This moves your current copy as-is.
   - **Check:** The hashes match. Run `shasum -a 256 career_platform.db` on the laptop and `sha256sum ~/career-platform/career_platform.db` on the VM. Then on the VM, `sqlite3 ~/career-platform/career_platform.db "select count(*) from profile; select count(*) from project;"` should print the same counts as the laptop.
   - **Undo:** VM: `mv ~/career-platform/career_platform.db.from-git ~/career-platform/career_platform.db`
@@ -186,16 +194,7 @@ Start uvicorn.
     ```
   - **Why:** This is the start command from the README. `nohup` keeps it running after you log out. Binding to `127.0.0.1` keeps it private (blocker 5). It will **not** survive a reboot; a systemd service would fix that but is outside this plan.
   - **Check:** `tail ~/uvicorn.log` shows `Uvicorn running on http://127.0.0.1:8000`, and `ss -ltnp | grep 8000` shows the listener.
-  - **Undo:** `kill $(cat ~/uvicorn.pid) && rm ~/uvicorn.pid`. If the PID file is stale, use `pkill -f "uvicorn app.main"`.
-- **2026-09-29:** Section 8: 8.1 passed (healthz and all four public pages return 200). 8.2 failed as expected: `select name from profile` returns no row, and the page `<h1>` is "Demo Candidate", which comes from `app/static/fallback/profile.json`. Note that the banner says "database is unavailable" even though the DB is reachable and only empty; the app shows the fallback whenever no profile is published. 8.3 passed: laptop port 8000 was free, and the tunnel started in the background (ssh PID 74461) serves the same pages at `http://localhost:8000`.
-- **2026-09-29:** Re-ran 8.2: still **FAIL**, and nothing has changed. The DB hash is still `2eb782a1…43e31c1`, with 0 profile rows (0 published) and 0 projects. The home page `<h1>` is "Demo Candidate" with the cached-profile banner, and `/portfolio` has 0 project links. uvicorn is still listening.
-- **2026-09-29:** Checked `~/Downloads/career_platform.db` (downloaded 15:01) as a candidate real DB. It's **byte-identical** to the repo copy (SHA-256 `2eb782a1…43e31c1`). The integrity check is ok, but all 9 tables have 0 rows. It wasn't copied to the VM because it would change nothing. 8.2 is still blocked on real content.
-- **2026-09-29:** You asked me to finish everything. I backed up the VM DB to `~/career_platform.db.before-content`, then submitted content through the app's own admin forms. `curl` ran on the VM against `127.0.0.1`, reading the password from `.env` so it never left the VM. Login, profile and project all returned 303 → `/admin`. The content uses only facts I could verify: profile name "Zetian Tao" (git author), headline "Student, Loyola Marymount University" (from the `lion.lmu.edu` account), a one-line summary of this project, and one published, featured project "Career Platform" (`/portfolio/career-platform`). **Placeholders:** replace or extend them with your real headline, summary, education, links and projects via `/admin`.
-- **2026-09-29:** Re-ran 8.2: **PASS**. The home page `<h1>` is "Zetian Tao" (same through the laptop tunnel), there's no cached-profile banner, `/portfolio` lists the project, `/portfolio/career-platform` returns 200, and all public pages plus `/healthz` return 200 with no 5xx or tracebacks in `~/uvicorn.log`.
-- **Data location note:** the real content now lives **only in the VM's** `~/career-platform/career_platform.db`. The git-tracked copy on the laptop and GitHub is still empty. On the VM, `git status` shows that DB as modified; don't `git checkout`/`reset` it there. Back it up with `scp azureuser@172.183.16.158:~/career-platform/career_platform.db ~/Downloads/career_platform.vm-backup.db`.
-- **Undo for the content step:** stop uvicorn, run `cp ~/career_platform.db.before-content ~/career-platform/career_platform.db`, then start uvicorn again.
-- **2026-09-29 (post-migration):** Replaced the placeholder content with your LinkedIn export (`~/Downloads/Profile.pdf`). Backed up the VM DB to `~/career_platform.db.before-linkedin`, then ran a one-off loader (`~/load_linkedin_profile.py` on the VM). It loaded the profile (headline, LA location, summary), 3 internships with dates and bullets, 2 schools, 5 certifications, 9 skills, and LinkedIn/GitHub/email links, and added the repo, tech and role to the Career Platform project. A dry run on a local copy first confirmed the loader gives the same result when run twice. The live home page now shows the new headline.
-- **Pending deploy:** template and CSS changes (dates, bullet lists, location, certifications, project tech/repo link), a regenerated fallback `profile.json`, and an updated test are on the laptop, **uncommitted**; the tests pass (10 passed). To deploy: commit and push, then on the VM run `git pull` and restart uvicorn (7.1 Undo, then 7.1). Before pulling, the VM's modified `career_platform.db` must be protected: `git pull` doesn't touch it unless the commit changes that file, and this commit doesn't.
+  - **Undo:** `kill $(cat ~/uvicorn.pid) && rm ~/uvicorn.pid`. Run the stop in its own SSH command, separate from any start. If the PID file is stale, find the PID with `ss -ltnp | grep 8000` and `kill` it; avoid `pkill -f` over SSH (see the Lesson entries in the log).
 
 ## 8. Verify
 
@@ -217,7 +216,7 @@ The site answers on the VM and shows my data.
 
 - [x] **8.3 View it in the laptop browser through an SSH tunnel** — PASS 2026-09-29: tunnel started in the background with `ssh -f -N -L 8000:127.0.0.1:8000 …`. `curl localhost:8000/healthz` from the laptop returns 200. Because it runs in the background, Ctrl-C won't stop it; use `pkill -f 'ssh.*-L 8000:127.0.0.1:8000'` instead.
   - **Where:** laptop
-  - **Run:** `ssh -i ~/.ssh/isba4775_azure -N -L 8000:127.0.0.1:8000 azureuser@172.183.16.158`, then open `http://localhost:8000`. Stop any local uvicorn on port 8000 first.
+  - **Run:** `ssh -i ~/.ssh/isba4775_azure -N -L 8000:127.0.0.1:8000 azureuser@<VM_PUBLIC_IP>`, then open `http://localhost:8000`. Stop any local uvicorn on port 8000 first.
   - **Why:** Lets you see the VM's site with your own eyes without opening port 8000 to the internet.
   - **Check:** The home, resume and portfolio pages show your content.
   - **Undo:** Press Ctrl-C in the tunnel terminal.
@@ -231,3 +230,23 @@ In reverse order: undo 7.1 (stop uvicorn), then `rm -rf ~/career-platform ~/uvic
 ## Cost reminder
 
 The VM is billed while it's running. To stop compute charges when you're done for the day, run `az vm deallocate -g rg-career-platform -n vm-career-platform`. The public IP is **not** set to delete with the VM, so delete the whole resource group when you're finished.
+
+## Verify results
+
+Every run of the Section 8 checks, in order. All dates are 2026-09-29. "VM" means the check ran on the VM against `127.0.0.1:8000`; "Laptop" means it went through the SSH tunnel to `localhost:8000`.
+
+| Step | What it tested | How | Where | Result | What it showed |
+|---|---|---|---|---|---|
+| 8.1 | The app process is up and answering | `curl /healthz`, then status codes for `/`, `/resume`, `/portfolio`, `/contact` | VM | ✅ Pass | `{"status":"ok"}` (200); all four pages 200 |
+| 8.2 (1st run) | Pages come from the database, not the fallback | Read the published profile name from SQLite and look for it on `/` | VM | ❌ Fail (expected) | No profile row in the DB. `<h1>` was "Demo Candidate" from `profile.json`, with the banner "Cached profile is showing while the database is unavailable." |
+| 8.3 | You can see the site from the laptop without opening a web port | `ssh -f -N -L 8000:127.0.0.1:8000`, then `curl localhost:8000/healthz` and `/` | Laptop | ✅ Pass | 200, and the same pages as the VM (still the fallback) |
+| 8.2 (re-run) | Same as the 1st run, with no changes | Same DB and page check, plus `/portfolio` project count | VM | ❌ Fail | DB hash unchanged (`2eb782a1…`), 0 profile/project rows, `<h1>` "Demo Candidate", 0 projects |
+| 8.2 (after content via `/admin`) | Same as the 1st run, after adding a profile and project through the admin forms | DB name vs `<h1>`, banner check, `/portfolio`, `/portfolio/career-platform` | VM + Laptop | ✅ Pass | `<h1>` "Zetian Tao" matches the DB, no banner, project listed, project page 200, all pages 200 |
+| Re-check after LinkedIn content + template deploy (`92832fa`) | The new resume layout renders the loaded content | Status codes for all pages; count date lines, bullets and sections on `/resume`; check the home location and project page | VM + Laptop | ✅ Pass | All 6 routes 200; `/resume` has 5 date lines, 13 bullets, a Certifications section; home shows "Los Angeles, California, United States" with no banner; project page shows role and source link; 0 errors in the log |
+| Re-check after the laptop IP change | Access still works after updating the SSH rule and reopening the tunnel | SSH in, check uvicorn and the log, open a new tunnel, curl pages | VM + Laptop | ✅ Pass | uvicorn still running (VM up 5 days), 0 log errors; `/`, `/resume`, `/portfolio`, `/admin/login` all 200; `<h1>` "Zetian Tao" |
+
+**Not tested:**
+- **Reboots:** uvicorn runs under `nohup`, not systemd, so it won't restart after a reboot.
+- **Public access:** by design, only the SSH tunnel works. `http://<VM_PUBLIC_IP>:8000` returns nothing, even with the `Temp-HTTP-8000` rule open.
+- **Database outage and recovery:** the fallback banner was seen only because the DB was empty. The DB was never actually made unreadable to watch the site recover.
+- **Admin login in a browser:** the admin forms were exercised with `curl` on the VM, not through a browser session.
