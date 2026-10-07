@@ -6,7 +6,7 @@
     <title>{% block title %}{{ title or 'Career Platform' }}{% endblock %}</title>
     {% block meta %}{% endblock %}
     <link rel="preload" href="/static/fonts/manrope-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/static/css/site.css">
+    <link rel="stylesheet" href="/static/css/site.css?v={{ css_version }}">
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>

@@ -7,9 +7,11 @@ from app.config import get_settings
 from app.db import get_db
 from app.repositories.content import ContentRepository
 from app.services.admin import is_authenticated, require_admin, _token
+from app.static_version import static_version
 
 router = APIRouter()
 templates = Jinja2Templates(directory='app/templates')
+templates.env.globals.update(css_version=static_version('css/site.css'))
 settings = get_settings()
 
 
