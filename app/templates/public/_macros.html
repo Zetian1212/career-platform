@@ -1,0 +1,22 @@
+{% macro skill_table(skills) %}
+<div class="skill-table">
+  {% for label, items in group_skills(skills) %}
+  <section class="skill-column" aria-label="{{ label }} skills">
+    <h3>{{ label }}</h3>
+    <ul>
+      {% for skill in items %}<li>{{ skill.name }}</li>{% endfor %}
+    </ul>
+  </section>
+  {% endfor %}
+</div>
+{% endmacro %}
+
+{% macro date_range(item) -%}
+  {%- if item.start_date and item.end_date -%}
+    {{ item.start_date.strftime('%b %Y') }} – {{ item.end_date.strftime('%b %Y') }}
+  {%- elif item.start_date -%}
+    {{ item.start_date.strftime('%b %Y') }} – Present
+  {%- elif item.end_date -%}
+    {{ 'Expected ' if item.end_date > today() else '' }}{{ item.end_date.strftime('%b %Y') }}
+  {%- endif -%}
+{%- endmacro %}

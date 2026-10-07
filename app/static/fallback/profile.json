@@ -61,5 +61,15 @@
   "highlights": [
     "Career Platform"
   ],
-  "generated_at": "2026-09-29T22:16:50.949943+00:00"
+  "generated_at": "2026-09-29T22:16:50.949943+00:00",
+  "education": [
+    {
+      "school": "Loyola Marymount University",
+      "degree": "Bachelor of Business Administration",
+      "field_of_study": "Finance; Information Systems and Business Analysis",
+      "start_date": null,
+      "end_date": "2027-06",
+      "honors": null
+    }
+  ]
 }

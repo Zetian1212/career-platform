@@ -26,4 +26,4 @@ def test_snapshot_contains_only_core_fields(tmp_path):
     snapshot_path = tmp_path / 'fallback.json'
     write_fallback_snapshot(CoreProfileSnapshot(profile={'name': 'Demo Candidate'}, links=[], skills=[], highlights=[]), snapshot_path)
     payload = json.loads(snapshot_path.read_text())
-    assert set(payload) == {'profile', 'links', 'skills', 'highlights', 'generated_at'}
+    assert set(payload) == {'profile', 'links', 'skills', 'highlights', 'education', 'generated_at'}

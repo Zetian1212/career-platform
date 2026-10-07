@@ -3,25 +3,37 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ title or 'Career Platform' }}</title>
+    <title>{% block title %}{{ title or 'Career Platform' }}{% endblock %}</title>
+    {% block meta %}{% endblock %}
+    <link rel="preload" href="/static/fonts/libre-franklin-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/static/css/site.css">
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a class="masthead-name" href="/">{% block site_name %}{{ profile.name if profile else 'Career Platform' }}{% endblock %}</a>
+        <nav aria-label="Primary navigation" class="nav">
+          {% set section = request.url.path.split('/')[1] if request else '' %}
+          <a href="/"{% if section == '' %} aria-current="page"{% endif %}>Home</a>
+          <a href="/resume"{% if section == 'resume' %} aria-current="page"{% endif %}>Resume</a>
+          <a href="/portfolio"{% if section == 'portfolio' %} aria-current="page"{% endif %}>Portfolio</a>
+          <a href="/contact"{% if section == 'contact' %} aria-current="page"{% endif %}>Contact</a>
+        </nav>
+      </div>
+    </header>
     {% if degraded %}
       <div class="degraded-banner" role="status">Cached profile is showing while the database is unavailable.</div>
     {% endif %}
-    <a class="skip-link" href="#main-content">Skip to content</a>
-    <header class="site-header">
-      <nav aria-label="Primary navigation" class="nav">
-        <a href="/">Home</a>
-        <a href="/resume">Resume</a>
-        <a href="/portfolio">Portfolio</a>
-        <a href="/contact">Contact</a>
-        <a href="/admin">Admin</a>
-      </nav>
-    </header>
-    <main id="main-content" class="container">
+    <main id="main-content" class="page">
     {% block content %}{% endblock %}
     </main>
+    <footer class="disclosures">
+      <div class="disclosures-inner">
+        <h2>How this site runs</h2>
+        <p>Career Platform is a FastAPI and Jinja application backed by SQLite, self-hosted on an Azure Ubuntu VM. If the database becomes unavailable, it serves the last known good profile snapshot and says so at the top of the page.</p>
+        <p>Source: <a href="https://github.com/Zetian1212/career-platform">github.com/Zetian1212/career-platform</a></p>
+      </div>
+    </footer>
   </body>
 </html>

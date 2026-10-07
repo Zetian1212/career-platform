@@ -1,13 +1,24 @@
 {% extends 'base.html' %}
+{% block title %}{{ profile.name }} · Portfolio{% endblock %}
+{% block meta %}<meta name="description" content="Projects by {{ profile.name }}.">{% endblock %}
 {% block content %}
-<section class="card">
+<header class="page-head">
   <h1>Portfolio</h1>
-  {% for project in projects %}
-  <article>
-    <h2>{{ project.title }}</h2>
-    <p>{{ project.summary }}</p>
-    <a href="/portfolio/{{ project.slug }}">Read case study</a>
-  </article>
-  {% endfor %}
+  <p class="coverage">Projects built and run by {{ profile.name }}</p>
+</header>
+<section class="exhibit" aria-label="Projects">
+  {% if projects %}
+    <ol class="ledger">
+      {% for project in projects %}
+      <li class="ledger-row">
+        <h2 class="ledger-title"><a href="/portfolio/{{ project.slug }}">{{ project.title }}</a></h2>
+        <p>{{ project.summary }}</p>
+        {% if project.technology %}<p class="ledger-meta">{{ project.technology }}</p>{% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <p class="empty">Projects will be listed here as they are published.</p>
+  {% endif %}
 </section>
 {% endblock %}

@@ -1,0 +1,423 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-07T16:40:43+00:00",
+  "title": "Design System: Zetian Tao, Career Platform",
+  "extensions": {
+    "colorMeta": {
+      "report-paper": {
+        "role": "neutral",
+        "displayName": "Report Paper",
+        "canonical": "oklch(98.6% 0.003 250)",
+        "tonalRamp": [
+          "oklch(15% 0.003 250)",
+          "oklch(25% 0.003 250)",
+          "oklch(35% 0.003 250)",
+          "oklch(45% 0.003 250)",
+          "oklch(55% 0.003 250)",
+          "oklch(68% 0.003 250)",
+          "oklch(82% 0.003 250)",
+          "oklch(95% 0.003 250)"
+        ]
+      },
+      "key-data-panel": {
+        "role": "neutral",
+        "displayName": "Key Data Panel",
+        "canonical": "oklch(95.4% 0.012 255)",
+        "tonalRamp": [
+          "oklch(15% 0.012 255)",
+          "oklch(25% 0.012 255)",
+          "oklch(35% 0.012 255)",
+          "oklch(45% 0.012 255)",
+          "oklch(55% 0.012 255)",
+          "oklch(68% 0.012 255)",
+          "oklch(82% 0.012 255)",
+          "oklch(95% 0.012 255)"
+        ]
+      },
+      "report-ink": {
+        "role": "neutral",
+        "displayName": "Report Ink",
+        "canonical": "oklch(21% 0.025 262)",
+        "tonalRamp": [
+          "oklch(15% 0.025 262)",
+          "oklch(25% 0.025 262)",
+          "oklch(35% 0.025 262)",
+          "oklch(45% 0.025 262)",
+          "oklch(55% 0.025 262)",
+          "oklch(68% 0.025 262)",
+          "oklch(82% 0.025 262)",
+          "oklch(95% 0.025 262)"
+        ]
+      },
+      "secondary-ink": {
+        "role": "neutral",
+        "displayName": "Secondary Ink",
+        "canonical": "oklch(43% 0.025 262)",
+        "tonalRamp": [
+          "oklch(15% 0.025 262)",
+          "oklch(25% 0.025 262)",
+          "oklch(35% 0.025 262)",
+          "oklch(45% 0.025 262)",
+          "oklch(55% 0.025 262)",
+          "oklch(68% 0.025 262)",
+          "oklch(82% 0.025 262)",
+          "oklch(95% 0.025 262)"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "oklch(86% 0.012 262)",
+        "tonalRamp": [
+          "oklch(15% 0.012 262)",
+          "oklch(25% 0.012 262)",
+          "oklch(35% 0.012 262)",
+          "oklch(45% 0.012 262)",
+          "oklch(55% 0.012 262)",
+          "oklch(68% 0.012 262)",
+          "oklch(82% 0.012 262)",
+          "oklch(95% 0.012 262)"
+        ]
+      },
+      "control-line": {
+        "role": "neutral",
+        "displayName": "Control Line",
+        "canonical": "oklch(58% 0.02 262)",
+        "tonalRamp": [
+          "oklch(15% 0.02 262)",
+          "oklch(25% 0.02 262)",
+          "oklch(35% 0.02 262)",
+          "oklch(45% 0.02 262)",
+          "oklch(55% 0.02 262)",
+          "oklch(68% 0.02 262)",
+          "oklch(82% 0.02 262)",
+          "oklch(95% 0.02 262)"
+        ]
+      },
+      "research-navy": {
+        "role": "primary",
+        "displayName": "Research Navy",
+        "canonical": "oklch(34% 0.085 258)",
+        "tonalRamp": [
+          "oklch(15% 0.085 258)",
+          "oklch(25% 0.085 258)",
+          "oklch(35% 0.085 258)",
+          "oklch(45% 0.085 258)",
+          "oklch(55% 0.085 258)",
+          "oklch(68% 0.085 258)",
+          "oklch(82% 0.085 258)",
+          "oklch(95% 0.085 258)"
+        ]
+      },
+      "research-navy-deep": {
+        "role": "primary",
+        "displayName": "Deep Research Navy",
+        "canonical": "oklch(27% 0.07 260)",
+        "tonalRamp": [
+          "oklch(15% 0.07 260)",
+          "oklch(25% 0.07 260)",
+          "oklch(35% 0.07 260)",
+          "oklch(45% 0.07 260)",
+          "oklch(55% 0.07 260)",
+          "oklch(68% 0.07 260)",
+          "oklch(82% 0.07 260)",
+          "oklch(95% 0.07 260)"
+        ]
+      },
+      "on-navy": {
+        "role": "neutral",
+        "displayName": "On Navy",
+        "canonical": "oklch(97.5% 0.008 258)",
+        "tonalRamp": [
+          "oklch(15% 0.008 258)",
+          "oklch(25% 0.008 258)",
+          "oklch(35% 0.008 258)",
+          "oklch(45% 0.008 258)",
+          "oklch(55% 0.008 258)",
+          "oklch(68% 0.008 258)",
+          "oklch(82% 0.008 258)",
+          "oklch(95% 0.008 258)"
+        ]
+      },
+      "on-navy-muted": {
+        "role": "neutral",
+        "displayName": "On Navy Muted",
+        "canonical": "oklch(84% 0.035 258)",
+        "tonalRamp": [
+          "oklch(15% 0.035 258)",
+          "oklch(25% 0.035 258)",
+          "oklch(35% 0.035 258)",
+          "oklch(45% 0.035 258)",
+          "oklch(55% 0.035 258)",
+          "oklch(68% 0.035 258)",
+          "oklch(82% 0.035 258)",
+          "oklch(95% 0.035 258)"
+        ]
+      },
+      "focus-blue": {
+        "role": "semantic",
+        "displayName": "Focus Blue",
+        "canonical": "oklch(52% 0.16 255)",
+        "tonalRamp": [
+          "oklch(15% 0.16 255)",
+          "oklch(25% 0.16 255)",
+          "oklch(35% 0.16 255)",
+          "oklch(45% 0.16 255)",
+          "oklch(55% 0.16 255)",
+          "oklch(68% 0.16 255)",
+          "oklch(82% 0.16 255)",
+          "oklch(95% 0.16 255)"
+        ]
+      },
+      "live-green": {
+        "role": "semantic",
+        "displayName": "Live Green",
+        "canonical": "oklch(45% 0.11 155)",
+        "tonalRamp": [
+          "oklch(15% 0.11 155)",
+          "oklch(25% 0.11 155)",
+          "oklch(35% 0.11 155)",
+          "oklch(45% 0.11 155)",
+          "oklch(55% 0.11 155)",
+          "oklch(68% 0.11 155)",
+          "oklch(82% 0.11 155)",
+          "oklch(95% 0.11 155)"
+        ]
+      },
+      "cached-amber": {
+        "role": "semantic",
+        "displayName": "Cached Amber",
+        "canonical": "oklch(49% 0.12 62)",
+        "tonalRamp": [
+          "oklch(15% 0.12 62)",
+          "oklch(25% 0.12 62)",
+          "oklch(35% 0.12 62)",
+          "oklch(45% 0.12 62)",
+          "oklch(55% 0.12 62)",
+          "oklch(68% 0.12 62)",
+          "oklch(82% 0.12 62)",
+          "oklch(95% 0.12 62)"
+        ]
+      },
+      "cached-panel": {
+        "role": "semantic",
+        "displayName": "Cached Panel",
+        "canonical": "oklch(95% 0.045 85)",
+        "tonalRamp": [
+          "oklch(15% 0.045 85)",
+          "oklch(25% 0.045 85)",
+          "oklch(35% 0.045 85)",
+          "oklch(45% 0.045 85)",
+          "oklch(55% 0.045 85)",
+          "oklch(68% 0.045 85)",
+          "oklch(82% 0.045 85)",
+          "oklch(95% 0.045 85)"
+        ]
+      },
+      "error-red": {
+        "role": "semantic",
+        "displayName": "Error Red",
+        "canonical": "oklch(48% 0.17 27)",
+        "tonalRamp": [
+          "oklch(15% 0.17 27)",
+          "oklch(25% 0.17 27)",
+          "oklch(35% 0.17 27)",
+          "oklch(45% 0.17 27)",
+          "oklch(55% 0.17 27)",
+          "oklch(68% 0.17 27)",
+          "oklch(82% 0.17 27)",
+          "oklch(95% 0.17 27)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Candidate name on Home and project title on project pages; once per page."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Interior page heads: Resume, Portfolio, Contact, Page not found."
+      },
+      "discipline": {
+        "displayName": "Discipline",
+        "purpose": "Navy coverage subject under the name."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Exhibit headings, numbered in the text."
+      },
+      "title-sm": {
+        "displayName": "Title Sm",
+        "purpose": "Ledger row titles and project sub-heads."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "Thesis paragraph, 64ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All running text, 64ch, lining figures on."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Key-data labels, dates, metadata, nav, column heads."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Exhibit Source: lines."
+      }
+    },
+    "shadows": [
+      {
+        "name": "nav-underline",
+        "value": "inset 0 -3px 0 var(--on-navy)",
+        "purpose": "Hover/current underline bar under masthead nav links; a rule, not elevation. No drop shadows exist."
+      }
+    ],
+    "motion": [
+      {
+        "name": "state-120",
+        "value": "120ms ease-out",
+        "purpose": "Colour, border and underline-thickness transitions on links and buttons. Nothing animates into view."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "stack",
+        "value": "52rem"
+      },
+      {
+        "name": "narrow",
+        "value": "30rem"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Filled navy action; one per action row. The email variant shows the address.",
+      "html": "<a class=\"ds-btn\" href=\"#\">Email Zetian1212@gmail.com</a>",
+      "css": ":host{--paper:oklch(98.6% 0.003 250);--panel:oklch(95.4% 0.012 255);--ink:oklch(21% 0.025 262);--ink-2:oklch(43% 0.025 262);--rule:oklch(86% 0.012 262);--control-line:oklch(58% 0.02 262);--navy:oklch(34% 0.085 258);--navy-deep:oklch(27% 0.07 260);--on-navy:oklch(97.5% 0.008 258);--on-navy-2:oklch(84% 0.035 258);--focus:oklch(52% 0.16 255);--live:oklch(45% 0.11 155);--cached:oklch(49% 0.12 62);--cached-panel:oklch(95% 0.045 85);--font:\"Libre Franklin\",\"Franklin Gothic Medium\",\"Helvetica Neue\",Arial,sans-serif;}.ds-btn{font-family:var(--font);display:inline-flex;align-items:center;min-height:2.875rem;padding:0.7rem 1.25rem;background:var(--navy);color:var(--on-navy);border:1.5px solid var(--navy);border-radius:0;font-weight:600;text-decoration:none;transition:background-color 120ms ease-out,border-color 120ms ease-out;}.ds-btn:hover{background:var(--navy-deep);border-color:var(--navy-deep);}.ds-btn:focus-visible{outline:3px solid var(--focus);outline-offset:3px;}"
+    },
+    {
+      "name": "Quiet Button",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "Outlined secondary action, placed after the primary.",
+      "html": "<a class=\"ds-btn-quiet\" href=\"#\">Read the resume</a>",
+      "css": ":host{--paper:oklch(98.6% 0.003 250);--panel:oklch(95.4% 0.012 255);--ink:oklch(21% 0.025 262);--ink-2:oklch(43% 0.025 262);--rule:oklch(86% 0.012 262);--control-line:oklch(58% 0.02 262);--navy:oklch(34% 0.085 258);--navy-deep:oklch(27% 0.07 260);--on-navy:oklch(97.5% 0.008 258);--on-navy-2:oklch(84% 0.035 258);--focus:oklch(52% 0.16 255);--live:oklch(45% 0.11 155);--cached:oklch(49% 0.12 62);--cached-panel:oklch(95% 0.045 85);--font:\"Libre Franklin\",\"Franklin Gothic Medium\",\"Helvetica Neue\",Arial,sans-serif;}.ds-btn-quiet{font-family:var(--font);display:inline-flex;align-items:center;min-height:2.875rem;padding:0.7rem 1.25rem;background:transparent;color:var(--navy);border:1.5px solid var(--navy);border-radius:0;font-weight:600;text-decoration:none;transition:background-color 120ms ease-out,border-color 120ms ease-out,color 120ms ease-out;}.ds-btn-quiet:hover{background:var(--panel);color:var(--ink);border-color:var(--ink);}.ds-btn-quiet:focus-visible{outline:3px solid var(--focus);outline-offset:3px;}"
+    },
+    {
+      "name": "Text Link",
+      "kind": "custom",
+      "description": "Navy underlined link for secondary destinations in an action row.",
+      "html": "<a class=\"ds-link\" href=\"#\">LinkedIn</a>",
+      "css": ":host{--paper:oklch(98.6% 0.003 250);--panel:oklch(95.4% 0.012 255);--ink:oklch(21% 0.025 262);--ink-2:oklch(43% 0.025 262);--rule:oklch(86% 0.012 262);--control-line:oklch(58% 0.02 262);--navy:oklch(34% 0.085 258);--navy-deep:oklch(27% 0.07 260);--on-navy:oklch(97.5% 0.008 258);--on-navy-2:oklch(84% 0.035 258);--focus:oklch(52% 0.16 255);--live:oklch(45% 0.11 155);--cached:oklch(49% 0.12 62);--cached-panel:oklch(95% 0.045 85);--font:\"Libre Franklin\",\"Franklin Gothic Medium\",\"Helvetica Neue\",Arial,sans-serif;}.ds-link{font-family:var(--font);display:inline-flex;align-items:center;min-height:2.875rem;font-weight:600;color:var(--navy);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:0.22em;transition:color 120ms ease-out,text-decoration-thickness 120ms ease-out;}.ds-link:hover{color:var(--ink);text-decoration-thickness:2px;}.ds-link:focus-visible{outline:3px solid var(--focus);outline-offset:3px;}"
+    },
+    {
+      "name": "Masthead",
+      "kind": "nav",
+      "refersTo": "masthead",
+      "description": "Navy house band with the name and primary navigation.",
+      "html": "<header class=\"ds-mast\"><a class=\"ds-mast-name\" href=\"#\">Zetian Tao</a><nav class=\"ds-nav\"><a href=\"#\" aria-current=\"page\">Home</a><a href=\"#\">Resume</a><a href=\"#\">Portfolio</a><a href=\"#\">Contact</a></nav></header>",
+      "css": ":host{--paper:oklch(98.6% 0.003 250);--panel:oklch(95.4% 0.012 255);--ink:oklch(21% 0.025 262);--ink-2:oklch(43% 0.025 262);--rule:oklch(86% 0.012 262);--control-line:oklch(58% 0.02 262);--navy:oklch(34% 0.085 258);--navy-deep:oklch(27% 0.07 260);--on-navy:oklch(97.5% 0.008 258);--on-navy-2:oklch(84% 0.035 258);--focus:oklch(52% 0.16 255);--live:oklch(45% 0.11 155);--cached:oklch(49% 0.12 62);--cached-panel:oklch(95% 0.045 85);--font:\"Libre Franklin\",\"Franklin Gothic Medium\",\"Helvetica Neue\",Arial,sans-serif;}.ds-mast{font-family:var(--font);background:var(--navy);color:var(--on-navy);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;column-gap:2rem;padding:0 1.5rem;}.ds-mast-name{color:var(--on-navy);font-weight:700;font-size:1.0625rem;letter-spacing:-0.01em;text-decoration:none;padding:0.85rem 0;}.ds-mast-name:hover{text-decoration:underline;}.ds-nav{display:flex;gap:0.25rem 1.5rem;flex-wrap:wrap;}.ds-nav a{display:inline-flex;align-items:center;min-height:2.875rem;color:var(--on-navy-2);font-size:0.9375rem;font-weight:500;text-decoration:none;box-shadow:inset 0 -3px 0 transparent;}.ds-nav a:hover{color:var(--on-navy);box-shadow:inset 0 -3px 0 var(--on-navy-2);}.ds-nav a[aria-current=page]{color:var(--on-navy);font-weight:650;box-shadow:inset 0 -3px 0 var(--on-navy);}.ds-mast a:focus-visible{outline:3px solid var(--on-navy);outline-offset:2px;}"
+    },
+    {
+      "name": "Key Data Box",
+      "kind": "custom",
+      "refersTo": "key-data",
+      "description": "Tinted data panel with a navy cap rule, label/value rows and the status marker.",
+      "html": "<aside class=\"ds-kd\"><h2>Key data</h2><dl><div><dt>Degree</dt><dd>Bachelor of Business Administration</dd></div><div><dt>Expected graduation</dt><dd class=\"ds-fig\">Jun 2027</dd></div><div><dt>This site</dt><dd><span class=\"ds-status\">Live database</span></dd></div></dl></aside>",
+      "css": ":host{--paper:oklch(98.6% 0.003 250);--panel:oklch(95.4% 0.012 255);--ink:oklch(21% 0.025 262);--ink-2:oklch(43% 0.025 262);--rule:oklch(86% 0.012 262);--control-line:oklch(58% 0.02 262);--navy:oklch(34% 0.085 258);--navy-deep:oklch(27% 0.07 260);--on-navy:oklch(97.5% 0.008 258);--on-navy-2:oklch(84% 0.035 258);--focus:oklch(52% 0.16 255);--live:oklch(45% 0.11 155);--cached:oklch(49% 0.12 62);--cached-panel:oklch(95% 0.045 85);--font:\"Libre Franklin\",\"Franklin Gothic Medium\",\"Helvetica Neue\",Arial,sans-serif;}.ds-kd{font-family:var(--font);background:var(--panel);color:var(--ink);border-top:4px solid var(--navy);padding:1.25rem 1.5rem 0.5rem;max-width:20rem;line-height:1.6;}.ds-kd h2{margin:0;font-size:1rem;font-weight:700;padding-bottom:0.75rem;border-bottom:1px solid var(--ink);}.ds-kd dl{margin:0;}.ds-kd dl>div{display:grid;grid-template-columns:6.75rem minmax(0,1fr);gap:1rem;padding:0.7rem 0;border-bottom:1px solid var(--rule);}.ds-kd dl>div:last-child{border-bottom:0;}.ds-kd dt{color:var(--ink-2);font-size:0.875rem;font-weight:500;}.ds-kd dd{margin:0;font-weight:600;line-height:1.4;}.ds-fig{font-variant-numeric:tabular-nums lining-nums;}.ds-status{display:inline-flex;align-items:center;gap:0.5rem;color:var(--live);}.ds-status::before{content:\"\";width:0.55rem;height:0.55rem;background:currentColor;}"
+    },
+    {
+      "name": "Exhibit with Skill Table",
+      "kind": "custom",
+      "refersTo": "exhibit-caption",
+      "description": "Numbered exhibit opened by a 3px ink rule, two ruled skill columns, and a Source caption.",
+      "html": "<section class=\"ds-ex\"><h2>Exhibit 1: Skills by discipline</h2><div class=\"ds-st\"><div><h3>Finance</h3><ul><li>Equity research</li><li>Financial due diligence</li></ul></div><div><h3>Technical</h3><ul><li>Python</li><li>pandas</li></ul></div></div><p class=\"ds-src\">Source: LinkedIn profile export (Profile.pdf).</p></section>",
+      "css": ":host{--paper:oklch(98.6% 0.003 250);--panel:oklch(95.4% 0.012 255);--ink:oklch(21% 0.025 262);--ink-2:oklch(43% 0.025 262);--rule:oklch(86% 0.012 262);--control-line:oklch(58% 0.02 262);--navy:oklch(34% 0.085 258);--navy-deep:oklch(27% 0.07 260);--on-navy:oklch(97.5% 0.008 258);--on-navy-2:oklch(84% 0.035 258);--focus:oklch(52% 0.16 255);--live:oklch(45% 0.11 155);--cached:oklch(49% 0.12 62);--cached-panel:oklch(95% 0.045 85);--font:\"Libre Franklin\",\"Franklin Gothic Medium\",\"Helvetica Neue\",Arial,sans-serif;}.ds-ex{font-family:var(--font);color:var(--ink);border-top:3px solid var(--ink);padding-top:1rem;line-height:1.6;}.ds-ex h2{margin:0;font-size:1.375rem;font-weight:700;letter-spacing:-0.015em;line-height:1.15;}.ds-st{margin-top:1.5rem;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2rem 2.5rem;}.ds-st h3{margin:0;font-size:0.9375rem;font-weight:700;color:var(--navy);padding-bottom:0.5rem;border-bottom:2px solid var(--navy);}.ds-st ul{list-style:none;margin:0;padding:0;}.ds-st li{padding:0.6rem 0;border-bottom:1px solid var(--rule);}.ds-src{margin:0.875rem 0 0;color:var(--ink-2);font-size:0.8125rem;}"
+    },
+    {
+      "name": "Dated Ledger Row",
+      "kind": "custom",
+      "description": "Ruled list row with a tabular-figure date column.",
+      "html": "<ol class=\"ds-led\"><li><p class=\"ds-date\">Expected Jun 2027</p><div><h3>Loyola Marymount University</h3><p class=\"ds-meta\">Finance + Information Systems and Business Analysis</p></div></li></ol>",
+      "css": ":host{--paper:oklch(98.6% 0.003 250);--panel:oklch(95.4% 0.012 255);--ink:oklch(21% 0.025 262);--ink-2:oklch(43% 0.025 262);--rule:oklch(86% 0.012 262);--control-line:oklch(58% 0.02 262);--navy:oklch(34% 0.085 258);--navy-deep:oklch(27% 0.07 260);--on-navy:oklch(97.5% 0.008 258);--on-navy-2:oklch(84% 0.035 258);--focus:oklch(52% 0.16 255);--live:oklch(45% 0.11 155);--cached:oklch(49% 0.12 62);--cached-panel:oklch(95% 0.045 85);--font:\"Libre Franklin\",\"Franklin Gothic Medium\",\"Helvetica Neue\",Arial,sans-serif;}.ds-led{font-family:var(--font);list-style:none;margin:0;padding:0;color:var(--ink);line-height:1.6;}.ds-led li{display:grid;grid-template-columns:10rem minmax(0,1fr);gap:0.5rem 2rem;padding:1.25rem 0 1.375rem;border-bottom:1px solid var(--rule);}.ds-led p,.ds-led h3{margin:0;}.ds-led h3{font-size:1.25rem;font-weight:700;letter-spacing:-0.01em;line-height:1.15;}.ds-date{color:var(--ink-2);font-size:0.9375rem;font-weight:500;padding-top:0.2rem;font-variant-numeric:tabular-nums lining-nums;}.ds-led .ds-meta{margin-top:0.375rem;color:var(--ink-2);font-size:0.9375rem;}"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Square admin field with a control-line stroke.",
+      "html": "<label class=\"ds-lab\">Headline<input class=\"ds-in\" value=\"Finance + Information Systems\"></label>",
+      "css": ":host{--paper:oklch(98.6% 0.003 250);--panel:oklch(95.4% 0.012 255);--ink:oklch(21% 0.025 262);--ink-2:oklch(43% 0.025 262);--rule:oklch(86% 0.012 262);--control-line:oklch(58% 0.02 262);--navy:oklch(34% 0.085 258);--navy-deep:oklch(27% 0.07 260);--on-navy:oklch(97.5% 0.008 258);--on-navy-2:oklch(84% 0.035 258);--focus:oklch(52% 0.16 255);--live:oklch(45% 0.11 155);--cached:oklch(49% 0.12 62);--cached-panel:oklch(95% 0.045 85);--font:\"Libre Franklin\",\"Franklin Gothic Medium\",\"Helvetica Neue\",Arial,sans-serif;}.ds-lab{font-family:var(--font);display:flex;flex-direction:column;gap:0.5rem;font-weight:600;color:var(--ink);max-width:36rem;}.ds-in{font:inherit;font-weight:400;color:var(--ink);padding:0.65rem 0.75rem;background:var(--paper);border:1px solid var(--control-line);border-radius:0;}.ds-in:focus-visible{outline:3px solid var(--focus);outline-offset:3px;}"
+    },
+    {
+      "name": "Degraded Banner",
+      "kind": "custom",
+      "refersTo": "degraded-banner",
+      "description": "Cached-snapshot status strip directly under the masthead.",
+      "html": "<div class=\"ds-deg\" role=\"status\">Cached profile is showing while the database is unavailable.</div>",
+      "css": ":host{--paper:oklch(98.6% 0.003 250);--panel:oklch(95.4% 0.012 255);--ink:oklch(21% 0.025 262);--ink-2:oklch(43% 0.025 262);--rule:oklch(86% 0.012 262);--control-line:oklch(58% 0.02 262);--navy:oklch(34% 0.085 258);--navy-deep:oklch(27% 0.07 260);--on-navy:oklch(97.5% 0.008 258);--on-navy-2:oklch(84% 0.035 258);--focus:oklch(52% 0.16 255);--live:oklch(45% 0.11 155);--cached:oklch(49% 0.12 62);--cached-panel:oklch(95% 0.045 85);--font:\"Libre Franklin\",\"Franklin Gothic Medium\",\"Helvetica Neue\",Arial,sans-serif;}.ds-deg{font-family:var(--font);background:var(--cached-panel);color:var(--ink);border-bottom:1px solid var(--cached);padding:0.75rem 1rem;text-align:center;font-weight:500;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Initiation Note",
+    "overview": "Every page is set as page one of a sell-side equity research initiation, with the candidate as the covered name. A navy house band carries the navigation; below it, a coverage line, a tinted key-data box, a thesis paragraph, and numbered, ruled exhibits do the work that a hero, skill pills and equal cards would do on a portfolio template. The reader is a recruiter in finance or technology who scans before reading, so density is that of a printed report: one column of measured prose beside one column of data, nothing ornamental between them.\n\nThe material is cool report-white paper and near-black ink. Structure comes from rules, not containers: a heavy ink rule opens each exhibit, hairlines separate rows, and a navy rule marks a column header. There are no rounded corners, no drop shadows, no cards, and no imagery. One sans family, Libre Franklin, carries every role through weight alone, with lining figures site-wide and tabular figures wherever a date or figure sits in a column.\n\nMotion is limited to 120ms ease-out colour and underline transitions on links and buttons. Nothing animates into view.",
+    "keyCharacteristics": [
+      "Navy house band at the top, pale panel disclosures band at the foot, paper between.",
+      "Two-column title block: name, discipline and thesis on the left (about 1.85fr); key data on the right (min 19rem).",
+      "Numbered exhibits (\"Exhibit 1: Skills by discipline\") opened by a 3px ink rule, closed by a small \"Source:\" caption when the content has a real source.",
+      "Square everything: zero radius on buttons, inputs, panels and the status marker.",
+      "One family, weight-led hierarchy from 800 (name) down to 400 (body)."
+    ],
+    "rules": [
+      {
+        "name": "The House Band Rule",
+        "body": "Navy appears as a filled surface in exactly two places: the masthead band and the primary action button. Everywhere else it is a line or text (links, discipline line, column-header rules, key-data top rule), never a second filled block.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Tint Rule",
+        "body": "The only tinted surface is the Key Data Panel. If a new region needs separation, use a rule, not a new fill.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Family Rule",
+        "body": "Libre Franklin only. Do not introduce a second face for display, labels, or numbers; change weight instead.",
+        "section": "typography"
+      },
+      {
+        "name": "The Figures Rule",
+        "body": "Lining figures are on for the whole body. Any date, date range, or path that sits in a column or data cell also takes tabular figures (`tabular-nums lining-nums`), so dates align down a ledger.",
+        "section": "typography"
+      },
+      {
+        "name": "The Rule Weight Rule",
+        "body": "Separation is a line, and its weight says its rank: 4px navy (key-data cap), 3px ink (exhibit open), 2px navy (column head), 1px ink (key-data heading), 1px hairline (row). Do not add a new weight.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do number every exhibit in its h2 (\"Exhibit 1: Skills by discipline\") and count per page in order of appearance.",
+      "Do close an exhibit with a \"Source:\" caption (0.8125rem, secondary ink) when its content has a real, nameable source; omit the caption rather than write a vague one.",
+      "Do separate with rules: 1px hairlines between rows, a 3px ink rule to open each exhibit, a 2px navy rule under column heads.",
+      "Do keep one filled navy primary action per action row, followed by a quiet button and then plain text links.",
+      "Do set every date, date range and data figure with tabular lining figures and en-dash ranges (\"Mon YYYY – Mon YYYY\").",
+      "Do cap running text at 64ch and keep the name, discipline line and key data in the first viewport on desktop.",
+      "Do hide sections with no real content instead of filling them; a single secondary-ink sentence is the only empty state."
+    ],
+    "donts": [
+      "Don't use cards, rounded corners, or drop shadows; every corner is 0px and every container is a ruled region or the one tinted panel.",
+      "Don't fill any surface with navy other than the masthead band and the primary button.",
+      "Don't introduce a second typeface, an icon font, or glyph icons; the status marker is a CSS square.",
+      "Don't put an eyebrow, kicker, or small uppercase label above a heading; the exhibit number lives in the heading text itself.",
+      "Don't render skills as pills, tags or chips; they are rows in a ruled two-column table.",
+      "Don't add a new tinted surface or a new rule weight to separate a region."
+    ]
+  }
+}
