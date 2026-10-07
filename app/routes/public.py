@@ -8,6 +8,7 @@ from app.config import get_settings
 from app.db import get_db
 from app.repositories.content import ContentRepository
 from app.services.profile import education_with_fallback, get_profile_with_fallback, load_interests
+from app.static_version import static_version
 
 router = APIRouter()
 templates = Jinja2Templates(directory='app/templates')
@@ -30,7 +31,7 @@ def email_link(links):
     return next((link for link in links if link.url.startswith('mailto:')), None)
 
 
-templates.env.globals.update(group_skills=group_skills, email_link=email_link, today=date.today)
+templates.env.globals.update(group_skills=group_skills, email_link=email_link, today=date.today, css_version=static_version('css/site.css'))
 
 
 @router.get('/healthz')
