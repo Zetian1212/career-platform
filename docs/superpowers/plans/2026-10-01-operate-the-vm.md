@@ -277,3 +277,8 @@ Run these in reverse order: delete `Allow-HTTP-80` (undo 3.1), undo 2.3, undo 2.
 | App logs | `journalctl -u career-platform -f` |
 | Restart after `git pull` | `sudo systemctl restart career-platform` |
 | Stop / start | `sudo systemctl stop career-platform` / `sudo systemctl start career-platform` |
+
+## Progress log
+
+- **2026-10-07, read-only check (laptop and VM).** The site is served at **https://zetiantao.me**: `/`, `/resume` and `/healthz` return 200, and `http://zetiantao.me/` redirects 301 to https. nginx's `career-platform` site now has `server_name zetiantao.me www.zetiantao.me` and Certbot-managed `listen 443 ssl` blocks (`sites-enabled/` last changed 2026-10-06 22:02). Requests to the bare IP `http://172.183.16.158/` now get nginx's own **404**. That is Certbot's default for any host name it doesn't manage, not an outage. Services: `career-platform` and `nginx` both `active`; the app answers `127.0.0.1:8000/healthz` with 200. The VM booted at 2026-10-06 20:59:32 UTC.
+- **Deploy note.** On the VM, `~/career-platform` is at `8559101` and `git status` shows `career_platform.db` modified (live data) plus an untracked `career_platform.db.from-git`. Before any `git pull`, back up the database and confirm the incoming commits don't touch `career_platform.db`.

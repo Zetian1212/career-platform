@@ -1,44 +1,84 @@
 {% extends 'base.html' %}
+{% from 'public/_macros.html' import skill_table, date_range %}
+{% block title %}{{ profile.name }} · Resume{% endblock %}
+{% block meta %}<meta name="description" content="Resume of {{ profile.name }}: education, experience, and skills.">{% endblock %}
 {% block content %}
-<section class="card">
+{% set email = email_link(links) %}
+{% set exhibit = namespace(n=0) %}
+<header class="page-head">
   <h1>Resume</h1>
-  <p><strong>{{ profile.name }}</strong> — {{ profile.headline }}</p>
-  {% if profile.location %}<p class="meta">{{ profile.location }}</p>{% endif %}
-</section>
-<section class="card">
-  <h2>Experience</h2>
-  {% for item in experience %}
-    <article class="entry">
-      <h3>{{ item.role }} — {{ item.company }}</h3>
-      {% if item.start_date %}<p class="meta">{{ item.start_date.strftime('%b %Y') }} – {{ item.end_date.strftime('%b %Y') if item.end_date else 'Present' }}</p>{% endif %}
-      {% if item.description %}
-        <ul>
-          {% for line in item.description.splitlines() if line.strip() %}
-            <li>{{ line }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    </article>
-  {% endfor %}
-</section>
-<section class="card">
-  <h2>Education</h2>
-  {% for item in education %}
-    <article class="entry">
-      <h3>{{ item.school }}</h3>
-      <p>{{ item.degree }}{% if item.field_of_study %} — {{ item.field_of_study }}{% endif %}</p>
-      {% if item.start_date %}<p class="meta">{{ item.start_date.strftime('%b %Y') }} – {{ item.end_date.strftime('%b %Y') if item.end_date else 'Present' }}</p>{% endif %}
-    </article>
-  {% endfor %}
-</section>
-{% if certifications %}
-<section class="card">
-  <h2>Certifications</h2>
-  <ul class="chip-list">
-    {% for cert in certifications %}
-      <li>{{ cert.name }}{% if cert.issuer %} · {{ cert.issuer }}{% endif %}</li>
+  <p class="coverage">{{ profile.name }}{% if profile.location %} · {{ profile.location }}{% endif %}</p>
+  {% if email %}<p class="actions"><a class="button" href="{{ email.url }}">Email {{ email.url[7:] }}</a></p>{% endif %}
+</header>
+
+{% if education %}
+<section class="exhibit" aria-labelledby="education-title">
+  {% set exhibit.n = exhibit.n + 1 %}<h2 id="education-title">Exhibit {{ exhibit.n }}: Education</h2>
+  <ol class="ledger">
+    {% for item in education %}
+    <li class="ledger-row ledger-row-dated">
+      <p class="ledger-date figure">{{ date_range(item) }}</p>
+      <div>
+        <h3>{{ item.school }}</h3>
+        <p>{{ item.degree }}</p>
+        {% if item.field_of_study %}<p class="ledger-meta">{{ item.field_of_study.split(';') | map('trim') | join(' + ') }}</p>{% endif %}
+        {% if item.honors %}<p class="ledger-meta">{{ item.honors }}</p>{% endif %}
+      </div>
+    </li>
     {% endfor %}
-  </ul>
+  </ol>
+  <p class="source">Source: LinkedIn profile export (Profile.pdf).</p>
 </section>
+{% endif %}
+
+{% if experience %}
+<section class="exhibit" aria-labelledby="experience-title">
+  {% set exhibit.n = exhibit.n + 1 %}<h2 id="experience-title">Exhibit {{ exhibit.n }}: Experience</h2>
+  <ol class="ledger">
+    {% for item in experience %}
+    <li class="ledger-row ledger-row-dated">
+      <p class="ledger-date figure">{{ date_range(item) }}</p>
+      <div>
+        <h3>{{ item.role }}, {{ item.company }}</h3>
+        {% if item.location %}<p class="ledger-meta">{{ item.location }}</p>{% endif %}
+        {% if item.description %}
+          <ul class="points">
+            {% for line in item.description.splitlines() if line.strip() %}<li>{{ line }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    </li>
+    {% endfor %}
+  </ol>
+</section>
+{% endif %}
+
+{% if skills %}
+<section class="exhibit" aria-labelledby="skills-title">
+  {% set exhibit.n = exhibit.n + 1 %}<h2 id="skills-title">Exhibit {{ exhibit.n }}: Skills by discipline</h2>
+  {{ skill_table(skills) }}
+  <p class="source">Source: LinkedIn profile export (Profile.pdf).</p>
+</section>
+{% endif %}
+
+{% if certifications %}
+<section class="exhibit" aria-labelledby="certifications-title">
+  {% set exhibit.n = exhibit.n + 1 %}<h2 id="certifications-title">Exhibit {{ exhibit.n }}: Certifications</h2>
+  <ol class="ledger">
+    {% for cert in certifications %}
+    <li class="ledger-row ledger-row-dated">
+      <p class="ledger-date figure">{% if cert.issued_date %}{{ cert.issued_date.strftime('%b %Y') }}{% endif %}</p>
+      <div>
+        <h3>{% if cert.credential_url %}<a href="{{ cert.credential_url }}">{{ cert.name }}</a>{% else %}{{ cert.name }}{% endif %}</h3>
+        {% if cert.issuer %}<p class="ledger-meta">{{ cert.issuer }}</p>{% endif %}
+      </div>
+    </li>
+    {% endfor %}
+  </ol>
+</section>
+{% endif %}
+
+{% if not education and not experience and not certifications %}
+<p class="empty">The full resume is being updated. Email for a current copy.</p>
 {% endif %}
 {% endblock %}
