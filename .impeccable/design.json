@@ -1,423 +1,566 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-07T16:40:43+00:00",
+  "generatedAt": "2026-10-07T00:00:00Z",
   "title": "Design System: Zetian Tao, Career Platform",
   "extensions": {
     "colorMeta": {
-      "report-paper": {
+      "bg": {
         "role": "neutral",
-        "displayName": "Report Paper",
-        "canonical": "oklch(98.6% 0.003 250)",
+        "displayName": "Cool Mist",
         "tonalRamp": [
-          "oklch(15% 0.003 250)",
-          "oklch(25% 0.003 250)",
-          "oklch(35% 0.003 250)",
-          "oklch(45% 0.003 250)",
-          "oklch(55% 0.003 250)",
-          "oklch(68% 0.003 250)",
-          "oklch(82% 0.003 250)",
-          "oklch(95% 0.003 250)"
+          "oklch(15% 0.005 275)",
+          "oklch(25% 0.005 275)",
+          "oklch(35% 0.005 275)",
+          "oklch(45% 0.005 275)",
+          "oklch(55% 0.005 275)",
+          "oklch(70% 0.005 275)",
+          "oklch(85% 0.005 275)",
+          "oklch(95% 0.002 275)"
         ]
       },
-      "key-data-panel": {
+      "tile": {
         "role": "neutral",
-        "displayName": "Key Data Panel",
-        "canonical": "oklch(95.4% 0.012 255)",
+        "displayName": "White Tile",
         "tonalRamp": [
-          "oklch(15% 0.012 255)",
-          "oklch(25% 0.012 255)",
-          "oklch(35% 0.012 255)",
-          "oklch(45% 0.012 255)",
-          "oklch(55% 0.012 255)",
-          "oklch(68% 0.012 255)",
-          "oklch(82% 0.012 255)",
-          "oklch(95% 0.012 255)"
+          "oklch(15% 0.0 90)",
+          "oklch(25% 0.0 90)",
+          "oklch(35% 0.0 90)",
+          "oklch(45% 0.0 90)",
+          "oklch(55% 0.0 90)",
+          "oklch(70% 0.0 90)",
+          "oklch(85% 0.0 90)",
+          "oklch(95% 0.0 90)"
         ]
       },
-      "report-ink": {
+      "ink": {
         "role": "neutral",
-        "displayName": "Report Ink",
-        "canonical": "oklch(21% 0.025 262)",
+        "displayName": "Ink",
         "tonalRamp": [
-          "oklch(15% 0.025 262)",
-          "oklch(25% 0.025 262)",
-          "oklch(35% 0.025 262)",
-          "oklch(45% 0.025 262)",
-          "oklch(55% 0.025 262)",
-          "oklch(68% 0.025 262)",
-          "oklch(82% 0.025 262)",
-          "oklch(95% 0.025 262)"
+          "oklch(15% 0.015 272)",
+          "oklch(25% 0.015 272)",
+          "oklch(35% 0.015 272)",
+          "oklch(45% 0.015 272)",
+          "oklch(55% 0.015 272)",
+          "oklch(70% 0.015 272)",
+          "oklch(85% 0.015 272)",
+          "oklch(95% 0.006 272)"
         ]
       },
-      "secondary-ink": {
+      "muted": {
         "role": "neutral",
-        "displayName": "Secondary Ink",
-        "canonical": "oklch(43% 0.025 262)",
+        "displayName": "Slate",
         "tonalRamp": [
-          "oklch(15% 0.025 262)",
-          "oklch(25% 0.025 262)",
-          "oklch(35% 0.025 262)",
-          "oklch(45% 0.025 262)",
-          "oklch(55% 0.025 262)",
-          "oklch(68% 0.025 262)",
-          "oklch(82% 0.025 262)",
-          "oklch(95% 0.025 262)"
+          "oklch(15% 0.03 271)",
+          "oklch(25% 0.03 271)",
+          "oklch(35% 0.03 271)",
+          "oklch(45% 0.03 271)",
+          "oklch(55% 0.03 271)",
+          "oklch(70% 0.03 271)",
+          "oklch(85% 0.03 271)",
+          "oklch(95% 0.012 271)"
         ]
       },
-      "hairline": {
+      "line": {
         "role": "neutral",
         "displayName": "Hairline",
-        "canonical": "oklch(86% 0.012 262)",
         "tonalRamp": [
-          "oklch(15% 0.012 262)",
-          "oklch(25% 0.012 262)",
-          "oklch(35% 0.012 262)",
-          "oklch(45% 0.012 262)",
-          "oklch(55% 0.012 262)",
-          "oklch(68% 0.012 262)",
-          "oklch(82% 0.012 262)",
-          "oklch(95% 0.012 262)"
+          "oklch(15% 0.011 270)",
+          "oklch(25% 0.011 270)",
+          "oklch(35% 0.011 270)",
+          "oklch(45% 0.011 270)",
+          "oklch(55% 0.011 270)",
+          "oklch(70% 0.011 270)",
+          "oklch(85% 0.011 270)",
+          "oklch(95% 0.005 270)"
         ]
       },
       "control-line": {
         "role": "neutral",
         "displayName": "Control Line",
-        "canonical": "oklch(58% 0.02 262)",
         "tonalRamp": [
-          "oklch(15% 0.02 262)",
-          "oklch(25% 0.02 262)",
-          "oklch(35% 0.02 262)",
-          "oklch(45% 0.02 262)",
-          "oklch(55% 0.02 262)",
-          "oklch(68% 0.02 262)",
-          "oklch(82% 0.02 262)",
-          "oklch(95% 0.02 262)"
+          "oklch(15% 0.028 271)",
+          "oklch(25% 0.028 271)",
+          "oklch(35% 0.028 271)",
+          "oklch(45% 0.028 271)",
+          "oklch(55% 0.028 271)",
+          "oklch(70% 0.028 271)",
+          "oklch(85% 0.028 271)",
+          "oklch(95% 0.011 271)"
         ]
       },
-      "research-navy": {
+      "accent": {
         "role": "primary",
-        "displayName": "Research Navy",
-        "canonical": "oklch(34% 0.085 258)",
+        "displayName": "Signal Indigo",
         "tonalRamp": [
-          "oklch(15% 0.085 258)",
-          "oklch(25% 0.085 258)",
-          "oklch(35% 0.085 258)",
-          "oklch(45% 0.085 258)",
-          "oklch(55% 0.085 258)",
-          "oklch(68% 0.085 258)",
-          "oklch(82% 0.085 258)",
-          "oklch(95% 0.085 258)"
+          "oklch(15% 0.2 277)",
+          "oklch(25% 0.2 277)",
+          "oklch(35% 0.2 277)",
+          "oklch(45% 0.2 277)",
+          "oklch(55% 0.2 277)",
+          "oklch(70% 0.2 277)",
+          "oklch(85% 0.2 277)",
+          "oklch(95% 0.08 277)"
         ]
       },
-      "research-navy-deep": {
+      "accent-deep": {
         "role": "primary",
-        "displayName": "Deep Research Navy",
-        "canonical": "oklch(27% 0.07 260)",
+        "displayName": "Deep Indigo",
         "tonalRamp": [
-          "oklch(15% 0.07 260)",
-          "oklch(25% 0.07 260)",
-          "oklch(35% 0.07 260)",
-          "oklch(45% 0.07 260)",
-          "oklch(55% 0.07 260)",
-          "oklch(68% 0.07 260)",
-          "oklch(82% 0.07 260)",
-          "oklch(95% 0.07 260)"
+          "oklch(15% 0.2 275)",
+          "oklch(25% 0.2 275)",
+          "oklch(35% 0.2 275)",
+          "oklch(45% 0.2 275)",
+          "oklch(55% 0.2 275)",
+          "oklch(70% 0.2 275)",
+          "oklch(85% 0.2 275)",
+          "oklch(95% 0.08 275)"
         ]
       },
-      "on-navy": {
-        "role": "neutral",
-        "displayName": "On Navy",
-        "canonical": "oklch(97.5% 0.008 258)",
+      "accent-soft": {
+        "role": "primary",
+        "displayName": "Indigo Wash",
         "tonalRamp": [
-          "oklch(15% 0.008 258)",
-          "oklch(25% 0.008 258)",
-          "oklch(35% 0.008 258)",
-          "oklch(45% 0.008 258)",
-          "oklch(55% 0.008 258)",
-          "oklch(68% 0.008 258)",
-          "oklch(82% 0.008 258)",
-          "oklch(95% 0.008 258)"
+          "oklch(15% 0.03 292)",
+          "oklch(25% 0.03 292)",
+          "oklch(35% 0.03 292)",
+          "oklch(45% 0.03 292)",
+          "oklch(55% 0.03 292)",
+          "oklch(70% 0.03 292)",
+          "oklch(85% 0.03 292)",
+          "oklch(95% 0.012 292)"
         ]
       },
-      "on-navy-muted": {
-        "role": "neutral",
-        "displayName": "On Navy Muted",
-        "canonical": "oklch(84% 0.035 258)",
+      "on-accent-2": {
+        "role": "primary",
+        "displayName": "Indigo Mist",
         "tonalRamp": [
-          "oklch(15% 0.035 258)",
-          "oklch(25% 0.035 258)",
-          "oklch(35% 0.035 258)",
-          "oklch(45% 0.035 258)",
-          "oklch(55% 0.035 258)",
-          "oklch(68% 0.035 258)",
-          "oklch(82% 0.035 258)",
-          "oklch(95% 0.035 258)"
+          "oklch(15% 0.038 291)",
+          "oklch(25% 0.038 291)",
+          "oklch(35% 0.038 291)",
+          "oklch(45% 0.038 291)",
+          "oklch(55% 0.038 291)",
+          "oklch(70% 0.038 291)",
+          "oklch(85% 0.038 291)",
+          "oklch(95% 0.015 291)"
         ]
       },
-      "focus-blue": {
-        "role": "semantic",
-        "displayName": "Focus Blue",
-        "canonical": "oklch(52% 0.16 255)",
+      "dark-2": {
+        "role": "secondary",
+        "displayName": "Graphite",
         "tonalRamp": [
-          "oklch(15% 0.16 255)",
-          "oklch(25% 0.16 255)",
-          "oklch(35% 0.16 255)",
-          "oklch(45% 0.16 255)",
-          "oklch(55% 0.16 255)",
-          "oklch(68% 0.16 255)",
-          "oklch(82% 0.16 255)",
-          "oklch(95% 0.16 255)"
+          "oklch(15% 0.023 271)",
+          "oklch(25% 0.023 271)",
+          "oklch(35% 0.023 271)",
+          "oklch(45% 0.023 271)",
+          "oklch(55% 0.023 271)",
+          "oklch(70% 0.023 271)",
+          "oklch(85% 0.023 271)",
+          "oklch(95% 0.009 271)"
         ]
       },
-      "live-green": {
-        "role": "semantic",
+      "on-dark-2": {
+        "role": "secondary",
+        "displayName": "Slate Mist",
+        "tonalRamp": [
+          "oklch(15% 0.021 277)",
+          "oklch(25% 0.021 277)",
+          "oklch(35% 0.021 277)",
+          "oklch(45% 0.021 277)",
+          "oklch(55% 0.021 277)",
+          "oklch(70% 0.021 277)",
+          "oklch(85% 0.021 277)",
+          "oklch(95% 0.009 277)"
+        ]
+      },
+      "mint": {
+        "role": "tertiary",
+        "displayName": "Mint",
+        "tonalRamp": [
+          "oklch(15% 0.031 163)",
+          "oklch(25% 0.031 163)",
+          "oklch(35% 0.031 163)",
+          "oklch(45% 0.031 163)",
+          "oklch(55% 0.031 163)",
+          "oklch(70% 0.031 163)",
+          "oklch(85% 0.031 163)",
+          "oklch(95% 0.013 163)"
+        ]
+      },
+      "mint-ink": {
+        "role": "tertiary",
+        "displayName": "Forest Ink",
+        "tonalRamp": [
+          "oklch(15% 0.085 160)",
+          "oklch(25% 0.085 160)",
+          "oklch(35% 0.085 160)",
+          "oklch(45% 0.085 160)",
+          "oklch(55% 0.085 160)",
+          "oklch(70% 0.085 160)",
+          "oklch(85% 0.085 160)",
+          "oklch(95% 0.034 160)"
+        ]
+      },
+      "sky": {
+        "role": "tertiary",
+        "displayName": "Sky",
+        "tonalRamp": [
+          "oklch(15% 0.031 264)",
+          "oklch(25% 0.031 264)",
+          "oklch(35% 0.031 264)",
+          "oklch(45% 0.031 264)",
+          "oklch(55% 0.031 264)",
+          "oklch(70% 0.031 264)",
+          "oklch(85% 0.031 264)",
+          "oklch(95% 0.012 264)"
+        ]
+      },
+      "sky-ink": {
+        "role": "tertiary",
+        "displayName": "Harbor Ink",
+        "tonalRamp": [
+          "oklch(15% 0.143 261)",
+          "oklch(25% 0.143 261)",
+          "oklch(35% 0.143 261)",
+          "oklch(45% 0.143 261)",
+          "oklch(55% 0.143 261)",
+          "oklch(70% 0.143 261)",
+          "oklch(85% 0.143 261)",
+          "oklch(95% 0.057 261)"
+        ]
+      },
+      "peach": {
+        "role": "tertiary",
+        "displayName": "Peach",
+        "tonalRamp": [
+          "oklch(15% 0.031 53)",
+          "oklch(25% 0.031 53)",
+          "oklch(35% 0.031 53)",
+          "oklch(45% 0.031 53)",
+          "oklch(55% 0.031 53)",
+          "oklch(70% 0.031 53)",
+          "oklch(85% 0.031 53)",
+          "oklch(95% 0.013 53)"
+        ]
+      },
+      "peach-ink": {
+        "role": "tertiary",
+        "displayName": "Rust Ink",
+        "tonalRamp": [
+          "oklch(15% 0.109 43)",
+          "oklch(25% 0.109 43)",
+          "oklch(35% 0.109 43)",
+          "oklch(45% 0.109 43)",
+          "oklch(55% 0.109 43)",
+          "oklch(70% 0.109 43)",
+          "oklch(85% 0.109 43)",
+          "oklch(95% 0.043 43)"
+        ]
+      },
+      "live": {
+        "role": "status",
         "displayName": "Live Green",
-        "canonical": "oklch(45% 0.11 155)",
         "tonalRamp": [
-          "oklch(15% 0.11 155)",
-          "oklch(25% 0.11 155)",
-          "oklch(35% 0.11 155)",
-          "oklch(45% 0.11 155)",
-          "oklch(55% 0.11 155)",
-          "oklch(68% 0.11 155)",
-          "oklch(82% 0.11 155)",
-          "oklch(95% 0.11 155)"
+          "oklch(15% 0.175 156)",
+          "oklch(25% 0.175 156)",
+          "oklch(35% 0.175 156)",
+          "oklch(45% 0.175 156)",
+          "oklch(55% 0.175 156)",
+          "oklch(70% 0.175 156)",
+          "oklch(85% 0.175 156)",
+          "oklch(95% 0.07 156)"
         ]
       },
-      "cached-amber": {
-        "role": "semantic",
-        "displayName": "Cached Amber",
-        "canonical": "oklch(49% 0.12 62)",
+      "cached": {
+        "role": "status",
+        "displayName": "Amber Cached",
         "tonalRamp": [
-          "oklch(15% 0.12 62)",
-          "oklch(25% 0.12 62)",
-          "oklch(35% 0.12 62)",
-          "oklch(45% 0.12 62)",
-          "oklch(55% 0.12 62)",
-          "oklch(68% 0.12 62)",
-          "oklch(82% 0.12 62)",
-          "oklch(95% 0.12 62)"
+          "oklch(15% 0.144 79)",
+          "oklch(25% 0.144 79)",
+          "oklch(35% 0.144 79)",
+          "oklch(45% 0.144 79)",
+          "oklch(55% 0.144 79)",
+          "oklch(70% 0.144 79)",
+          "oklch(85% 0.144 79)",
+          "oklch(95% 0.057 79)"
         ]
       },
       "cached-panel": {
-        "role": "semantic",
-        "displayName": "Cached Panel",
-        "canonical": "oklch(95% 0.045 85)",
+        "role": "status",
+        "displayName": "Cream Notice",
         "tonalRamp": [
-          "oklch(15% 0.045 85)",
-          "oklch(25% 0.045 85)",
-          "oklch(35% 0.045 85)",
-          "oklch(45% 0.045 85)",
-          "oklch(55% 0.045 85)",
-          "oklch(68% 0.045 85)",
-          "oklch(82% 0.045 85)",
-          "oklch(95% 0.045 85)"
+          "oklch(15% 0.034 86)",
+          "oklch(25% 0.034 86)",
+          "oklch(35% 0.034 86)",
+          "oklch(45% 0.034 86)",
+          "oklch(55% 0.034 86)",
+          "oklch(70% 0.034 86)",
+          "oklch(85% 0.034 86)",
+          "oklch(95% 0.013 86)"
         ]
       },
-      "error-red": {
-        "role": "semantic",
-        "displayName": "Error Red",
-        "canonical": "oklch(48% 0.17 27)",
+      "error": {
+        "role": "status",
+        "displayName": "Alert Red",
         "tonalRamp": [
-          "oklch(15% 0.17 27)",
-          "oklch(25% 0.17 27)",
-          "oklch(35% 0.17 27)",
-          "oklch(45% 0.17 27)",
-          "oklch(55% 0.17 27)",
-          "oklch(68% 0.17 27)",
-          "oklch(82% 0.17 27)",
-          "oklch(95% 0.17 27)"
+          "oklch(15% 0.189 25)",
+          "oklch(25% 0.189 25)",
+          "oklch(35% 0.189 25)",
+          "oklch(45% 0.189 25)",
+          "oklch(55% 0.189 25)",
+          "oklch(70% 0.189 25)",
+          "oklch(85% 0.189 25)",
+          "oklch(95% 0.076 25)"
         ]
       }
     },
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "Candidate name on Home and project title on project pages; once per page."
+        "purpose": "The single greeting or page name in the intro tile."
       },
-      "headline": {
-        "displayName": "Headline",
-        "purpose": "Interior page heads: Resume, Portfolio, Contact, Page not found."
+      "page-title": {
+        "displayName": "Page Title",
+        "purpose": "h1 in a full-width page-head tile (Resume, Portfolio)."
       },
-      "discipline": {
-        "displayName": "Discipline",
-        "purpose": "Navy coverage subject under the name."
+      "title-lg": {
+        "displayName": "Title Large",
+        "purpose": "Section-leading tile headings: About me, Experience, project names."
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Exhibit headings, numbered in the text."
-      },
-      "title-sm": {
-        "displayName": "Title Sm",
-        "purpose": "Ledger row titles and project sub-heads."
+        "purpose": "Every other tile heading; takes the tint ink on tinted tiles."
       },
       "lede": {
         "displayName": "Lede",
-        "purpose": "Thesis paragraph, 64ch."
+        "purpose": "One muted sentence under the display line."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "All running text, 64ch, lining figures on."
+        "purpose": "Descriptions and lists."
+      },
+      "body-lg": {
+        "displayName": "Body Large",
+        "purpose": "About me paragraphs, max 62ch."
       },
       "label": {
         "displayName": "Label",
-        "purpose": "Key-data labels, dates, metadata, nav, column heads."
+        "purpose": "Nav, buttons, link rows."
       },
-      "caption": {
-        "displayName": "Caption",
-        "purpose": "Exhibit Source: lines."
+      "meta": {
+        "displayName": "Meta",
+        "purpose": "Job date ranges in Deep Indigo, tabular numerals."
       }
     },
     "shadows": [
       {
-        "name": "nav-underline",
-        "value": "inset 0 -3px 0 var(--on-navy)",
-        "purpose": "Hover/current underline bar under masthead nav links; a rule, not elevation. No drop shadows exist."
+        "name": "tile-rest",
+        "value": "0 1px 2px rgba(17, 19, 26, .06), 0 8px 24px rgba(17, 19, 26, .05)",
+        "purpose": "Every tile, admin card, and the current nav pill."
+      },
+      {
+        "name": "work-hover",
+        "value": "0 2px 4px rgba(17, 19, 26, .06), 0 16px 36px rgba(17, 19, 26, .09)",
+        "purpose": "Job and project tiles on hover."
+      },
+      {
+        "name": "status-halo-live",
+        "value": "0 0 0 4px rgba(62, 224, 143, .22)",
+        "purpose": "Live status dot."
+      },
+      {
+        "name": "status-halo-cached",
+        "value": "0 0 0 4px rgba(242, 181, 68, .22)",
+        "purpose": "Cached status dot."
       }
     ],
+    "focus": {
+      "value": "outline: 3px solid #4f3ff0; outline-offset: 3px; border-radius: 6px",
+      "purpose": "Global :focus-visible treatment."
+    },
     "motion": [
       {
-        "name": "state-120",
-        "value": "120ms ease-out",
-        "purpose": "Colour, border and underline-thickness transitions on links and buttons. Nothing animates into view."
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(.16, 1, .3, 1)",
+        "purpose": "Load cascade and work-tile lift."
+      },
+      {
+        "name": "tile-rise",
+        "value": "640ms; from opacity .35, translateY(12px)",
+        "purpose": "One load cascade on every grid tile."
+      },
+      {
+        "name": "cascade-stagger",
+        "value": "50ms per tile, capped at 300ms from the 7th tile",
+        "purpose": "Load cascade delay."
+      },
+      {
+        "name": "work-lift",
+        "value": "translateY(-3px) over 200ms",
+        "purpose": "Hover on job and project tiles."
+      },
+      {
+        "name": "button-color",
+        "value": "140ms ease-out",
+        "purpose": "Button background and text color."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce",
+        "purpose": "Cascade does not run; lift removed."
       }
     ],
     "breakpoints": [
       {
         "name": "stack",
-        "value": "52rem"
+        "value": "860px"
       },
       {
         "name": "narrow",
         "value": "30rem"
       }
-    ]
+    ],
+    "grid": {
+      "columns": 12,
+      "gap": "1rem",
+      "maxWidth": "76rem",
+      "spans": {
+        "full": 12,
+        "wide": 8,
+        "half": 6,
+        "side": 4,
+        "intro": "8 columns x 2 rows",
+        "tall": "2 rows"
+      }
+    }
   },
   "components": [
     {
       "name": "Primary Button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "Filled navy action; one per action row. The email variant shows the address.",
-      "html": "<a class=\"ds-btn\" href=\"#\">Email Zetian1212@gmail.com</a>",
-      "css": ":host{--paper:oklch(98.6% 0.003 250);--panel:oklch(95.4% 0.012 255);--ink:oklch(21% 0.025 262);--ink-2:oklch(43% 0.025 262);--rule:oklch(86% 0.012 262);--control-line:oklch(58% 0.02 262);--navy:oklch(34% 0.085 258);--navy-deep:oklch(27% 0.07 260);--on-navy:oklch(97.5% 0.008 258);--on-navy-2:oklch(84% 0.035 258);--focus:oklch(52% 0.16 255);--live:oklch(45% 0.11 155);--cached:oklch(49% 0.12 62);--cached-panel:oklch(95% 0.045 85);--font:\"Libre Franklin\",\"Franklin Gothic Medium\",\"Helvetica Neue\",Arial,sans-serif;}.ds-btn{font-family:var(--font);display:inline-flex;align-items:center;min-height:2.875rem;padding:0.7rem 1.25rem;background:var(--navy);color:var(--on-navy);border:1.5px solid var(--navy);border-radius:0;font-weight:600;text-decoration:none;transition:background-color 120ms ease-out,border-color 120ms ease-out;}.ds-btn:hover{background:var(--navy-deep);border-color:var(--navy-deep);}.ds-btn:focus-visible{outline:3px solid var(--focus);outline-offset:3px;}"
+      "description": "Ink pill for the one main action in an action row.",
+      "html": "<a class=\"ds-btn\" href=\"#\">Email me</a>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;min-height:2.875rem;padding:0 1.35rem;border-radius:999px;background:var(--ink,#11131a);color:#fff;font-family:var(--font, Manrope, 'Helvetica Neue', Arial, sans-serif);font-weight:700;text-decoration:none;transition:background-color 140ms ease-out,color 140ms ease-out}.ds-btn:hover{background:var(--accent,#4f3ff0);color:#fff}.ds-btn:focus-visible{outline:3px solid var(--focus,#4f3ff0);outline-offset:3px}"
     },
     {
-      "name": "Quiet Button",
+      "name": "Soft Button",
       "kind": "button",
-      "refersTo": "button-quiet",
-      "description": "Outlined secondary action, placed after the primary.",
-      "html": "<a class=\"ds-btn-quiet\" href=\"#\">Read the resume</a>",
-      "css": ":host{--paper:oklch(98.6% 0.003 250);--panel:oklch(95.4% 0.012 255);--ink:oklch(21% 0.025 262);--ink-2:oklch(43% 0.025 262);--rule:oklch(86% 0.012 262);--control-line:oklch(58% 0.02 262);--navy:oklch(34% 0.085 258);--navy-deep:oklch(27% 0.07 260);--on-navy:oklch(97.5% 0.008 258);--on-navy-2:oklch(84% 0.035 258);--focus:oklch(52% 0.16 255);--live:oklch(45% 0.11 155);--cached:oklch(49% 0.12 62);--cached-panel:oklch(95% 0.045 85);--font:\"Libre Franklin\",\"Franklin Gothic Medium\",\"Helvetica Neue\",Arial,sans-serif;}.ds-btn-quiet{font-family:var(--font);display:inline-flex;align-items:center;min-height:2.875rem;padding:0.7rem 1.25rem;background:transparent;color:var(--navy);border:1.5px solid var(--navy);border-radius:0;font-weight:600;text-decoration:none;transition:background-color 120ms ease-out,border-color 120ms ease-out,color 120ms ease-out;}.ds-btn-quiet:hover{background:var(--panel);color:var(--ink);border-color:var(--ink);}.ds-btn-quiet:focus-visible{outline:3px solid var(--focus);outline-offset:3px;}"
+      "refersTo": "button-soft",
+      "description": "Indigo-wash pill for every secondary action.",
+      "html": "<a class=\"ds-btn-soft\" href=\"#\">View resume</a>",
+      "css": ".ds-btn-soft{display:inline-flex;align-items:center;min-height:2.875rem;padding:0 1.35rem;border-radius:999px;background:var(--accent-soft,#ece9ff);color:var(--accent-deep,#3a2bd1);font-family:var(--font, Manrope, 'Helvetica Neue', Arial, sans-serif);font-weight:700;text-decoration:none;transition:background-color 140ms ease-out,color 140ms ease-out}.ds-btn-soft:hover{background:var(--accent,#4f3ff0);color:#fff}.ds-btn-soft:focus-visible{outline:3px solid var(--focus,#4f3ff0);outline-offset:3px}"
     },
     {
-      "name": "Text Link",
-      "kind": "custom",
-      "description": "Navy underlined link for secondary destinations in an action row.",
-      "html": "<a class=\"ds-link\" href=\"#\">LinkedIn</a>",
-      "css": ":host{--paper:oklch(98.6% 0.003 250);--panel:oklch(95.4% 0.012 255);--ink:oklch(21% 0.025 262);--ink-2:oklch(43% 0.025 262);--rule:oklch(86% 0.012 262);--control-line:oklch(58% 0.02 262);--navy:oklch(34% 0.085 258);--navy-deep:oklch(27% 0.07 260);--on-navy:oklch(97.5% 0.008 258);--on-navy-2:oklch(84% 0.035 258);--focus:oklch(52% 0.16 255);--live:oklch(45% 0.11 155);--cached:oklch(49% 0.12 62);--cached-panel:oklch(95% 0.045 85);--font:\"Libre Franklin\",\"Franklin Gothic Medium\",\"Helvetica Neue\",Arial,sans-serif;}.ds-link{font-family:var(--font);display:inline-flex;align-items:center;min-height:2.875rem;font-weight:600;color:var(--navy);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:0.22em;transition:color 120ms ease-out,text-decoration-thickness 120ms ease-out;}.ds-link:hover{color:var(--ink);text-decoration-thickness:2px;}.ds-link:focus-visible{outline:3px solid var(--focus);outline-offset:3px;}"
-    },
-    {
-      "name": "Masthead",
+      "name": "Pill Navigation",
       "kind": "nav",
-      "refersTo": "masthead",
-      "description": "Navy house band with the name and primary navigation.",
-      "html": "<header class=\"ds-mast\"><a class=\"ds-mast-name\" href=\"#\">Zetian Tao</a><nav class=\"ds-nav\"><a href=\"#\" aria-current=\"page\">Home</a><a href=\"#\">Resume</a><a href=\"#\">Portfolio</a><a href=\"#\">Contact</a></nav></header>",
-      "css": ":host{--paper:oklch(98.6% 0.003 250);--panel:oklch(95.4% 0.012 255);--ink:oklch(21% 0.025 262);--ink-2:oklch(43% 0.025 262);--rule:oklch(86% 0.012 262);--control-line:oklch(58% 0.02 262);--navy:oklch(34% 0.085 258);--navy-deep:oklch(27% 0.07 260);--on-navy:oklch(97.5% 0.008 258);--on-navy-2:oklch(84% 0.035 258);--focus:oklch(52% 0.16 255);--live:oklch(45% 0.11 155);--cached:oklch(49% 0.12 62);--cached-panel:oklch(95% 0.045 85);--font:\"Libre Franklin\",\"Franklin Gothic Medium\",\"Helvetica Neue\",Arial,sans-serif;}.ds-mast{font-family:var(--font);background:var(--navy);color:var(--on-navy);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;column-gap:2rem;padding:0 1.5rem;}.ds-mast-name{color:var(--on-navy);font-weight:700;font-size:1.0625rem;letter-spacing:-0.01em;text-decoration:none;padding:0.85rem 0;}.ds-mast-name:hover{text-decoration:underline;}.ds-nav{display:flex;gap:0.25rem 1.5rem;flex-wrap:wrap;}.ds-nav a{display:inline-flex;align-items:center;min-height:2.875rem;color:var(--on-navy-2);font-size:0.9375rem;font-weight:500;text-decoration:none;box-shadow:inset 0 -3px 0 transparent;}.ds-nav a:hover{color:var(--on-navy);box-shadow:inset 0 -3px 0 var(--on-navy-2);}.ds-nav a[aria-current=page]{color:var(--on-navy);font-weight:650;box-shadow:inset 0 -3px 0 var(--on-navy);}.ds-mast a:focus-visible{outline:3px solid var(--on-navy);outline-offset:2px;}"
+      "refersTo": "nav-link",
+      "description": "Muted pill links; the current section is a white pill with the tile shadow.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\" aria-current=\"page\">Resume</a><a href=\"#\">Portfolio</a><a href=\"#\">Contact</a></nav>",
+      "css": ".ds-nav{display:flex;gap:.25rem;padding:12px;background:var(--bg,#f2f3f7);font-family:var(--font, Manrope, 'Helvetica Neue', Arial, sans-serif)}.ds-nav a{display:inline-flex;align-items:center;min-height:2.75rem;padding:0 1rem;border-radius:999px;color:var(--muted,#5a6072);font-weight:700;text-decoration:none}.ds-nav a:hover{color:var(--ink,#11131a);background:#fff}.ds-nav a[aria-current=page]{color:var(--ink,#11131a);background:#fff;box-shadow:0 1px 2px rgba(17,19,26,.06),0 8px 24px rgba(17,19,26,.05)}.ds-nav a:focus-visible{outline:3px solid var(--focus,#4f3ff0);outline-offset:3px}"
     },
     {
-      "name": "Key Data Box",
-      "kind": "custom",
-      "refersTo": "key-data",
-      "description": "Tinted data panel with a navy cap rule, label/value rows and the status marker.",
-      "html": "<aside class=\"ds-kd\"><h2>Key data</h2><dl><div><dt>Degree</dt><dd>Bachelor of Business Administration</dd></div><div><dt>Expected graduation</dt><dd class=\"ds-fig\">Jun 2027</dd></div><div><dt>This site</dt><dd><span class=\"ds-status\">Live database</span></dd></div></dl></aside>",
-      "css": ":host{--paper:oklch(98.6% 0.003 250);--panel:oklch(95.4% 0.012 255);--ink:oklch(21% 0.025 262);--ink-2:oklch(43% 0.025 262);--rule:oklch(86% 0.012 262);--control-line:oklch(58% 0.02 262);--navy:oklch(34% 0.085 258);--navy-deep:oklch(27% 0.07 260);--on-navy:oklch(97.5% 0.008 258);--on-navy-2:oklch(84% 0.035 258);--focus:oklch(52% 0.16 255);--live:oklch(45% 0.11 155);--cached:oklch(49% 0.12 62);--cached-panel:oklch(95% 0.045 85);--font:\"Libre Franklin\",\"Franklin Gothic Medium\",\"Helvetica Neue\",Arial,sans-serif;}.ds-kd{font-family:var(--font);background:var(--panel);color:var(--ink);border-top:4px solid var(--navy);padding:1.25rem 1.5rem 0.5rem;max-width:20rem;line-height:1.6;}.ds-kd h2{margin:0;font-size:1rem;font-weight:700;padding-bottom:0.75rem;border-bottom:1px solid var(--ink);}.ds-kd dl{margin:0;}.ds-kd dl>div{display:grid;grid-template-columns:6.75rem minmax(0,1fr);gap:1rem;padding:0.7rem 0;border-bottom:1px solid var(--rule);}.ds-kd dl>div:last-child{border-bottom:0;}.ds-kd dt{color:var(--ink-2);font-size:0.875rem;font-weight:500;}.ds-kd dd{margin:0;font-weight:600;line-height:1.4;}.ds-fig{font-variant-numeric:tabular-nums lining-nums;}.ds-status{display:inline-flex;align-items:center;gap:0.5rem;color:var(--live);}.ds-status::before{content:\"\";width:0.55rem;height:0.55rem;background:currentColor;}"
+      "name": "Skill Chips",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Static pills for skills and technologies; 78% white on a mint or sky tile.",
+      "html": "<ul class=\"ds-chips\"><li>Financial modeling (DCF)</li><li>Python</li><li>Bloomberg</li></ul>",
+      "css": ".ds-chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.5rem;font-family:var(--font, Manrope, 'Helvetica Neue', Arial, sans-serif)}.ds-chips li{padding:.5rem .9rem;border-radius:999px;background:var(--bg,#f2f3f7);color:var(--ink,#11131a);font-weight:600}"
     },
     {
-      "name": "Exhibit with Skill Table",
-      "kind": "custom",
-      "refersTo": "exhibit-caption",
-      "description": "Numbered exhibit opened by a 3px ink rule, two ruled skill columns, and a Source caption.",
-      "html": "<section class=\"ds-ex\"><h2>Exhibit 1: Skills by discipline</h2><div class=\"ds-st\"><div><h3>Finance</h3><ul><li>Equity research</li><li>Financial due diligence</li></ul></div><div><h3>Technical</h3><ul><li>Python</li><li>pandas</li></ul></div></div><p class=\"ds-src\">Source: LinkedIn profile export (Profile.pdf).</p></section>",
-      "css": ":host{--paper:oklch(98.6% 0.003 250);--panel:oklch(95.4% 0.012 255);--ink:oklch(21% 0.025 262);--ink-2:oklch(43% 0.025 262);--rule:oklch(86% 0.012 262);--control-line:oklch(58% 0.02 262);--navy:oklch(34% 0.085 258);--navy-deep:oklch(27% 0.07 260);--on-navy:oklch(97.5% 0.008 258);--on-navy-2:oklch(84% 0.035 258);--focus:oklch(52% 0.16 255);--live:oklch(45% 0.11 155);--cached:oklch(49% 0.12 62);--cached-panel:oklch(95% 0.045 85);--font:\"Libre Franklin\",\"Franklin Gothic Medium\",\"Helvetica Neue\",Arial,sans-serif;}.ds-ex{font-family:var(--font);color:var(--ink);border-top:3px solid var(--ink);padding-top:1rem;line-height:1.6;}.ds-ex h2{margin:0;font-size:1.375rem;font-weight:700;letter-spacing:-0.015em;line-height:1.15;}.ds-st{margin-top:1.5rem;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2rem 2.5rem;}.ds-st h3{margin:0;font-size:0.9375rem;font-weight:700;color:var(--navy);padding-bottom:0.5rem;border-bottom:2px solid var(--navy);}.ds-st ul{list-style:none;margin:0;padding:0;}.ds-st li{padding:0.6rem 0;border-bottom:1px solid var(--rule);}.ds-src{margin:0.875rem 0 0;color:var(--ink-2);font-size:0.8125rem;}"
+      "name": "Tile",
+      "kind": "card",
+      "refersTo": "tile",
+      "description": "White 22px tile with the one ambient shadow; the only container.",
+      "html": "<section class=\"ds-tile\"><h2>Get in touch</h2><p>Reach out by email, LinkedIn, or GitHub.</p></section>",
+      "css": ".ds-tile{background:#fff;border-radius:22px;padding:2rem;box-shadow:0 1px 2px rgba(17,19,26,.06),0 8px 24px rgba(17,19,26,.05);font-family:var(--font, Manrope, 'Helvetica Neue', Arial, sans-serif);color:var(--ink,#11131a);line-height:1.6}.ds-tile h2{margin:0;font-size:1.4rem;font-weight:800;letter-spacing:-.02em;line-height:1.2}.ds-tile p{margin:.75rem 0 0;color:var(--muted,#5a6072)}"
     },
     {
-      "name": "Dated Ledger Row",
+      "name": "Role Tints",
       "kind": "custom",
-      "description": "Ruled list row with a tabular-figure date column.",
-      "html": "<ol class=\"ds-led\"><li><p class=\"ds-date\">Expected Jun 2027</p><div><h3>Loyola Marymount University</h3><p class=\"ds-meta\">Finance + Information Systems and Business Analysis</p></div></li></ol>",
-      "css": ":host{--paper:oklch(98.6% 0.003 250);--panel:oklch(95.4% 0.012 255);--ink:oklch(21% 0.025 262);--ink-2:oklch(43% 0.025 262);--rule:oklch(86% 0.012 262);--control-line:oklch(58% 0.02 262);--navy:oklch(34% 0.085 258);--navy-deep:oklch(27% 0.07 260);--on-navy:oklch(97.5% 0.008 258);--on-navy-2:oklch(84% 0.035 258);--focus:oklch(52% 0.16 255);--live:oklch(45% 0.11 155);--cached:oklch(49% 0.12 62);--cached-panel:oklch(95% 0.045 85);--font:\"Libre Franklin\",\"Franklin Gothic Medium\",\"Helvetica Neue\",Arial,sans-serif;}.ds-led{font-family:var(--font);list-style:none;margin:0;padding:0;color:var(--ink);line-height:1.6;}.ds-led li{display:grid;grid-template-columns:10rem minmax(0,1fr);gap:0.5rem 2rem;padding:1.25rem 0 1.375rem;border-bottom:1px solid var(--rule);}.ds-led p,.ds-led h3{margin:0;}.ds-led h3{font-size:1.25rem;font-weight:700;letter-spacing:-0.01em;line-height:1.15;}.ds-date{color:var(--ink-2);font-size:0.9375rem;font-weight:500;padding-top:0.2rem;font-variant-numeric:tabular-nums lining-nums;}.ds-led .ds-meta{margin-top:0.375rem;color:var(--ink-2);font-size:0.9375rem;}"
+      "refersTo": "tile-mint",
+      "description": "Mint, sky, and peach tiles, each heading in its own ink.",
+      "html": "<div class=\"ds-tints\"><section class=\"ds-tint ds-mint\"><h2>Right now</h2><ul><li>Final year, graduating May 2027</li></ul></section><section class=\"ds-tint ds-sky\"><h2>Off the clock</h2><ul><li>Watching the NBA</li></ul></section><section class=\"ds-tint ds-peach\"><h2>About me</h2><p>Numbers and the systems that produce them.</p></section></div>",
+      "css": ".ds-tints{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;font-family:var(--font, Manrope, 'Helvetica Neue', Arial, sans-serif)}.ds-tint{border-radius:22px;padding:2rem;box-shadow:0 1px 2px rgba(17,19,26,.06),0 8px 24px rgba(17,19,26,.05);color:#11131a}.ds-tint h2{margin:0;font-size:1.4rem;font-weight:800;letter-spacing:-.02em}.ds-tint ul{margin:.9rem 0 0;padding-left:1.1rem;font-weight:600}.ds-tint p{margin:.9rem 0 0}.ds-mint{background:#dcf5e8}.ds-mint h2,.ds-mint li::marker{color:#0c5537}.ds-sky{background:#dfeaff}.ds-sky h2{color:#1b4a9c}.ds-peach{background:#ffe8da}.ds-peach h2{color:#7a3312}"
+    },
+    {
+      "name": "Status Tile",
+      "kind": "custom",
+      "refersTo": "tile-dark",
+      "description": "Ink tile reporting whether the site is live or on its cached copy.",
+      "html": "<section class=\"ds-status\"><h2><span class=\"ds-dot\"></span>This site is online</h2><p>Self-hosted on an Azure Ubuntu VM, served over HTTPS by nginx.</p></section>",
+      "css": ".ds-status{background:#11131a;color:#fff;border-radius:22px;padding:2rem;box-shadow:0 1px 2px rgba(17,19,26,.06),0 8px 24px rgba(17,19,26,.05);font-family:var(--font, Manrope, 'Helvetica Neue', Arial, sans-serif)}.ds-status h2{margin:0;font-size:1.4rem;font-weight:800;letter-spacing:-.02em}.ds-status p{margin:.75rem 0 0;color:#b9bccb;line-height:1.6}.ds-dot{display:inline-block;width:.6rem;height:.6rem;margin-right:.6rem;border-radius:50%;vertical-align:.18em;background:#3ee08f;box-shadow:0 0 0 4px rgba(62,224,143,.22)}"
+    },
+    {
+      "name": "Job Tile",
+      "kind": "custom",
+      "refersTo": "tile",
+      "description": "Experience tile: dates, company, role, one-line summary; lifts on hover.",
+      "html": "<article class=\"ds-job\"><p class=\"ds-dates\">Jul 2025 – Aug 2025</p><h3>Tiger Brokers</h3><p class=\"ds-role\">Internship</p><p class=\"ds-desc\">Maintained coverage of semiconductors and EVs.</p></article>",
+      "css": ".ds-job{background:#fff;border-radius:22px;padding:2rem;box-shadow:0 1px 2px rgba(17,19,26,.06),0 8px 24px rgba(17,19,26,.05);font-family:var(--font, Manrope, 'Helvetica Neue', Arial, sans-serif);color:#11131a;transition:transform 200ms cubic-bezier(.16,1,.3,1),box-shadow 200ms ease-out}.ds-job:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(17,19,26,.06),0 16px 36px rgba(17,19,26,.09)}.ds-job p{margin:0}.ds-dates{font-size:.875rem;font-weight:700;color:#3a2bd1;font-variant-numeric:tabular-nums}.ds-job h3{margin:.5rem 0 0;font-size:1.4rem;font-weight:800;letter-spacing:-.02em}.ds-job .ds-role{margin-top:.25rem;font-weight:600}.ds-job .ds-desc{margin-top:.9rem;font-size:.95rem;color:#5a6072;line-height:1.6}@media (prefers-reduced-motion:reduce){.ds-job:hover{transform:none}}"
     },
     {
       "name": "Text Input",
       "kind": "input",
       "refersTo": "input",
-      "description": "Square admin field with a control-line stroke.",
-      "html": "<label class=\"ds-lab\">Headline<input class=\"ds-in\" value=\"Finance + Information Systems\"></label>",
-      "css": ":host{--paper:oklch(98.6% 0.003 250);--panel:oklch(95.4% 0.012 255);--ink:oklch(21% 0.025 262);--ink-2:oklch(43% 0.025 262);--rule:oklch(86% 0.012 262);--control-line:oklch(58% 0.02 262);--navy:oklch(34% 0.085 258);--navy-deep:oklch(27% 0.07 260);--on-navy:oklch(97.5% 0.008 258);--on-navy-2:oklch(84% 0.035 258);--focus:oklch(52% 0.16 255);--live:oklch(45% 0.11 155);--cached:oklch(49% 0.12 62);--cached-panel:oklch(95% 0.045 85);--font:\"Libre Franklin\",\"Franklin Gothic Medium\",\"Helvetica Neue\",Arial,sans-serif;}.ds-lab{font-family:var(--font);display:flex;flex-direction:column;gap:0.5rem;font-weight:600;color:var(--ink);max-width:36rem;}.ds-in{font:inherit;font-weight:400;color:var(--ink);padding:0.65rem 0.75rem;background:var(--paper);border:1px solid var(--control-line);border-radius:0;}.ds-in:focus-visible{outline:3px solid var(--focus);outline-offset:3px;}"
-    },
-    {
-      "name": "Degraded Banner",
-      "kind": "custom",
-      "refersTo": "degraded-banner",
-      "description": "Cached-snapshot status strip directly under the masthead.",
-      "html": "<div class=\"ds-deg\" role=\"status\">Cached profile is showing while the database is unavailable.</div>",
-      "css": ":host{--paper:oklch(98.6% 0.003 250);--panel:oklch(95.4% 0.012 255);--ink:oklch(21% 0.025 262);--ink-2:oklch(43% 0.025 262);--rule:oklch(86% 0.012 262);--control-line:oklch(58% 0.02 262);--navy:oklch(34% 0.085 258);--navy-deep:oklch(27% 0.07 260);--on-navy:oklch(97.5% 0.008 258);--on-navy-2:oklch(84% 0.035 258);--focus:oklch(52% 0.16 255);--live:oklch(45% 0.11 155);--cached:oklch(49% 0.12 62);--cached-panel:oklch(95% 0.045 85);--font:\"Libre Franklin\",\"Franklin Gothic Medium\",\"Helvetica Neue\",Arial,sans-serif;}.ds-deg{font-family:var(--font);background:var(--cached-panel);color:var(--ink);border-bottom:1px solid var(--cached);padding:0.75rem 1rem;text-align:center;font-weight:500;}"
+      "description": "Admin field: white, control-line border, 12px radius.",
+      "html": "<label class=\"ds-label\">Headline<input class=\"ds-input\" value=\"Finance + Information Systems\"></label>",
+      "css": ".ds-label{display:flex;flex-direction:column;gap:.5rem;font-family:var(--font, Manrope, 'Helvetica Neue', Arial, sans-serif);font-weight:700;color:#11131a;max-width:36rem}.ds-input{font:inherit;font-weight:400;padding:.7rem .85rem;background:#fff;border:1px solid var(--control-line,#8a90a2);border-radius:12px;color:#11131a}.ds-input:focus-visible{outline:3px solid var(--focus,#4f3ff0);outline-offset:3px}"
     }
   ],
   "narrative": {
-    "northStar": "The Initiation Note",
-    "overview": "Every page is set as page one of a sell-side equity research initiation, with the candidate as the covered name. A navy house band carries the navigation; below it, a coverage line, a tinted key-data box, a thesis paragraph, and numbered, ruled exhibits do the work that a hero, skill pills and equal cards would do on a portfolio template. The reader is a recruiter in finance or technology who scans before reading, so density is that of a printed report: one column of measured prose beside one column of data, nothing ornamental between them.\n\nThe material is cool report-white paper and near-black ink. Structure comes from rules, not containers: a heavy ink rule opens each exhibit, hairlines separate rows, and a navy rule marks a column header. There are no rounded corners, no drop shadows, no cards, and no imagery. One sans family, Libre Franklin, carries every role through weight alone, with lining figures site-wide and tabular figures wherever a date or figure sits in a column.\n\nMotion is limited to 120ms ease-out colour and underline transitions on links and buttons. Nothing animates into view.",
+    "northStar": "The Tiled Introduction",
+    "overview": "The site is a set of white and tinted tiles of different sizes laid on a cool light-gray ground, read like meeting someone in person: a name and a study line first, then a live status, the school, who they are, what they did, what they know, what they built, and how to reach them. Each tile carries one kind of fact and one role color, so the grid reads as a composed introduction rather than a uniform card wall.\n\nThe finish is polished and friendly without being playful: one variable sans (Manrope) at heavy weight with tight tracking for every heading, soft two-layer shadows that barely lift tiles off the ground, generous 22px corners, pill-shaped controls. Color is confined to whole tiles (one indigo, one ink-black, and pastel mint, sky, and peach) plus soft-indigo buttons; text inside stays ink or muted gray. Density is moderate: tiles hold short paragraphs and lists, never long prose.\n\nThis world replaces the rejected \"Initiation Note\" research-report design (navy, Libre Franklin, hairline rules), which was judged too empty and plain. Nothing from it carries over.",
     "keyCharacteristics": [
-      "Navy house band at the top, pale panel disclosures band at the foot, paper between.",
-      "Two-column title block: name, discipline and thesis on the left (about 1.85fr); key data on the right (min 19rem).",
-      "Numbered exhibits (\"Exhibit 1: Skills by discipline\") opened by a 3px ink rule, closed by a small \"Source:\" caption when the content has a real source.",
-      "Square everything: zero radius on buttons, inputs, panels and the status marker.",
-      "One family, weight-led hierarchy from 800 (name) down to 400 (body)."
+      "12-column tile grid with mixed spans and dense packing; tiles are the only container.",
+      "Manrope variable, self-hosted, 800 weight for every heading.",
+      "One indigo accent; ink-black and three pastel tints as per-tile roles.",
+      "Soft two-layer ambient shadow on every tile; 22px tile corners; pill controls.",
+      "One staggered load cascade; a small hover lift on work tiles; nothing moves under reduced motion."
     ],
     "rules": [
       {
-        "name": "The House Band Rule",
-        "body": "Navy appears as a filled surface in exactly two places: the masthead band and the primary action button. Everywhere else it is a line or text (links, discipline line, column-header rules, key-data top rule), never a second filled block.",
+        "name": "The Tint-Is-a-Role Rule",
+        "body": "A tint names what a tile holds, never decorates it: peach is About, mint is now and the first skill group, sky is off-hours and the second skill group, ink is the system status or build facts, indigo is the identity anchor. A new tile that does not fit a role is white.",
         "section": "colors"
       },
       {
-        "name": "The One Tint Rule",
-        "body": "The only tinted surface is the Key Data Panel. If a new region needs separation, use a rule, not a new fill.",
+        "name": "The One Indigo Tile Rule",
+        "body": "At most one indigo-filled tile per page. Indigo elsewhere appears only as soft buttons, dates, hover, focus, and selection.",
         "section": "colors"
       },
       {
-        "name": "The One Family Rule",
-        "body": "Libre Franklin only. Do not introduce a second face for display, labels, or numbers; change weight instead.",
+        "name": "The Heading-Names-Itself Rule",
+        "body": "Every tile's first line is its heading, in plain words (\"Right now\", \"Finance skills\", \"Get in touch\"). No small uppercase label, eyebrow, or kicker sits above a heading. A data line such as a job's dates may precede the company name because it is the fact, not a category label.",
         "section": "typography"
       },
       {
-        "name": "The Figures Rule",
-        "body": "Lining figures are on for the whole body. Any date, date range, or path that sits in a column or data cell also takes tabular figures (`tabular-nums lining-nums`), so dates align down a ledger.",
-        "section": "typography"
+        "name": "The Mixed-Span Rule",
+        "body": "A page is composed of tiles of different sizes; a row of identical tiles appears only where the content is genuinely parallel (the job tiles, the two skill groups).",
+        "section": "layout"
       },
       {
-        "name": "The Rule Weight Rule",
-        "body": "Separation is a line, and its weight says its rank: 4px navy (key-data cap), 3px ink (exhibit open), 2px navy (column head), 1px ink (key-data heading), 1px hairline (row). Do not add a new weight.",
+        "name": "The One Shadow Rule",
+        "body": "All resting surfaces share one shadow. Never add a hard offset shadow, a colored shadow, or a border to stand a tile out; use a role tint instead.",
         "section": "elevation"
       }
     ],
     "dos": [
-      "Do number every exhibit in its h2 (\"Exhibit 1: Skills by discipline\") and count per page in order of appearance.",
-      "Do close an exhibit with a \"Source:\" caption (0.8125rem, secondary ink) when its content has a real, nameable source; omit the caption rather than write a vague one.",
-      "Do separate with rules: 1px hairlines between rows, a 3px ink rule to open each exhibit, a 2px navy rule under column heads.",
-      "Do keep one filled navy primary action per action row, followed by a quiet button and then plain text links.",
-      "Do set every date, date range and data figure with tabular lining figures and en-dash ranges (\"Mon YYYY – Mon YYYY\").",
-      "Do cap running text at 64ch and keep the name, discipline line and key data in the first viewport on desktop.",
-      "Do hide sections with no real content instead of filling them; a single secondary-ink sentence is the only empty state."
+      "Do compose every page from tiles on the 12-column grid using the full, wide, half, side, intro, and tall spans; mix sizes.",
+      "Do give a tile a tint only when it fills that tint's role, and color its heading with the tint's own ink.",
+      "Do keep at most one indigo tile per page; use soft indigo pills for secondary actions and one ink pill for the primary action.",
+      "Do set every heading in Manrope 800 with negative tracking, and let the heading be the tile's first line.",
+      "Do fill tiles only from real profile data (education, experience, skills, projects, links, bio, interests); hide a tile when its data is absent, or say plainly that it is coming.",
+      "Do keep every tap target at least 2.75rem tall and every focus state on the 3px indigo outline.",
+      "Do disable the load cascade and hover lift under reduced motion."
     ],
     "donts": [
-      "Don't use cards, rounded corners, or drop shadows; every corner is 0px and every container is a ruled region or the one tinted panel.",
-      "Don't fill any surface with navy other than the masthead band and the primary button.",
-      "Don't introduce a second typeface, an icon font, or glyph icons; the status marker is a CSS square.",
-      "Don't put an eyebrow, kicker, or small uppercase label above a heading; the exhibit number lives in the heading text itself.",
-      "Don't render skills as pills, tags or chips; they are rows in a ruled two-column table.",
-      "Don't add a new tinted surface or a new rule weight to separate a region."
+      "Don't put an eyebrow, kicker, or small uppercase label above a heading; the heading names itself.",
+      "Don't invent stats, testimonials, skills, logos, or filler copy to fill a tile.",
+      "Don't use tints, indigo, or the ink tile as decoration or to balance a row.",
+      "Don't add borders, hard offset shadows, or colored shadows to tiles; there is one shadow.",
+      "Don't introduce a second typeface or a system display face.",
+      "Don't add motion beyond the single load cascade, the work-tile lift, and button color transitions.",
+      "Don't bring back the Initiation Note vocabulary: navy, Libre Franklin, hairline-ruled report layout."
     ]
   }
 }

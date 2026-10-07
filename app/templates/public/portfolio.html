@@ -1,24 +1,30 @@
 {% extends 'base.html' %}
+{% from 'public/_macros.html' import site_diagram %}
 {% block title %}{{ profile.name }} · Portfolio{% endblock %}
 {% block meta %}<meta name="description" content="Projects by {{ profile.name }}.">{% endblock %}
 {% block content %}
-<header class="page-head">
-  <h1>Portfolio</h1>
-  <p class="coverage">Projects built and run by {{ profile.name }}</p>
-</header>
-<section class="exhibit" aria-label="Projects">
-  {% if projects %}
-    <ol class="ledger">
-      {% for project in projects %}
-      <li class="ledger-row">
-        <h2 class="ledger-title"><a href="/portfolio/{{ project.slug }}">{{ project.title }}</a></h2>
-        <p>{{ project.summary }}</p>
-        {% if project.technology %}<p class="ledger-meta">{{ project.technology }}</p>{% endif %}
-      </li>
-      {% endfor %}
-    </ol>
-  {% else %}
-    <p class="empty">Projects will be listed here as they are published.</p>
-  {% endif %}
+<section class="tile tile-full tile-head">
+  <div>
+    <h1>Portfolio</h1>
+    <p class="lede">Projects built and run by {{ profile.name }}.</p>
+  </div>
 </section>
+{% for project in projects %}
+<section class="tile tile-full tile-project" aria-labelledby="project-{{ project.slug }}">
+  <div>
+    <h2 id="project-{{ project.slug }}" class="tile-title tile-title-lg"><a href="/portfolio/{{ project.slug }}">{{ project.title }}</a></h2>
+    <p class="muted">{{ project.summary }}</p>
+    {% if project.technology %}<ul class="chips">{% for tech in project.technology.split(',') %}<li>{{ tech | trim }}</li>{% endfor %}</ul>{% endif %}
+    <div class="actions">
+      <a class="btn" href="/portfolio/{{ project.slug }}">Project details</a>
+      {% if project.repo_url %}<a class="btn btn-soft" href="{{ project.repo_url }}">Source code</a>{% endif %}
+    </div>
+  </div>
+  {% if project.slug == 'career-platform' %}{{ site_diagram() }}{% endif %}
+</section>
+{% else %}
+<section class="tile tile-full">
+  <p class="muted">Projects will appear here as they are published.</p>
+</section>
+{% endfor %}
 {% endblock %}

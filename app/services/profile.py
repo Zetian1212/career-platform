@@ -98,10 +98,11 @@ def load_fallback_snapshot(path: str | Path) -> CoreProfileSnapshot:
 def write_fallback_snapshot(snapshot: CoreProfileSnapshot, path: str | Path) -> None:
     target = Path(path)
     target.parent.mkdir(parents=True, exist_ok=True)
+    existing = json.loads(target.read_text(encoding='utf-8')) if target.exists() else {}
     education = [_education_payload(item) for item in snapshot.education]
-    if not education and target.exists():
+    if not education:
         # Keep the committed education record when the database has none yet.
-        education = json.loads(target.read_text(encoding='utf-8')).get('education', [])
+        education = existing.get('education', [])
     payload = {
         'profile': snapshot.profile,
         'links': [
@@ -116,6 +117,9 @@ def write_fallback_snapshot(snapshot: CoreProfileSnapshot, path: str | Path) -> 
         'education': education,
         'generated_at': snapshot.generated_at,
     }
+    if existing.get('interests'):
+        # Interests are edited in the file itself, not in the database.
+        payload['interests'] = existing['interests']
     target.write_text(json.dumps(payload, indent=2), encoding='utf-8')
 
 
@@ -141,3 +145,11 @@ def education_with_fallback(repo, snapshot: CoreProfileSnapshot, snapshot_path: 
         return load_fallback_snapshot(snapshot_path).education
     except (OSError, ValueError, TypeError):
         return []
+
+
+def load_interests(snapshot_path: str | Path) -> list[str]:
+    try:
+        payload = json.loads(Path(snapshot_path).read_text(encoding='utf-8'))
+    except (OSError, ValueError):
+        return []
+    return [str(item) for item in payload.get('interests', []) if str(item).strip()]

@@ -61,7 +61,7 @@ def admin_profile(request: Request, db: Session = Depends(get_db)):
 
 
 @router.post('/admin/profile')
-def admin_profile_submit(request: Request, db: Session = Depends(get_db), name: str = Form(...), headline: str = Form(...), summary: str = Form(...)):
+def admin_profile_submit(request: Request, db: Session = Depends(get_db), name: str = Form(...), headline: str = Form(...), summary: str = Form(...), bio: str = Form('')):
     try:
         require_admin(request)
     except PermissionError:
@@ -74,6 +74,7 @@ def admin_profile_submit(request: Request, db: Session = Depends(get_db), name: 
         profile.name = name
         profile.headline = headline
         profile.summary = summary
+        profile.bio = bio.strip() or None
         db.commit()
     return RedirectResponse(url='/admin', status_code=303)
 
