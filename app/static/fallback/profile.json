@@ -67,9 +67,21 @@
       "school": "Loyola Marymount University",
       "degree": "Bachelor of Business Administration",
       "field_of_study": "Finance; Information Systems and Business Analysis",
-      "start_date": null,
-      "end_date": "2027-06",
+      "start_date": "2022-08",
+      "end_date": "2027-05",
+      "honors": null
+    },
+    {
+      "school": "Shanghai American School",
+      "degree": "High school",
+      "field_of_study": null,
+      "start_date": "2017-08",
+      "end_date": "2022-06",
       "honors": null
     }
+  ],
+  "interests": [
+    "Watching the NBA, especially the Lakers.",
+    "Trying new foods whenever I can."
   ]
 }

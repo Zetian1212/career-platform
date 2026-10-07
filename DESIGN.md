@@ -1,288 +1,356 @@
 ---
 name: Zetian Tao, Career Platform
-description: A resume and portfolio set as page one of a sell-side equity research initiation note.
+description: A polished tile-grid portfolio that introduces a finance-and-systems student as a person, not a template.
 colors:
-  report-paper: "oklch(98.6% 0.003 250)"
-  key-data-panel: "oklch(95.4% 0.012 255)"
-  report-ink: "oklch(21% 0.025 262)"
-  secondary-ink: "oklch(43% 0.025 262)"
-  hairline: "oklch(86% 0.012 262)"
-  control-line: "oklch(58% 0.02 262)"
-  research-navy: "oklch(34% 0.085 258)"
-  research-navy-deep: "oklch(27% 0.07 260)"
-  on-navy: "oklch(97.5% 0.008 258)"
-  on-navy-muted: "oklch(84% 0.035 258)"
-  focus-blue: "oklch(52% 0.16 255)"
-  live-green: "oklch(45% 0.11 155)"
-  cached-amber: "oklch(49% 0.12 62)"
-  cached-panel: "oklch(95% 0.045 85)"
-  error-red: "oklch(48% 0.17 27)"
+  bg: "#f2f3f7"
+  tile: "#ffffff"
+  ink: "#11131a"
+  muted: "#5a6072"
+  line: "#e1e4ec"
+  control-line: "#8a90a2"
+  accent: "#4f3ff0"
+  accent-deep: "#3a2bd1"
+  accent-soft: "#ece9ff"
+  on-accent-2: "#e6e3ff"
+  dark-2: "#262a36"
+  on-dark-2: "#b9bccb"
+  mint: "#dcf5e8"
+  mint-ink: "#0c5537"
+  sky: "#dfeaff"
+  sky-ink: "#1b4a9c"
+  peach: "#ffe8da"
+  peach-ink: "#7a3312"
+  live: "#3ee08f"
+  cached: "#f2b544"
+  cached-panel: "#fff4dc"
+  error: "#c0262d"
 typography:
   display:
-    fontFamily: "Libre Franklin, Franklin Gothic Medium, Helvetica Neue, Arial, sans-serif"
-    fontSize: "clamp(2.75rem, 1.4rem + 4.6vw, 5rem)"
+    fontFamily: "Manrope, Helvetica Neue, Arial, sans-serif"
+    fontSize: "clamp(2.75rem, 1.6rem + 4.2vw, 5.25rem)"
     fontWeight: 800
-    lineHeight: 0.98
-    letterSpacing: "-0.035em"
-  headline:
-    fontFamily: "Libre Franklin, Franklin Gothic Medium, Helvetica Neue, Arial, sans-serif"
-    fontSize: "clamp(2.25rem, 1.5rem + 2.8vw, 3.5rem)"
+    lineHeight: 0.95
+    letterSpacing: "-0.045em"
+  page-title:
+    fontFamily: "Manrope, Helvetica Neue, Arial, sans-serif"
+    fontSize: "clamp(2.5rem, 1.8rem + 2.8vw, 4rem)"
     fontWeight: 800
-    lineHeight: 1
+    lineHeight: 0.95
+    letterSpacing: "-0.045em"
+  title-lg:
+    fontFamily: "Manrope, Helvetica Neue, Arial, sans-serif"
+    fontSize: "clamp(1.6rem, 1.3rem + 1vw, 2rem)"
+    fontWeight: 800
+    lineHeight: 1.2
     letterSpacing: "-0.03em"
-  discipline:
-    fontFamily: "Libre Franklin, Franklin Gothic Medium, Helvetica Neue, Arial, sans-serif"
-    fontSize: "clamp(1.1875rem, 1rem + 0.6vw, 1.4375rem)"
-    fontWeight: 600
-    lineHeight: 1.3
-    letterSpacing: "-0.01em"
   title:
-    fontFamily: "Libre Franklin, Franklin Gothic Medium, Helvetica Neue, Arial, sans-serif"
-    fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)"
-    fontWeight: 700
-    lineHeight: 1.15
-    letterSpacing: "-0.015em"
-  title-sm:
-    fontFamily: "Libre Franklin, Franklin Gothic Medium, Helvetica Neue, Arial, sans-serif"
-    fontSize: "1.25rem"
-    fontWeight: 700
-    lineHeight: 1.15
-    letterSpacing: "-0.01em"
+    fontFamily: "Manrope, Helvetica Neue, Arial, sans-serif"
+    fontSize: "1.4rem"
+    fontWeight: 800
+    lineHeight: 1.2
+    letterSpacing: "-0.02em"
   lede:
-    fontFamily: "Libre Franklin, Franklin Gothic Medium, Helvetica Neue, Arial, sans-serif"
-    fontSize: "1.1875rem"
+    fontFamily: "Manrope, Helvetica Neue, Arial, sans-serif"
+    fontSize: "clamp(1.15rem, 1rem + 0.5vw, 1.35rem)"
     fontWeight: 400
-    lineHeight: 1.6
+    lineHeight: 1.45
   body:
-    fontFamily: "Libre Franklin, Franklin Gothic Medium, Helvetica Neue, Arial, sans-serif"
+    fontFamily: "Manrope, Helvetica Neue, Arial, sans-serif"
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.6
-    fontFeature: "\"lnum\" 1"
-  label:
-    fontFamily: "Libre Franklin, Franklin Gothic Medium, Helvetica Neue, Arial, sans-serif"
-    fontSize: "0.875rem"
-    fontWeight: 500
-    lineHeight: 1.6
-  caption:
-    fontFamily: "Libre Franklin, Franklin Gothic Medium, Helvetica Neue, Arial, sans-serif"
-    fontSize: "0.8125rem"
+  body-lg:
+    fontFamily: "Manrope, Helvetica Neue, Arial, sans-serif"
+    fontSize: "1.125rem"
     fontWeight: 400
+    lineHeight: 1.65
+  label:
+    fontFamily: "Manrope, Helvetica Neue, Arial, sans-serif"
+    fontSize: "1rem"
+    fontWeight: 700
     lineHeight: 1.6
+  meta:
+    fontFamily: "Manrope, Helvetica Neue, Arial, sans-serif"
+    fontSize: "0.875rem"
+    fontWeight: 700
+    lineHeight: 1.6
+    fontFeature: "tnum"
 rounded:
-  none: "0px"
+  focus: "6px"
+  input: "12px"
+  tile: "22px"
+  pill: "999px"
 spacing:
-  gutter: "clamp(1rem, 4vw, 3rem)"
-  section: "clamp(3rem, 6vw, 4.5rem)"
-  measure: "64ch"
-  page: "72rem"
+  gap: "1rem"
+  page-gutter: "1.25rem"
+  tile-pad: "2rem"
+  tile-pad-intro: "2.75rem"
+  tile-pad-mobile: "1.5rem"
+  page-max: "76rem"
 components:
   button-primary:
-    backgroundColor: "{colors.research-navy}"
-    textColor: "{colors.on-navy}"
-    rounded: "{rounded.none}"
-    padding: "0.7rem 1.25rem"
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.tile}"
+    typography: "{typography.label}"
+    rounded: "{rounded.pill}"
+    padding: "0 1.35rem"
     height: "2.875rem"
   button-primary-hover:
-    backgroundColor: "{colors.research-navy-deep}"
-    textColor: "{colors.on-navy}"
-  button-quiet:
-    backgroundColor: "transparent"
-    textColor: "{colors.research-navy}"
-    rounded: "{rounded.none}"
-    padding: "0.7rem 1.25rem"
+    backgroundColor: "{colors.accent}"
+    textColor: "{colors.tile}"
+  button-soft:
+    backgroundColor: "{colors.accent-soft}"
+    textColor: "{colors.accent-deep}"
+    typography: "{typography.label}"
+    rounded: "{rounded.pill}"
+    padding: "0 1.35rem"
     height: "2.875rem"
-  button-quiet-hover:
-    backgroundColor: "{colors.key-data-panel}"
-    textColor: "{colors.report-ink}"
-  masthead:
-    backgroundColor: "{colors.research-navy}"
-    textColor: "{colors.on-navy}"
-    typography: "{typography.body}"
-  key-data:
-    backgroundColor: "{colors.key-data-panel}"
-    textColor: "{colors.report-ink}"
-    rounded: "{rounded.none}"
-    padding: "1.25rem 1.5rem 0.5rem"
-  exhibit-caption:
-    textColor: "{colors.secondary-ink}"
-    typography: "{typography.caption}"
+  button-soft-hover:
+    backgroundColor: "{colors.accent}"
+    textColor: "{colors.tile}"
+  nav-link:
+    textColor: "{colors.muted}"
+    typography: "{typography.label}"
+    rounded: "{rounded.pill}"
+    padding: "0 1rem"
+    height: "2.75rem"
+  nav-link-current:
+    backgroundColor: "{colors.tile}"
+    textColor: "{colors.ink}"
+  chip:
+    backgroundColor: "{colors.bg}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.pill}"
+    padding: "0.5rem 0.9rem"
+  chip-dark:
+    backgroundColor: "{colors.dark-2}"
+    textColor: "{colors.tile}"
+    rounded: "{rounded.pill}"
+    padding: "0.5rem 0.9rem"
+  tile:
+    backgroundColor: "{colors.tile}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.tile}"
+    padding: "{spacing.tile-pad}"
+  tile-intro:
+    backgroundColor: "{colors.tile}"
+    rounded: "{rounded.tile}"
+    padding: "{spacing.tile-pad-intro}"
+  tile-dark:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.on-dark-2}"
+    rounded: "{rounded.tile}"
+    padding: "{spacing.tile-pad}"
+  tile-accent:
+    backgroundColor: "{colors.accent}"
+    textColor: "{colors.on-accent-2}"
+    rounded: "{rounded.tile}"
+    padding: "{spacing.tile-pad}"
+  tile-mint:
+    backgroundColor: "{colors.mint}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.tile}"
+  tile-sky:
+    backgroundColor: "{colors.sky}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.tile}"
+  tile-peach:
+    backgroundColor: "{colors.peach}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.tile}"
   input:
-    backgroundColor: "{colors.report-paper}"
-    textColor: "{colors.report-ink}"
-    rounded: "{rounded.none}"
-    padding: "0.65rem 0.75rem"
+    backgroundColor: "{colors.tile}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.input}"
+    padding: "0.7rem 0.85rem"
   degraded-banner:
     backgroundColor: "{colors.cached-panel}"
-    textColor: "{colors.report-ink}"
-    padding: "0.75rem 1rem"
-  disclosures:
-    backgroundColor: "{colors.key-data-panel}"
-    textColor: "{colors.secondary-ink}"
-    typography: "{typography.label}"
-    padding: "2rem 1rem 2.5rem"
+    textColor: "{colors.ink}"
+    padding: "0.75rem 1.25rem"
 ---
 
 # Design System: Zetian Tao, Career Platform
 
 ## Overview
 
-**Creative North Star: "The Initiation Note"**
+**Creative North Star: "The Tiled Introduction"**
 
-Every page is set as page one of a sell-side equity research initiation, with the candidate as the covered name. A navy house band carries the navigation; below it, a coverage line, a tinted key-data box, a thesis paragraph, and numbered, ruled exhibits do the work that a hero, skill pills and equal cards would do on a portfolio template. The reader is a recruiter in finance or technology who scans before reading, so density is that of a printed report: one column of measured prose beside one column of data, nothing ornamental between them.
+The site is a set of white and tinted tiles of different sizes laid on a cool light-gray ground, read like meeting someone in person: a name and a study line first, then a live status, the school, who they are, what they did, what they know, what they built, and how to reach them. Each tile carries one kind of fact and one role color, so the grid reads as a composed introduction rather than a uniform card wall.
 
-The material is cool report-white paper and near-black ink. Structure comes from rules, not containers: a heavy ink rule opens each exhibit, hairlines separate rows, and a navy rule marks a column header. There are no rounded corners, no drop shadows, no cards, and no imagery. One sans family, Libre Franklin, carries every role through weight alone, with lining figures site-wide and tabular figures wherever a date or figure sits in a column.
+The finish is polished and friendly without being playful: one variable sans (Manrope) at heavy weight with tight tracking for every heading, soft two-layer shadows that barely lift tiles off the ground, generous 22px corners, pill-shaped controls. Color is confined to whole tiles (one indigo, one ink-black, and pastel mint, sky, and peach) plus soft-indigo buttons; text inside stays ink or muted gray. Density is moderate: tiles hold short paragraphs and lists, never long prose.
 
-Motion is limited to 120ms ease-out colour and underline transitions on links and buttons. Nothing animates into view.
+This world replaces the rejected "Initiation Note" research-report design (navy, Libre Franklin, hairline rules), which was judged too empty and plain. Nothing from it carries over.
 
 **Key Characteristics:**
-- Navy house band at the top, pale panel disclosures band at the foot, paper between.
-- Two-column title block: name, discipline and thesis on the left (about 1.85fr); key data on the right (min 19rem).
-- Numbered exhibits ("Exhibit 1: Skills by discipline") opened by a 3px ink rule, closed by a small "Source:" caption when the content has a real source.
-- Square everything: zero radius on buttons, inputs, panels and the status marker.
-- One family, weight-led hierarchy from 800 (name) down to 400 (body).
+- 12-column tile grid with mixed spans and dense packing; tiles are the only container.
+- Manrope variable, self-hosted, 800 weight for every heading.
+- One indigo accent; ink-black and three pastel tints as per-tile roles.
+- Soft two-layer ambient shadow on every tile; 22px tile corners; pill controls.
+- One staggered load cascade; a small hover lift on work tiles; nothing moves under reduced motion.
 
 ## Colors
 
-A restrained research-house palette: cool near-white paper, blue-black ink, and one saturated research navy, with three semantic hues reserved for state.
+A cool neutral ground with one saturated indigo, an ink-black counterweight, and three low-chroma pastels, each tied to a tile role.
 
 ### Primary
-- **Research Navy** (oklch(34% 0.085 258)): the house colour. Fills the masthead band and the primary action button; sets link text, the discipline line under the name, the 4px top rule of the key-data box, and the 2px rule under skill-column headers. Also the text-selection fill.
-- **Deep Research Navy** (oklch(27% 0.07 260)): hover state for filled navy buttons only.
+- **Signal Indigo** (accent): the one saturated color. Fills the single identity tile per page (the education tile on Home and Resume, one link tile on Contact), the hover state of every button, the focus ring, and text selection.
+- **Deep Indigo** (accent-deep): indigo text on light surfaces: soft-button labels, job date lines, and the accent node label in the architecture diagram.
+- **Indigo Wash** (accent-soft): soft-button fill and the accent node in the diagram.
+- **Indigo Mist** (on-accent-2): body text on an indigo tile; headings and links on indigo stay white.
+
+### Secondary
+- **Ink Tile** (ink as background): the dark tile (status tile on Home, "Built with" on a project page, one link tile on Contact). Body text on it is **Slate Mist** (on-dark-2); headings and links are white. Chips inside it use **Graphite** (dark-2).
+
+### Tertiary (role tints, each paired with its own ink for the tile heading)
+- **Mint** (mint) with **Forest Ink** (mint-ink): Right now, and odd-numbered skill groups (Finance skills). Forest Ink also colors list markers.
+- **Sky** (sky) with **Harbor Ink** (sky-ink): Off the clock, and even-numbered skill groups (Technical skills).
+- **Peach** (peach) with **Rust Ink** (peach-ink): About me only.
+- Chips on mint or sky sit on 78% white so they read as pills on the tint.
+
+### Status
+- **Live Green** (live) and **Amber Cached** (cached): the status dot in the dark status tile, each with a 4px 22%-alpha halo of its own color. **Cream Notice** (cached-panel) is the full-width degraded banner shown when the database is down. **Alert Red** (error) is admin form error text only.
 
 ### Neutral
-- **Report Paper** (oklch(98.6% 0.003 250)): page background and input fill. Cool, nearly neutral white, never cream.
-- **Key Data Panel** (oklch(95.4% 0.012 255)): the one tinted surface. Used for the key-data box, the disclosures footer band, and the quiet button's hover fill.
-- **Report Ink** (oklch(21% 0.025 262)): body text, headings, and the heavy 3px exhibit rule and 1px key-data heading rule.
-- **Secondary Ink** (oklch(43% 0.025 262)): coverage lines, dates, metadata, key-data labels, source captions, disclosure text.
-- **Hairline** (oklch(86% 0.012 262)): 1px row separators in ledgers, skill columns, key-data rows, contact rows and the footer top edge.
-- **Control Line** (oklch(58% 0.02 262)): 1px stroke on form inputs, darker than the hairline so fields read as controls.
-- **On Navy** (oklch(97.5% 0.008 258)) and **On Navy Muted** (oklch(84% 0.035 258)): text on the masthead; muted for idle nav links, full for the current page and the name.
-
-### Semantic
-- **Focus Blue** (oklch(52% 0.16 255)): 3px focus outline everywhere except on the masthead, where the outline switches to On Navy.
-- **Live Green** (oklch(45% 0.11 155)): the "Live database" status.
-- **Cached Amber** (oklch(49% 0.12 62)) with **Cached Panel** (oklch(95% 0.045 85)): the "Cached snapshot" status and the degraded banner (panel fill, amber bottom rule).
-- **Error Red** (oklch(48% 0.17 27)): form error text, semibold.
+- **Cool Mist** (bg): page ground, default chip fill, and plain diagram nodes.
+- **White Tile** (tile): every default tile, active nav pill, input fill.
+- **Ink** (ink): all heading and body text on light surfaces; primary button fill.
+- **Slate** (muted): ledes, descriptions, nav links at rest, footer.
+- **Hairline** (line): the single rule between resume entries.
+- **Control Line** (control-line): input borders (3:1 against white) and the dashed fallback node in the diagram.
 
 ### Named Rules
-**The House Band Rule.** Navy appears as a filled surface in exactly two places: the masthead band and the primary action button. Everywhere else it is a line or text (links, discipline line, column-header rules, key-data top rule), never a second filled block.
+**The Tint-Is-a-Role Rule.** A tint names what a tile holds, never decorates it: peach is About, mint is now and the first skill group, sky is off-hours and the second skill group, ink is the system status or build facts, indigo is the identity anchor. A new tile that does not fit a role is white.
 
-**The One Tint Rule.** The only tinted surface is the Key Data Panel. If a new region needs separation, use a rule, not a new fill.
+**The One Indigo Tile Rule.** At most one indigo-filled tile per page. Indigo elsewhere appears only as soft buttons, dates, hover, focus, and selection.
 
 ## Typography
 
-**Display Font:** Libre Franklin, self-hosted variable woff2, weights 100 to 900 (with Franklin Gothic Medium, Helvetica Neue, Arial, sans-serif)
-**Body Font:** Libre Franklin (same file)
+**Display Font:** Manrope (with Helvetica Neue, Arial, sans-serif)
+**Body Font:** Manrope (same family)
 
-**Character:** A news-gothic grotesque that reads as financial print. Hierarchy is carried by weight and size in one family: a heavy, tightly tracked name; semibold navy discipline line; bold exhibit titles; regular body.
+**Character:** One self-hosted variable sans (weights 200 to 800, OFL) does every job. Headings are 800 with negative tracking so they read as solid, confident shapes; body stays 400 at a relaxed 1.6 leading; controls and labels use 700.
 
 ### Hierarchy
-- **Display** (800, clamp(2.75rem, 1.4rem + 4.6vw, 5rem), 0.98, -0.035em): the candidate's name on Home and the project title on project pages. Once per page.
-- **Headline** (800, clamp(2.25rem, 1.5rem + 2.8vw, 3.5rem), 1, -0.03em): interior page heads (Resume, Portfolio, Contact, Page not found).
-- **Discipline** (600, clamp(1.1875rem, 1rem + 0.6vw, 1.4375rem), 1.3, navy): the coverage subject under the name, majors joined with " + ".
-- **Title** (700, clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem), -0.015em): exhibit headings.
-- **Title Small** (700, 1.25rem, -0.01em): ledger row titles and project-page sub-heads.
-- **Lede** (400, 1.1875rem, 1.6): the thesis paragraph, capped at 64ch.
-- **Body** (400, 1rem, 1.6): all running text, prose capped at 64ch.
-- **Label** (500, 0.875rem to 0.9375rem): key-data labels, ledger dates and metadata, nav links (0.9375rem, 500; 650 when current), column heads (0.9375rem, 700, navy).
-- **Caption** (400, 0.8125rem, secondary ink): exhibit "Source:" lines.
+- **Display** (800, clamp 2.75rem to 5.25rem, 0.95, -0.045em): the single page greeting or page name in the intro tile ("Hi, I'm Zetian.", "Contact", "Page not found").
+- **Page title** (800, clamp 2.5rem to 4rem): the h1 in a full-width page-head tile (Resume, Portfolio).
+- **Title large** (800, clamp 1.6rem to 2rem, -0.03em): section-leading tile headings (About me, Experience, project names, Certifications).
+- **Title** (800, 1.4rem, 1.2, -0.02em): every other tile heading; on tinted tiles it takes the tint's ink.
+- **Lede** (400, clamp 1.15rem to 1.35rem, 1.45, muted): the one sentence under the display line, max 36ch in the intro tile.
+- **Body large** (400, 1.125rem, 1.65, max 62ch): About paragraphs.
+- **Body** (400, 1rem, 1.6): descriptions, max 52 to 70ch.
+- **Label** (700, 1rem): nav, buttons, link rows; chips and list items use 600.
+- **Meta** (700, 0.875rem, tabular numerals): job date ranges in Deep Indigo; resume date lines use tabular 700 at body size.
 
 ### Named Rules
-**The One Family Rule.** Libre Franklin only. Do not introduce a second face for display, labels, or numbers; change weight instead.
-
-**The Figures Rule.** Lining figures are on for the whole body. Any date, date range, or path that sits in a column or data cell also takes tabular figures (`tabular-nums lining-nums`), so dates align down a ledger.
+**The Heading-Names-Itself Rule.** Every tile's first line is its heading, in plain words ("Right now", "Finance skills", "Get in touch"). No small uppercase label, eyebrow, or kicker sits above a heading. A data line such as a job's dates may precede the company name because it is the fact, not a category label.
 
 ## Layout
 
-The page frame is a single centred column, max 72rem, with a fluid gutter (clamp(1rem, 4vw, 3rem)) on both sides; masthead and disclosures inner rows share the same width so the left edge holds from top to bottom. Top padding of the main column is clamp(2.5rem, 6vw, 4.5rem).
+A centered page of max 76rem with 1.25rem gutters holds a header row, the tile grid, and a footer. The grid is 12 equal columns with a 1rem gap, dense auto-flow, and content aligned to the top.
 
-The title block is a two-column grid (minmax(0, 1.85fr) and minmax(19rem, 1fr)) with a gap of clamp(2rem, 5vw, 4.5rem); text on the left, key data on the right, aligned to the top. Exhibits stack below at a section spacing of clamp(3rem, 6vw, 4.5rem); the disclosures footer sits 1.25x that below the last exhibit. Running text is capped at 64ch; disclosure text at 72ch.
+Span vocabulary: full (12), wide (8), half (6), side (4). The intro tile spans 8 columns and two rows, with its text at the top and the action pills pinned to the bottom; it collapses to one row (single) or full width when it stands alone. A tall tile spans two rows (About me beside Right now and Off the clock). A fit tile aligns to the top instead of stretching. A page-head tile is full width with the title and actions on one baseline row. The experience band is a full-width, short tile (1.5rem by 2rem padding) carrying the section title and a soft button, followed by one side tile per job, so three jobs fill one row.
 
-Inside exhibits, the skill table is two equal columns; dated ledger rows put a 10rem date column before the content; key-data and contact rows use a fixed label column (6.75rem and 8.5rem) beside the value.
+Tile padding is 2rem; intro and page-head tiles use 2.75rem. At 860px and below every span becomes full width, two-row spans release, the project tile stacks its diagram under its text, and all tile padding drops to 1.5rem. At 30rem and below nav pills tighten to 0.75rem side padding and action buttons stretch to share the row.
 
-Breakpoints: at 52rem the title block and dated ledger rows collapse to one column (key data moves below the thesis; dates sit above titles). At 30rem the skill table, key-data rows and contact rows stack, the masthead tightens, and buttons in the action row go full width.
+**The Mixed-Span Rule.** A page is composed of tiles of different sizes; a row of identical tiles appears only where the content is genuinely parallel (the job tiles, the two skill groups).
 
 ## Elevation & Depth
 
-Flat. There are no drop shadows anywhere. Depth is expressed by rule weight and by the single tinted panel: a 3px ink rule opens an exhibit, a 4px navy rule caps the key-data box, a 2px navy rule underlines column heads, and 1px hairlines divide rows. The only `box-shadow` in the build is a 3px inset bar under the nav links, which is an underline (a rule), not elevation.
+Depth is a single ambient layer: every tile, the admin card, and the active nav pill sit on the ground with the same soft two-layer shadow (a 1px contact shadow plus a wide 24px blur, both ink at 5 to 6% alpha). There are no borders on tiles and no tonal stacking. Job and project tiles, the clickable work, lift 3px on hover and their shadow deepens.
+
+### Shadow Vocabulary
+- **Tile rest** (`box-shadow: 0 1px 2px rgba(17,19,26,.06), 0 8px 24px rgba(17,19,26,.05)`): every tile, card, and the current nav pill.
+- **Work hover** (`box-shadow: 0 2px 4px rgba(17,19,26,.06), 0 16px 36px rgba(17,19,26,.09)`): job and project tiles on hover only.
+- **Status halo** (`box-shadow: 0 0 0 4px` the dot color at 22%): the live or cached status dot.
 
 ### Named Rules
-**The Rule Weight Rule.** Separation is a line, and its weight says its rank: 4px navy (key-data cap), 3px ink (exhibit open), 2px navy (column head), 1px ink (key-data heading), 1px hairline (row). Do not add a new weight.
+**The One Shadow Rule.** All resting surfaces share one shadow. Never add a hard offset shadow, a colored shadow, or a border to stand a tile out; use a role tint instead.
 
 ## Shapes
 
-Every corner is square (0px): buttons, inputs, the key-data box, the degraded banner and the status marker, which is a 0.55rem filled square, not a dot. Borders are 1px except the 1.5px button stroke and the structural rules above. There is no clipping, masking, or decorative geometry.
+Generously rounded rectangles (22px) for every tile and admin card; full pills (999px) for buttons, nav links, and chips; gently rounded 12px for inputs, the skip link, and diagram nodes; 6px on the focus outline. Circles appear only as the status dot. The architecture diagram is flat: rounded nodes in ground, indigo-wash, ink, and a dashed control-line outline for the fallback snapshot, joined by 2px soft lavender-gray connectors.
 
 ## Components
 
-### Masthead
-- **Character:** the research house's band; the only full-bleed navy surface.
-- **Name:** On Navy, 700, 1.0625rem, links home; underline on hover.
-- **Nav:** On Navy Muted, 0.9375rem, 500, min height 2.875rem. Hover lifts to On Navy with a 3px muted inset underline; the current page (`aria-current`) is On Navy, 650, with a 3px On Navy underline. Wraps under the name on narrow screens. Focus outline switches to On Navy.
+### Buttons
+- **Shape:** full pill (999px), min height 2.875rem, 1.35rem side padding, 700 label.
+- **Primary:** ink fill, white label. One per action row, for the main action (Email me, Source code, Home).
+- **Soft:** indigo-wash fill, deep-indigo label, for every secondary action (View resume, LinkedIn, GitHub, Full details, Project details).
+- **Hover:** both go to Signal Indigo with a white label in 140ms ease-out. Focus is the global 3px indigo outline at 3px offset.
+- Admin `<button>` elements use the primary pill styling.
 
-### Title Block
-- Display name, navy discipline line, secondary-ink coverage line (school, class year, location joined with " · "), the thesis at lede size, then the action row (gap 0.75rem 1.5rem).
+### Chips
+- **Style:** pill (999px), 0.5rem by 0.9rem, 600 weight, ground fill on white tiles, 78% white on mint or sky, Graphite with white text inside the ink tile. Chips are static facts (skills, technologies), never filters.
 
-### Key Data Box
-- **Style:** Key Data Panel fill, 4px navy top rule, square, padding 1.25rem 1.5rem 0.5rem (1rem inline on small screens).
-- **Heading:** "Key data", 1rem, 700, over a 1px ink rule.
-- **Rows:** label column 6.75rem in secondary ink (0.875rem, 500); value semibold (600); 1px hairline between rows, none after the last. Dates use tabular figures. Multi-value cells stack one value per line.
-- Reused on project pages for Role, Built with, Started, Live, Source.
-
-### Exhibit
-- **Style:** 3px ink top rule, 1rem padding above the title, section spacing above.
-- **Heading:** "Exhibit N: Subject", numbered in the h2 itself and counted per page in order of appearance.
-- **Source caption:** 0.8125rem secondary ink, "Source: ..." naming the real origin of the data, placed after the content. Omitted when there is no honest single source.
-- **Empty state:** a plain secondary-ink sentence at 64ch; empty exhibits are otherwise hidden.
-
-### Skill Table
-- Two equal columns (Finance, Technical) with a column gap of clamp(1.5rem, 4vw, 3.5rem). Column head 0.9375rem, 700, navy, over a 2px navy rule; each skill a row with 0.6rem vertical padding over a 1px hairline. Stacks to one column below 30rem.
-
-### Ledger Rows
-- An ordered list of rows (projects, education, experience, certifications), each padded 1.25rem / 1.375rem and divided by a 1px hairline, none after the last.
-- Title Small heading (linked when there is a destination); body capped at 64ch; metadata in secondary ink at 0.9375rem, items joined with " · ".
-- **Dated variant:** a 10rem date column (secondary ink, 500, tabular figures, "Mon YYYY – Mon YYYY" with an en dash, or "– Present") beside the content; stacks above the title below 52rem. Experience bullets are a plain disc list with 0.35rem between items.
-
-### Buttons and Text Links
-- **Shape:** square (0px), min height 2.875rem, padding 0.7rem 1.25rem, 600 weight, 1.5px stroke.
-- **Primary:** filled Research Navy with On Navy text; hover to Deep Research Navy. One per action row. When the action is email, the label shows the address.
-- **Quiet:** transparent with navy text and navy stroke; hover fills Key Data Panel, text and stroke go to ink.
-- **Text link:** navy, 1px underline at 0.22em offset, 600 weight in action rows with the same 2.875rem target height; hover goes to ink with a 2px underline. Used for secondary destinations (LinkedIn, GitHub, other pages).
-- Transitions: 120ms ease-out on colour, border and underline thickness.
-- Below 30rem, buttons in the action row go full width.
+### Cards / Containers (tiles)
+- **Corner Style:** 22px.
+- **Background:** white by default, or one role tint (see Colors).
+- **Shadow Strategy:** the tile rest shadow (see Elevation).
+- **Border:** none.
+- **Internal Padding:** 2rem; 2.75rem for intro and page-head; 1.5rem on mobile.
 
 ### Inputs / Fields (admin)
-- **Style:** Report Paper fill, 1px Control Line stroke, square, padding 0.65rem 0.75rem, inheriting the body font. Labels 600 above the field; forms max 36rem wide in a single column.
-- **Submit:** the bare `button` element is filled navy with no stroke, hover to deep navy.
-- **Focus:** the global 3px Focus Blue outline at 3px offset.
-- **Error:** Error Red, 600, as a text line.
-- Admin sections reuse the legacy `card` container, which in this world is a ruled section (1px hairline top, 1.5rem vertical padding), not a box.
+- **Style:** white fill, 1px control-line border, 12px radius, 0.7rem by 0.85rem padding, inherited Manrope. Labels are 700 above the field; textareas start at 8rem and resize vertically. Forms sit in a full-width card, max 36rem wide.
+- **Focus:** the global 3px indigo outline.
+- **Error:** Alert Red, 700 weight text.
 
-### Status Indicator
-- Inline label preceded by a 0.55rem square in currentColor: Live Green "Live database" or Cached Amber "Cached snapshot", semibold inside the key-data box.
+### Navigation
+- **Header:** site name at left (800, -0.02em tracking), pill nav at right; wraps on narrow screens.
+- **Links:** 700 muted text in a 2.75rem-tall pill. Hover fills the pill white and darkens the text to ink. The current section (`aria-current="page"`) is a white pill with ink text and the tile rest shadow.
+- A skip link (ink, white text, 12px radius) drops in on focus.
 
-### Degraded Banner
-- Full-width strip directly under the masthead: Cached Panel fill, ink text at 500, 1px Cached Amber bottom rule, centred, with `role="status"`. Appears only when the snapshot is serving.
+### Intro tile
+The page's opening tile: display heading and lede at top, action pills at bottom. On Home it spans 8 columns by 2 rows; on Project it is wide and single-row; on 404 it is full width.
 
-### Disclosures Footer
-- Full-bleed Key Data Panel band with a 1px hairline top. Heading "How this site runs" at 0.875rem, 700, ink; paragraphs 0.875rem in secondary ink at 72ch, ending with a "Source:" line linking the repository.
+### Status tile
+Ink tile with a Title heading led by the status dot: Live Green "This site is online", or Amber Cached "Running on a cached copy" when degraded, then one Slate Mist sentence on how the site is hosted.
+
+### Education tile
+The indigo tile: school name as Title in white, degree, majors joined with "+", and class year in Indigo Mist.
+
+### About / Right now / Off the clock
+About me is a tall wide peach tile with Title-large in Rust Ink and Body-large paragraphs. Right now (mint) and Off the clock (sky) are side tiles holding a short bulleted list in 600 weight, list markers in the tint ink on mint.
+
+### Experience band and job tiles
+A full-width short band holds "Experience" (Title-large) and a soft "Full details" button at opposite ends. Each job is a white side tile: dates (Meta, Deep Indigo), company (Title), role line (600), then the first description line in muted 0.95rem. Job tiles lift on hover.
+
+### Skill tiles
+One half tile per skill group, alternating mint and sky, titled "{Group} skills", holding chips of only the skills in the profile.
+
+### Project tile with architecture diagram
+A wide (Home) or full (Portfolio) tile split into text and an inline SVG diagram (two columns, stacked on mobile): Title-large linked project name, muted summary, optional chips, soft or primary buttons. The diagram is 13px 700 Manrope, labelled for screen readers with a full sentence. Project tiles lift on hover. On a project page the same diagram sits alone in a full "How it runs" tile.
+
+### Contact tile
+A white side tile: "Get in touch" Title, the email as a large 800 link (1.3rem; up to 2.6rem on the Contact page), and a muted 700 link row at the bottom with 2.75rem tap targets.
+
+### Degraded banner
+A full-width Cream Notice strip above the header, centered 600 ink text, announced as a status region.
+
+### Footer
+Muted 0.9rem single line inside the page width, with an underlined source link.
+
+### Motion
+- **Load cascade:** every grid tile rises 12px from 35% opacity over 640ms on `cubic-bezier(.16, 1, .3, 1)`, staggered 50ms per tile and capped at 300ms from the seventh tile on. It runs once on load.
+- **Work lift:** job and project tiles translate up 3px over 200ms with the deeper hover shadow.
+- **Button color:** 140ms ease-out background and text color.
+- Under `prefers-reduced-motion: reduce` the cascade does not run and the lift is removed.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** number every exhibit in its h2 ("Exhibit 1: Skills by discipline") and count per page in order of appearance.
-- **Do** close an exhibit with a "Source:" caption (0.8125rem, secondary ink) when its content has a real, nameable source; omit the caption rather than write a vague one.
-- **Do** separate with rules: 1px hairlines between rows, a 3px ink rule to open each exhibit, a 2px navy rule under column heads.
-- **Do** keep one filled navy primary action per action row, followed by a quiet button and then plain text links.
-- **Do** set every date, date range and data figure with tabular lining figures and en-dash ranges ("Mon YYYY – Mon YYYY").
-- **Do** cap running text at 64ch and keep the name, discipline line and key data in the first viewport on desktop.
-- **Do** hide sections with no real content instead of filling them; a single secondary-ink sentence is the only empty state.
+- **Do** compose every page from tiles on the 12-column grid using the full, wide, half, side, intro, and tall spans; mix sizes.
+- **Do** give a tile a tint only when it fills that tint's role, and color its heading with the tint's own ink.
+- **Do** keep at most one indigo tile per page; use soft indigo pills for secondary actions and one ink pill for the primary action.
+- **Do** set every heading in Manrope 800 with negative tracking, and let the heading be the tile's first line.
+- **Do** fill tiles only from real profile data (education, experience, skills, projects, links, bio, interests); hide a tile when its data is absent, or say plainly that it is coming.
+- **Do** keep every tap target at least 2.75rem tall and every focus state on the 3px indigo outline.
+- **Do** disable the load cascade and hover lift under reduced motion.
 
 ### Don't:
-- **Don't** use cards, rounded corners, or drop shadows; every corner is 0px and every container is a ruled region or the one tinted panel.
-- **Don't** fill any surface with navy other than the masthead band and the primary button.
-- **Don't** introduce a second typeface, an icon font, or glyph icons; the status marker is a CSS square.
-- **Don't** put an eyebrow, kicker, or small uppercase label above a heading; the exhibit number lives in the heading text itself.
-- **Don't** render skills as pills, tags or chips; they are rows in a ruled two-column table.
-- **Don't** add a new tinted surface or a new rule weight to separate a region.
+- **Don't** put an eyebrow, kicker, or small uppercase label above a heading; the heading names itself.
+- **Don't** invent stats, testimonials, skills, logos, or filler copy to fill a tile.
+- **Don't** use tints, indigo, or the ink tile as decoration or to balance a row.
+- **Don't** add borders, hard offset shadows, or colored shadows to tiles; there is one shadow.
+- **Don't** introduce a second typeface or a system display face.
+- **Don't** add motion beyond the single load cascade, the work-tile lift, and button color transitions.
+- **Don't** bring back the Initiation Note vocabulary: navy, Libre Franklin, hairline-ruled report layout.

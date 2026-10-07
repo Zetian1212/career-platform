@@ -1,77 +1,56 @@
 {% extends 'base.html' %}
-{% from 'public/_macros.html' import skill_table, date_range %}
+{% from 'public/_macros.html' import skill_tiles, date_range, majors %}
 {% block title %}{{ profile.name }} · Resume{% endblock %}
 {% block meta %}<meta name="description" content="Resume of {{ profile.name }}: education, experience, and skills.">{% endblock %}
 {% block content %}
 {% set email = email_link(links) %}
-{% set exhibit = namespace(n=0) %}
-<header class="page-head">
-  <h1>Resume</h1>
-  <p class="coverage">{{ profile.name }}{% if profile.location %} · {{ profile.location }}{% endif %}</p>
-  {% if email %}<p class="actions"><a class="button" href="{{ email.url }}">Email {{ email.url[7:] }}</a></p>{% endif %}
-</header>
-
-{% if education %}
-<section class="exhibit" aria-labelledby="education-title">
-  {% set exhibit.n = exhibit.n + 1 %}<h2 id="education-title">Exhibit {{ exhibit.n }}: Education</h2>
-  <ol class="ledger">
-    {% for item in education %}
-    <li class="ledger-row ledger-row-dated">
-      <p class="ledger-date figure">{{ date_range(item) }}</p>
-      <div>
-        <h3>{{ item.school }}</h3>
-        <p>{{ item.degree }}</p>
-        {% if item.field_of_study %}<p class="ledger-meta">{{ item.field_of_study.split(';') | map('trim') | join(' + ') }}</p>{% endif %}
-        {% if item.honors %}<p class="ledger-meta">{{ item.honors }}</p>{% endif %}
-      </div>
-    </li>
-    {% endfor %}
-  </ol>
-  <p class="source">Source: LinkedIn profile export (Profile.pdf).</p>
+<section class="tile tile-full tile-head">
+  <div>
+    <h1>Resume</h1>
+    <p class="lede">{{ profile.name }}{% if profile.location %} · {{ profile.location }}{% endif %}</p>
+  </div>
+  {% if email %}<div class="actions"><a class="btn" href="{{ email.url }}">Email me</a></div>{% endif %}
 </section>
-{% endif %}
+
+{% for item in education %}
+<section class="tile tile-full{{ ' tile-accent' if loop.first }}" aria-labelledby="edu-{{ loop.index }}">
+  <h2 id="edu-{{ loop.index }}" class="tile-title">{{ item.school }}</h2>
+  <p>{{ item.degree }}</p>
+  {% if item.field_of_study %}<p>{{ majors(item) }}</p>{% endif %}
+  {% if item.honors %}<p>{{ item.honors }}</p>{% endif %}
+  <p class="meta-line">{{ date_range(item) }}</p>
+</section>
+{% endfor %}
 
 {% if experience %}
-<section class="exhibit" aria-labelledby="experience-title">
-  {% set exhibit.n = exhibit.n + 1 %}<h2 id="experience-title">Exhibit {{ exhibit.n }}: Experience</h2>
-  <ol class="ledger">
+<section class="tile tile-full" aria-labelledby="experience-title">
+  <h2 id="experience-title" class="tile-title tile-title-lg">Experience</h2>
+  <ol class="entries">
     {% for item in experience %}
-    <li class="ledger-row ledger-row-dated">
-      <p class="ledger-date figure">{{ date_range(item) }}</p>
-      <div>
-        <h3>{{ item.role }}, {{ item.company }}</h3>
-        {% if item.location %}<p class="ledger-meta">{{ item.location }}</p>{% endif %}
-        {% if item.description %}
-          <ul class="points">
-            {% for line in item.description.splitlines() if line.strip() %}<li>{{ line }}</li>{% endfor %}
-          </ul>
-        {% endif %}
-      </div>
+    <li>
+      <h3>{{ item.role }}, {{ item.company }}</h3>
+      <p class="muted">{{ date_range(item) }}{% if item.location %} · {{ item.location }}{% endif %}</p>
+      {% if item.description %}
+        <ul class="points">
+          {% for line in item.description.splitlines() if line.strip() %}<li>{{ line }}</li>{% endfor %}
+        </ul>
+      {% endif %}
     </li>
     {% endfor %}
   </ol>
 </section>
 {% endif %}
 
-{% if skills %}
-<section class="exhibit" aria-labelledby="skills-title">
-  {% set exhibit.n = exhibit.n + 1 %}<h2 id="skills-title">Exhibit {{ exhibit.n }}: Skills by discipline</h2>
-  {{ skill_table(skills) }}
-  <p class="source">Source: LinkedIn profile export (Profile.pdf).</p>
-</section>
-{% endif %}
+{{ skill_tiles(skills) }}
 
 {% if certifications %}
-<section class="exhibit" aria-labelledby="certifications-title">
-  {% set exhibit.n = exhibit.n + 1 %}<h2 id="certifications-title">Exhibit {{ exhibit.n }}: Certifications</h2>
-  <ol class="ledger">
+<section class="tile tile-full" aria-labelledby="certifications-title">
+  <h2 id="certifications-title" class="tile-title tile-title-lg">Certifications</h2>
+  <ol class="entries">
     {% for cert in certifications %}
-    <li class="ledger-row ledger-row-dated">
-      <p class="ledger-date figure">{% if cert.issued_date %}{{ cert.issued_date.strftime('%b %Y') }}{% endif %}</p>
-      <div>
-        <h3>{% if cert.credential_url %}<a href="{{ cert.credential_url }}">{{ cert.name }}</a>{% else %}{{ cert.name }}{% endif %}</h3>
-        {% if cert.issuer %}<p class="ledger-meta">{{ cert.issuer }}</p>{% endif %}
-      </div>
+    <li>
+      <h3>{% if cert.credential_url %}<a href="{{ cert.credential_url }}">{{ cert.name }}</a>{% else %}{{ cert.name }}{% endif %}</h3>
+      <p class="muted">{{ cert.issuer or '' }}{% if cert.issuer and cert.issued_date %} · {% endif %}{% if cert.issued_date %}{{ cert.issued_date.strftime('%b %Y') }}{% endif %}</p>
     </li>
     {% endfor %}
   </ol>
@@ -79,6 +58,8 @@
 {% endif %}
 
 {% if not education and not experience and not certifications %}
-<p class="empty">The full resume is being updated. Email for a current copy.</p>
+<section class="tile tile-full">
+  <p class="muted">The full resume is being updated. Email for a current copy.</p>
+</section>
 {% endif %}
 {% endblock %}

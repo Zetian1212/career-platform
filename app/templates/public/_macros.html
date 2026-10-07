@@ -1,14 +1,12 @@
-{% macro skill_table(skills) %}
-<div class="skill-table">
+{% macro skill_tiles(skills) %}
   {% for label, items in group_skills(skills) %}
-  <section class="skill-column" aria-label="{{ label }} skills">
-    <h3>{{ label }}</h3>
-    <ul>
+  <section class="tile tile-half {{ 'tile-mint' if loop.index is odd else 'tile-sky' }}" aria-labelledby="skills-{{ loop.index }}">
+    <h2 id="skills-{{ loop.index }}" class="tile-title">{{ label }} skills</h2>
+    <ul class="chips">
       {% for skill in items %}<li>{{ skill.name }}</li>{% endfor %}
     </ul>
   </section>
   {% endfor %}
-</div>
 {% endmacro %}
 
 {% macro date_range(item) -%}
@@ -20,3 +18,23 @@
     {{ 'Expected ' if item.end_date > today() else '' }}{{ item.end_date.strftime('%b %Y') }}
   {%- endif -%}
 {%- endmacro %}
+
+{% macro majors(item) -%}
+  {{ item.field_of_study.split(';') | map('trim') | join(' + ') }}
+{%- endmacro %}
+
+{% macro site_diagram() %}
+<svg class="diagram" viewBox="0 0 360 260" role="img" aria-label="How this site runs: a visitor reaches nginx over HTTPS, nginx passes requests to FastAPI, FastAPI reads SQLite, and a cached snapshot is served if the database fails. Everything runs on an Azure Ubuntu VM.">
+  <g class="diagram-lines"><path d="M180 52v26M180 122v26M180 192v20M240 170h78v-48"/></g>
+  <rect x="90" y="12" width="180" height="40" rx="12" class="node"/>
+  <rect x="90" y="78" width="180" height="44" rx="12" class="node node-accent"/>
+  <rect x="90" y="148" width="150" height="44" rx="12" class="node node-dark"/>
+  <rect x="282" y="80" width="74" height="42" rx="12" class="node node-dashed"/>
+  <rect x="90" y="212" width="180" height="40" rx="12" class="node"/>
+  <text x="108" y="37">Visitor · HTTPS</text>
+  <text x="108" y="105" class="text-accent">nginx → FastAPI</text>
+  <text x="108" y="175" class="text-inverse">SQLite</text>
+  <text x="289" y="105" class="text-muted">Snapshot</text>
+  <text x="108" y="237">Azure Ubuntu VM</text>
+</svg>
+{% endmacro %}

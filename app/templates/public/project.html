@@ -1,26 +1,33 @@
 {% extends 'base.html' %}
+{% from 'public/_macros.html' import site_diagram %}
 {% block title %}{{ project.title }} · {{ profile.name }}{% endblock %}
 {% block meta %}<meta name="description" content="{{ project.summary }}">
     <meta property="og:title" content="{{ project.title }}">
     <meta property="og:description" content="{{ project.summary }}">{% endblock %}
 {% block content %}
-<article class="title-block">
-  <div class="title-main">
-    <h1>{{ project.title }}</h1>
-    <p class="thesis">{{ project.summary }}</p>
-    {% if project.problem %}<h2>Problem</h2><p class="prose">{{ project.problem }}</p>{% endif %}
-    {% if project.impact %}<h2>Impact</h2><p class="prose">{{ project.impact }}</p>{% endif %}
-    <p class="actions"><a class="text-link" href="/portfolio">All projects</a></p>
+<article class="tile tile-wide tile-intro tile-single" aria-labelledby="project-title">
+  <div>
+    <h1 id="project-title">{{ project.title }}</h1>
+    <p class="lede">{{ project.summary }}</p>
+    {% if project.problem %}<h2 class="tile-title">Problem</h2><p class="muted">{{ project.problem }}</p>{% endif %}
+    {% if project.impact %}<h2 class="tile-title">Impact</h2><p class="muted">{{ project.impact }}</p>{% endif %}
   </div>
-  <aside class="key-data" aria-labelledby="project-data-title">
-    <h2 id="project-data-title">Key data</h2>
-    <dl>
-      {% if project.role %}<div><dt>Role</dt><dd>{{ project.role }}</dd></div>{% endif %}
-      {% if project.technology %}<div><dt>Built with</dt><dd>{% for tech in project.technology.split(',') %}<span class="line">{{ tech | trim }}</span>{% endfor %}</dd></div>{% endif %}
-      {% if project.start_date %}<div><dt>Started</dt><dd class="figure">{{ project.start_date.strftime('%b %Y') }}</dd></div>{% endif %}
-      {% if project.url %}<div><dt>Live</dt><dd><a href="{{ project.url }}">Visit</a></dd></div>{% endif %}
-      {% if project.repo_url %}<div><dt>Source</dt><dd><a href="{{ project.repo_url }}">{{ project.repo_url.split('://')[-1].split('/', 1)[-1] }}</a></dd></div>{% endif %}
-    </dl>
-  </aside>
+  <div class="actions">
+    {% if project.repo_url %}<a class="btn" href="{{ project.repo_url }}">Source code</a>{% endif %}
+    {% if project.url %}<a class="btn btn-soft" href="{{ project.url }}">Visit</a>{% endif %}
+    <a class="btn btn-soft" href="/portfolio">All projects</a>
+  </div>
 </article>
+<section class="tile tile-side tile-dark tile-fit" aria-labelledby="built-title">
+  <h2 id="built-title" class="tile-title">Built with</h2>
+  {% if project.technology %}<ul class="chips chips-dark">{% for tech in project.technology.split(',') %}<li>{{ tech | trim }}</li>{% endfor %}</ul>{% endif %}
+  {% if project.role %}<p>Role: {{ project.role }}</p>{% endif %}
+  {% if project.start_date %}<p>Started {{ project.start_date.strftime('%b %Y') }}</p>{% endif %}
+</section>
+{% if project.slug == 'career-platform' %}
+<section class="tile tile-full tile-diagram" aria-labelledby="diagram-title">
+  <h2 id="diagram-title" class="tile-title">How it runs</h2>
+  {{ site_diagram() }}
+</section>
+{% endif %}
 {% endblock %}

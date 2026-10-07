@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from app.config import get_settings
 from app.db import get_db
 from app.repositories.content import ContentRepository
-from app.services.profile import education_with_fallback, get_profile_with_fallback
+from app.services.profile import education_with_fallback, get_profile_with_fallback, load_interests
 
 router = APIRouter()
 templates = Jinja2Templates(directory='app/templates')
@@ -46,7 +46,7 @@ def home(request: Request, db: Session = Depends(get_db)):
     return templates.TemplateResponse(
         request,
         'public/home.html',
-        {'profile': snapshot.profile, 'links': snapshot.links, 'skills': snapshot.skills, 'projects': projects, 'education': education_with_fallback(repo, snapshot, settings.fallback_profile_path), 'degraded': degraded},
+        {'profile': snapshot.profile, 'links': snapshot.links, 'skills': repo.list_skills() or snapshot.skills, 'projects': projects, 'education': education_with_fallback(repo, snapshot, settings.fallback_profile_path), 'experience': repo.list_experience(), 'interests': load_interests(settings.fallback_profile_path), 'degraded': degraded},
     )
 
 

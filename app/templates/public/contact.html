@@ -3,18 +3,17 @@
 {% block meta %}<meta name="description" content="How to reach {{ profile.name }}.">{% endblock %}
 {% block content %}
 {% set email = email_link(links) %}
-<header class="page-head">
-  <h1>Contact</h1>
-  <p class="coverage">{{ profile.name }}{% if profile.location %} · {{ profile.location }}{% endif %}</p>
-</header>
-<section class="exhibit" aria-label="Contact details">
-  {% if email %}
-    <p class="contact-primary"><a href="{{ email.url }}">{{ email.url[7:] }}</a></p>
-  {% endif %}
-  <dl class="contact-list">
-    {% for link in links if not link.url.startswith('mailto:') %}
-      <div><dt>{{ link.label }}</dt><dd><a href="{{ link.url }}">{{ link.url.split('://')[-1] }}</a></dd></div>
-    {% endfor %}
-  </dl>
+<section class="tile tile-wide tile-intro" aria-labelledby="contact-title">
+  <div>
+    <h1 id="contact-title">Contact</h1>
+    <p class="lede">Reach {{ profile.name }} by email, LinkedIn, or GitHub.</p>
+  </div>
+  {% if email %}<p><a class="contact-email contact-email-lg" href="{{ email.url }}">{{ email.url[7:] }}</a></p>{% endif %}
 </section>
+{% for link in links if not link.url.startswith('mailto:') %}
+<section class="tile tile-side{{ ' tile-dark' if loop.first else ' tile-accent' }}" aria-labelledby="link-{{ loop.index }}">
+  <h2 id="link-{{ loop.index }}" class="tile-title">{{ link.label }}</h2>
+  <p><a href="{{ link.url }}">{{ link.url.split('://')[-1] }}</a></p>
+</section>
+{% endfor %}
 {% endblock %}

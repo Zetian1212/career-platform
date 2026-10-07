@@ -7,25 +7,25 @@ related_targets: ["app/templates/public","app/templates/base.html","app/static/c
 
 ## Scope
 
-Public site (Home, Resume, Portfolio, Project, Contact, 404) for recruiters in finance and tech. Visitor mode: Persuade — the recruiter should grasp the finance + tech hybrid in one screen and email or open the resume.
+Public site (Home, Resume, Portfolio, Project, Contact, 404) for recruiters in finance and tech. Visitor mode: Persuade.
 
-User-confirmed: tone "precise & analytical"; direction The Initiation Note (chosen over the rolled Quotation Board); scope this pass = visual identity + Resume page + hero + site-wide details. Code-led (no image generation).
+History: the "Initiation Note" research-report design (seed d53b8e20) was deployed on 2026-10-07 and rejected by the user as too empty, plain, and boring; it was rolled back. The user then picked mockup C from three rendered homepage mockups (A two halves, B bold color field, C polished standard), confirmed only listed skills, asked for experience on the site and more personality, approved a drafted About text, and supplied interests (NBA, Lakers, trying new foods).
 
 ## Direction contract
 
-THESIS: The site is page one of a sell-side equity research initiation on the candidate: a coverage line, a key-data box, a thesis, and ruled exhibits. It refuses the portfolio template of hero, skill pills, and equal cards.
+THESIS: A warm, polished modern portfolio built from tiles of different sizes: real experience and personality up front, so a recruiter meets a person, not a template. It refuses both the sparse document look and the uniform card grid.
 
-OWN-WORLD: Cool report-white paper, near-black ink, one research-navy house colour owning the masthead band, primary action, and table header rules; 1px hairline rules, no cards, no radius. One family, Libre Franklin (self-hosted), heavy for the name, semibold for exhibit titles, tabular lining figures for every date and figure. Exhibit captions with "Source:" lines.
+OWN-WORLD: Cool light gray ground, white 22px-radius tiles with soft two-layer shadows, one indigo accent (#4f3ff0) for the education tile and soft buttons, an ink-black status tile, and pastel mint, sky, and peach tints for skills, Right now, Off the clock, and About. Manrope throughout (self-hosted), 800 weight with tight tracking for headlines, pill buttons and chips.
 
-STORY: The recruiter reads name, discipline line, and key data in seconds, sees Finance and Technical skills as two equal ruled columns, sees the one real project as covered work, and acts: email (address visible) or the resume.
+STORY: The visitor is greeted by name, sees what Zetian studies and where, reads who they are in About, sees three real internships, the skills split into Finance and Technical, the self-hosted Career Platform with its architecture diagram, and can email from the first tile or the Get in touch tile.
 
-FIRST VIEWPORT: Navy masthead band carrying the nav. Left two-thirds: the name very large, the discipline line in navy, the thesis paragraph at 65ch, then the action row (filled navy Email button showing the address, Resume, LinkedIn, GitHub). Right third: a tinted Key data box (degree, majors, expected graduation, base, site status live/cached). Exhibit 1 (skills by discipline) begins at the fold.
+FIRST VIEWPORT: Left 8 columns: intro tile with "Hi, I'm Zetian." and the study/location line, then the Email me, View resume, LinkedIn and GitHub pills. Right 4 columns: a dark "This site is online" status tile above the indigo LMU tile. Below: About me (8 columns, two rows, peach) beside Right now (mint) and Off the clock (sky).
 
-FORM: The Initiation Note, position 1 of the grounded list (taken as the pick over assigned position 7); seed key d53b8e20.
+FORM: Polished standard (mockup C), chosen by the user from three rendered mockups; replaces seed d53b8e20's Initiation Note.
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
 
 ## Unresolved
 
-- Downloadable resume PDF: undecided (PRODUCT.md).
-- Real experience entries to be supplied by the candidate; empty sections are hidden, not faked.
+- Downloadable resume PDF: undecided.
+- Photo: not supplied.

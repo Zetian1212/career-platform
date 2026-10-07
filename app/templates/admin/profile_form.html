@@ -9,6 +9,8 @@
     <input name="headline" type="text" value="{{ profile.headline if profile else '' }}">
     <label>Summary</label>
     <textarea name="summary">{{ profile.summary if profile else '' }}</textarea>
+    <label for="bio">About me (shown on the home page; leave blank to hide)</label>
+    <textarea id="bio" name="bio">{{ profile.bio if profile and profile.bio else '' }}</textarea>
     <button type="submit">Save</button>
   </form>
 </section>
