@@ -1,4 +1,5 @@
 from collections.abc import Generator
+from functools import lru_cache
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 from app.config import get_settings
@@ -8,9 +9,18 @@ class Base(DeclarativeBase):
     pass
 
 
+def connect_args_for(url: str) -> dict:
+    # check_same_thread is a sqlite3 option; psycopg rejects unknown arguments.
+    return {"check_same_thread": False} if url.startswith("sqlite") else {}
+
+
+@lru_cache(maxsize=None)
+def _engine_for(url: str):
+    return create_engine(url, connect_args=connect_args_for(url), pool_pre_ping=True)
+
+
 def get_engine():
-    settings = get_settings()
-    return create_engine(settings.database_url, connect_args={"check_same_thread": False})
+    return _engine_for(get_settings().database_url)
 
 
 def get_session_local():
