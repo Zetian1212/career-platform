@@ -4,15 +4,17 @@ from pathlib import Path
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 from app.config import get_settings
-from app.db import Base
+from app.db import Base, connect_args_for
 from app.models import Profile, Link, Skill, Project
 
 
 def seed_demo(reset: bool = False) -> None:
     settings = get_settings()
+    if not settings.database_url.startswith('sqlite'):
+        raise SystemExit('seed_demo only writes to local SQLite files; refusing to touch ' + settings.database_url.split('@')[-1])
     database_path = Path.cwd() / settings.database_url.replace('sqlite:///./', '')
     database_path.parent.mkdir(parents=True, exist_ok=True)
-    engine = create_engine(settings.database_url, connect_args={'check_same_thread': False})
+    engine = create_engine(settings.database_url, connect_args=connect_args_for(settings.database_url))
     if reset:
         Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)

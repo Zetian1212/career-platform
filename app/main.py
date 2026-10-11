@@ -6,7 +6,6 @@ from app.config import get_settings
 from app.db import init_db
 from app.routes.public import router as public_router, templates as public_templates
 from app.services.profile import load_fallback_snapshot
-from app.routes.admin import router as admin_router
 
 
 def create_app() -> FastAPI:
@@ -14,7 +13,6 @@ def create_app() -> FastAPI:
     app = FastAPI(title=settings.app_name)
     app.mount('/static', StaticFiles(directory='app/static'), name='static')
     app.include_router(public_router)
-    app.include_router(admin_router)
 
     @app.exception_handler(StarletteHTTPException)
     async def not_found_page(request: Request, exc: StarletteHTTPException):

@@ -23,7 +23,7 @@ A finance + tech hybrid: a finance student who also builds, deploys, and operate
 ## Operating Context
 
 - Public pages: Home, Resume, Portfolio (with project detail pages), Contact.
-- Admin area (`/admin`): login, dashboard, profile and project editing. Used only by the candidate.
+- No admin area. Content lives in the database and is edited there directly (the `/admin` editor was removed on 2026-10-10).
 - Content comes from a relational database (SQLite in v1). A last-known-good snapshot (`app/static/fallback/profile.json`) keeps the core profile visible when the database is unavailable, and the site then shows a "cached profile" status banner.
 - Deployed on an Azure VM; `/healthz` reports liveness.
 
