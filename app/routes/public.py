@@ -31,7 +31,7 @@ def email_link(links):
     return next((link for link in links if link.url.startswith('mailto:')), None)
 
 
-templates.env.globals.update(group_skills=group_skills, email_link=email_link, today=date.today, css_version=static_version('css/site.css'))
+templates.env.globals.update(group_skills=group_skills, email_link=email_link, today=date.today, css_version=static_version('css/site.css'), js_version=static_version('js/analytics.js'), ga_measurement_id=settings.ga_measurement_id)
 
 
 @router.get('/healthz')
@@ -95,4 +95,14 @@ def contact(request: Request, db: Session = Depends(get_db)):
         request,
         'public/contact.html',
         {'profile': snapshot.profile, 'links': snapshot.links, 'degraded': degraded},
+    )
+
+
+@router.get('/privacy', response_class=HTMLResponse)
+def privacy(request: Request, db: Session = Depends(get_db)):
+    snapshot, degraded = get_profile_with_fallback(lambda: db, settings.fallback_profile_path)
+    return templates.TemplateResponse(
+        request,
+        'public/privacy.html',
+        {'profile': snapshot.profile, 'degraded': degraded},
     )

@@ -7,6 +7,7 @@
     {% block meta %}{% endblock %}
     <link rel="preload" href="/static/fonts/manrope-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/static/css/site.css?v={{ css_version }}">
+    {% if ga_measurement_id %}<script defer src="/static/js/analytics.js?v={{ js_version }}" data-ga-id="{{ ga_measurement_id }}"></script>{% endif %}
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -26,7 +27,16 @@
     {% block content %}{% endblock %}
     </main>
     <footer class="site-footer">
-      <p>Career Platform: built and self-hosted on an Azure Ubuntu VM. <a href="https://github.com/Zetian1212/career-platform">Source on GitHub</a></p>
+      <p>Career Platform: built and self-hosted on an Azure Ubuntu VM. <a href="https://github.com/Zetian1212/career-platform">Source on GitHub</a> · <a href="/privacy">Privacy</a>{% if ga_measurement_id %} · <button type="button" class="link-button" id="consent-settings" hidden>Cookie settings</button>{% endif %}</p>
     </footer>
+    {% if ga_measurement_id %}
+    <section class="consent-banner" id="consent-banner" aria-label="Analytics consent" hidden>
+      <p>This site uses Google Analytics to count page views and clicks on links that leave the site. Nothing is sent to Google unless you accept. <a href="/privacy">Privacy</a></p>
+      <div class="consent-actions">
+        <button type="button" data-consent="accept">Accept</button>
+        <button type="button" data-consent="decline">Decline</button>
+      </div>
+    </section>
+    {% endif %}
   </body>
 </html>
