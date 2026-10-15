@@ -1,5 +1,5 @@
 def test_public_pages_have_navigation_and_main(client):
-    for path in ['/', '/resume', '/portfolio', '/contact']:
+    for path in ['/', '/resume', '/portfolio', '/contact', '/privacy']:
         response = client.get(path)
         assert response.status_code == 200
         assert '<main' in response.text

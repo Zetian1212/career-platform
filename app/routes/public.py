@@ -96,3 +96,13 @@ def contact(request: Request, db: Session = Depends(get_db)):
         'public/contact.html',
         {'profile': snapshot.profile, 'links': snapshot.links, 'degraded': degraded},
     )
+
+
+@router.get('/privacy', response_class=HTMLResponse)
+def privacy(request: Request, db: Session = Depends(get_db)):
+    snapshot, degraded = get_profile_with_fallback(lambda: db, settings.fallback_profile_path)
+    return templates.TemplateResponse(
+        request,
+        'public/privacy.html',
+        {'profile': snapshot.profile, 'degraded': degraded},
+    )

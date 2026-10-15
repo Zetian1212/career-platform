@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}{{ profile.name }} · Privacy{% endblock %}
+{% block meta %}<meta name="description" content="What this site collects about visitors, why, who receives it, and what you can do about it.">{% endblock %}
+{% block content %}
+{# Written for the planned GA4 setup (G-3XLF72EHQC). Publish only together with the tag,
+   and only after every VERIFY item below matches the GA property settings. #}
+<article class="tile tile-full tile-intro privacy" aria-labelledby="privacy-title">
+  <div>
+    <h1 id="privacy-title">Privacy</h1>
+    <p class="lede">This is a personal resume and portfolio site. It has no accounts, no forms and no ads. It uses Google Analytics to count page views and clicks on links that lead off the site.</p>
+    <p class="muted">Last updated October 2026.</p>
+
+    <h2 class="tile-title">What is collected</h2>
+    <p class="muted"><strong>Google Analytics.</strong> When a page loads, a script from Google records that the page was viewed. When you click a link that leaves this site (for example, to LinkedIn or GitHub), it records the address of that link. With each of these, Google also receives:</p>
+    <ul class="muted">
+      <li>the page address and title, and the page you came from, if your browser shares it</li>
+      <li>your browser, operating system, device type, screen size and language</li>
+      <li>an approximate location (country, region, city) that Google works out from your IP address. Google says Google Analytics 4 does not store IP addresses.</li>
+      <li>a random ID stored in two cookies, <code>_ga</code> and <code>_ga_3XLF72EHQC</code>. These let Google tell repeat visits apart from new visitors. They last up to two years unless you delete them.</li>
+    </ul>
+    {# VERIFY: Enhanced measurement in the GA web stream has only "Page views" and "Outbound clicks" on.
+       Scrolls, site search, video engagement, file downloads and form interactions are off. #}
+    <p class="muted">It does not get your name or email address, and nothing you type, because the site has nothing to type into.</p>
+    <p class="muted"><strong>Server logs.</strong> The site is hosted on Railway. Even without analytics, each request is logged with your IP address, the time and the page requested. I use these logs to fix problems. How long Railway keeps them is set by Railway, not by me.</p>
+    {# VERIFY: Railway log retention for the career-platform service, and whether Railway's edge logs anything beyond the app's access log. #}
+
+    <h2 class="tile-title">Why</h2>
+    <p class="muted">I want to know which pages and projects people actually look at, and which links they follow, so I can improve the site. I don't use the data for advertising, and I don't try to work out who you are.</p>
+
+    <h2 class="tile-title">Who receives it</h2>
+    <ul class="muted">
+      <li><strong>Google</strong> runs Google Analytics and processes the data on its servers, which may be outside your country. Google's own use is covered by <a href="https://policies.google.com/technologies/partner-sites">How Google uses information from sites that use its services</a>.</li>
+      <li><strong>Railway</strong> hosts the site and keeps the server logs.</li>
+      <li><strong>Me</strong>, Zetian Tao. I see aggregate reports in Google Analytics, such as page counts, countries and link clicks.</li>
+    </ul>
+    {# VERIFY: Google signals is off, and so are Admin > Data collection ads personalization and the Google Ads/product links.
+       If any of these are on, rewrite this section to say so. #}
+    <p class="muted">I don't sell the data or share it with anyone else. Analytics reports are kept for <strong>[2 or 14] months</strong>, after which Google deletes the event-level data.</p>
+    {# VERIFY: set to match Admin > Data collection and modification > Data retention, then remove the brackets. #}
+
+    <h2 class="tile-title">Your choices</h2>
+    <p class="muted">There is no on-site switch to turn analytics off at the moment. The site also doesn't respond to Do Not Track or Global Privacy Control signals. These options do work:</p>
+    <ul class="muted">
+      <li>Install Google's <a href="https://tools.google.com/dlpage/gaoptout">Google Analytics opt-out add-on</a>. It works in desktop browsers.</li>
+      <li>Block or delete cookies for this site in your browser settings. Your visits are then counted as new visitors and can't be linked together.</li>
+      <li>Use a content or tracker blocker. Most of them stop the Google Analytics script from loading at all.</li>
+      <li>Email me at <a href="mailto:Zetian1212@gmail.com">Zetian1212@gmail.com</a> with questions. I can't reliably find one visitor's data in Google Analytics, because I don't know who you are, but I'll tell you what I can.</li>
+    </ul>
+
+    <h2 class="tile-title">Email</h2>
+    <p class="muted">If you email me, your message goes to my Gmail account and stays there. I use it only to reply to you.</p>
+
+    <h2 class="tile-title">Changes</h2>
+    <p class="muted">If what the site collects changes, I'll update this page and the date at the top.</p>
+  </div>
+</article>
+{% endblock %}

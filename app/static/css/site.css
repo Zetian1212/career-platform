@@ -303,3 +303,6 @@ button:hover { background: var(--accent); }
   .nav a { padding: 0 .75rem; }
   .actions .btn { flex: 1 1 auto; justify-content: center; }
 }
+.privacy ul.muted { margin: .5rem 0 0; padding-left: 1.25rem; max-width: 60ch; }
+.privacy ul.muted li + li { margin-top: .35rem; }
+.privacy code { font-size: .9em; }
