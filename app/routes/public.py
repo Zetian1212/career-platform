@@ -31,7 +31,7 @@ def email_link(links):
     return next((link for link in links if link.url.startswith('mailto:')), None)
 
 
-templates.env.globals.update(group_skills=group_skills, email_link=email_link, today=date.today, css_version=static_version('css/site.css'))
+templates.env.globals.update(group_skills=group_skills, email_link=email_link, today=date.today, css_version=static_version('css/site.css'), js_version=static_version('js/analytics.js'), ga_measurement_id=settings.ga_measurement_id)
 
 
 @router.get('/healthz')

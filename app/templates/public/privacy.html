@@ -7,11 +7,11 @@
 <article class="tile tile-full tile-intro privacy" aria-labelledby="privacy-title">
   <div>
     <h1 id="privacy-title">Privacy</h1>
-    <p class="lede">This is a personal resume and portfolio site. It has no accounts, no forms and no ads. It uses Google Analytics to count page views and clicks on links that lead off the site.</p>
+    <p class="lede">This is a personal resume and portfolio site. It has no accounts, no forms and no ads. If you agree, it uses Google Analytics to count page views and clicks on links that lead off the site.</p>
     <p class="muted">Last updated October 2026.</p>
 
     <h2 class="tile-title">What is collected</h2>
-    <p class="muted"><strong>Google Analytics.</strong> When a page loads, a script from Google records that the page was viewed. When you click a link that leaves this site (for example, to LinkedIn or GitHub), it records the address of that link. With each of these, Google also receives:</p>
+    <p class="muted"><strong>Google Analytics, only if you click Accept.</strong> Until you accept, the Google Analytics script isn't loaded, nothing is sent to Google and no Google cookies are set. Once you accept, a script from Google records that the page was viewed. When you click a link that leaves this site (for example, to LinkedIn or GitHub), it records the address of that link. With each of these, Google also receives:</p>
     <ul class="muted">
       <li>the page address and title, and the page you came from, if your browser shares it</li>
       <li>your browser, operating system, device type, screen size and language</li>
@@ -39,8 +39,11 @@
     {# VERIFY: set to match Admin > Data collection and modification > Data retention, then remove the brackets. #}
 
     <h2 class="tile-title">Your choices</h2>
-    <p class="muted">There is no on-site switch to turn analytics off at the moment. The site also doesn't respond to Do Not Track or Global Privacy Control signals. These options do work:</p>
+    <p class="muted">The first time you visit, a banner asks whether you accept Google Analytics. Nothing is collected unless you click Accept. If you ignore the banner or click Decline, analytics stays off.</p>
     <ul class="muted">
+      <li>To change your mind, use <strong>Cookie settings</strong> in the footer of any page. If you decline after accepting, the site deletes its Google Analytics cookies from your browser. Data already sent to Google stays in Google Analytics until the retention period ends.</li>
+      <li>Your choice is saved in your browser's local storage under the name <code>analytics-consent</code>, not in a cookie, and isn't sent to me or to Google. If you clear site data or use a private window, the banner will ask again.</li>
+      <li>The site doesn't read Do Not Track or Global Privacy Control signals. Use the banner instead.</li>
       <li>Install Google's <a href="https://tools.google.com/dlpage/gaoptout">Google Analytics opt-out add-on</a>. It works in desktop browsers.</li>
       <li>Block or delete cookies for this site in your browser settings. Your visits are then counted as new visitors and can't be linked together.</li>
       <li>Use a content or tracker blocker. Most of them stop the Google Analytics script from loading at all.</li>

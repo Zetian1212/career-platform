@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     app_name: str = "Career Platform"
     database_url: str = "sqlite:///./career_platform.db"
     fallback_profile_path: str = "app/static/fallback/profile.json"
+    ga_measurement_id: str = "G-3XLF72EHQC"
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 

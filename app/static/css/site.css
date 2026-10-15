@@ -306,3 +306,13 @@ button:hover { background: var(--accent); }
 .privacy ul.muted { margin: .5rem 0 0; padding-left: 1.25rem; max-width: 60ch; }
 .privacy ul.muted li + li { margin-top: .35rem; }
 .privacy code { font-size: .9em; }
+
+/* Analytics consent */
+.link-button { min-height: 0; padding: 0; border-radius: 0; background: none; color: inherit; font-weight: inherit; text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: .2em; }
+.link-button:hover { background: none; color: var(--ink); }
+.consent-banner { position: fixed; inset: auto 1rem 1rem; z-index: 10; max-width: 34rem; margin-left: auto; display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1rem; padding: 1rem 1.25rem; background: var(--tile); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 2px 4px rgba(17, 19, 26, .06), 0 16px 36px rgba(17, 19, 26, .12); font-size: .95rem; }
+.consent-banner[hidden] { display: none; }
+.consent-banner p { flex: 1 1 18rem; }
+.consent-actions { display: flex; gap: .5rem; }
+.consent-actions button[data-consent="decline"] { background: var(--accent-soft); color: var(--accent-deep); }
+.consent-actions button[data-consent="decline"]:hover { background: var(--accent); color: #fff; }
