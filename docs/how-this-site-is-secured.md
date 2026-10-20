@@ -2,11 +2,11 @@
 
 **How do I know my data to your site is encrypted?**
 
-The site lives at `https://zetiantao.me` and `https://www.zetiantao.me`. When you open it, your browser first makes the server prove it really is zetiantao.me by showing an ID card called a certificate. Then the two of them agree on a secret code, and everything you send after that is scrambled with it. Anyone in between, like your Wi-Fi or your internet provider, only sees gibberish. If you type the address without `https`, the server sends you to the `https` version anyway, so nothing you send goes out in the clear. Everything below was checked on 2026-10-07 (UTC) on the live server `vm-career-platform` (Azure, North Central US, Ubuntu 24.04).
+The site lives at `https://zetiantao.me` and `https://www.zetiantao.me`. When you open it, your browser first makes the server prove it really is zetiantao.me by showing an ID card called a certificate. Then the two of them agree on a secret code, and everything you send after that is scrambled with it. Anyone in between, like your Wi-Fi or your internet provider, only sees gibberish. If you type the address without `https`, the server sends you to the `https` version anyway, so nothing you send goes out in the clear.
 
 ## 1. The certificate
 
-The certificate is the site's ID card. It was issued by Let's Encrypt and covers both `zetiantao.me` and `www.zetiantao.me`. It uses an ECDSA key, started working on 2026-10-06 at 21:03:50 UTC, and expires on 2027-01-04 at 21:03:49 UTC, which was 88 days away when I checked. This is what `sudo certbot certificates` shows on the server:
+ The certificate was issued by Let's Encrypt and covers both `zetiantao.me` and `www.zetiantao.me`. It uses an ECDSA key, started working on 2026-10-06 at 21:03:50 UTC, and expires on 2027-01-04 at 21:03:49 UTC, which was 88 days away when I checked. This is what `sudo certbot certificates` shows on the server:
 
 ```
 Certificate Name: zetiantao.me
@@ -14,8 +14,6 @@ Certificate Name: zetiantao.me
   Domains: zetiantao.me www.zetiantao.me
   Expiry Date: 2027-01-04 21:03:49+00:00 (VALID: 88 days)
 ```
-
-Both names point to the server's public IP: `dig +short zetiantao.me www.zetiantao.me` returns `172.183.16.158` twice.
 
 ## 2. Renewal
 
