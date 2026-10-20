@@ -24,7 +24,7 @@
 </section>
 {% else %}
 <section class="tile tile-full">
-  <p class="muted">Projects will appear here as they are published.</p>
+  <p class="muted">{{ 'Projects temporarily unavailable.' if db_unavailable else 'Projects will appear here as they are published.' }}</p>
 </section>
 {% endfor %}
 {% endblock %}

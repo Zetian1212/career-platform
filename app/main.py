@@ -1,6 +1,8 @@
+import logging
 from fastapi import FastAPI, Request
 from fastapi.exception_handlers import http_exception_handler
 from fastapi.staticfiles import StaticFiles
+from sqlalchemy.exc import SQLAlchemyError
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from app.config import get_settings
 from app.db import init_db
@@ -23,7 +25,11 @@ def create_app() -> FastAPI:
         except (OSError, ValueError):
             profile = None
         return public_templates.TemplateResponse(request, 'public/404.html', {'profile': profile}, status_code=404)
-    init_db()
+    try:
+        init_db()
+    except SQLAlchemyError:
+        # Start anyway so the profile can be served from the snapshot; pages return 503 until the database is back.
+        logging.getLogger(__name__).exception('Database unavailable at startup')
     return app
 
 

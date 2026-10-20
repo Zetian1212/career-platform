@@ -3,6 +3,7 @@ from datetime import date
 from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 from app.config import get_settings
 from app.db import get_db
@@ -43,11 +44,18 @@ def healthz():
 def home(request: Request, db: Session = Depends(get_db)):
     snapshot, degraded = get_profile_with_fallback(lambda: db, settings.fallback_profile_path)
     repo = ContentRepository(db)
-    projects = repo.list_projects()[:3]
+    try:
+        content = {'skills': repo.list_skills() or snapshot.skills, 'projects': repo.list_projects()[:3], 'education': education_with_fallback(repo, snapshot, settings.fallback_profile_path), 'experience': repo.list_experience()}
+        status = 200
+    except SQLAlchemyError:
+        # Keep the profile up from the snapshot, but say so and return 503 rather than show stale or sample content.
+        content = {'skills': snapshot.skills, 'projects': [], 'education': snapshot.education, 'experience': []}
+        status = 503
     return templates.TemplateResponse(
         request,
         'public/home.html',
-        {'profile': snapshot.profile, 'links': snapshot.links, 'skills': repo.list_skills() or snapshot.skills, 'projects': projects, 'education': education_with_fallback(repo, snapshot, settings.fallback_profile_path), 'experience': repo.list_experience(), 'interests': load_interests(settings.fallback_profile_path), 'degraded': degraded},
+        {'profile': snapshot.profile, 'links': snapshot.links, **content, 'interests': load_interests(settings.fallback_profile_path), 'degraded': degraded, 'db_unavailable': status == 503},
+        status_code=status,
     )
 
 
@@ -55,10 +63,26 @@ def home(request: Request, db: Session = Depends(get_db)):
 def resume(request: Request, db: Session = Depends(get_db)):
     snapshot, degraded = get_profile_with_fallback(lambda: db, settings.fallback_profile_path)
     repo = ContentRepository(db)
+    try:
+        content = {'skills': repo.list_skills(), 'experience': repo.list_experience(), 'education': education_with_fallback(repo, snapshot, settings.fallback_profile_path), 'certifications': repo.list_certifications()}
+        status = 200
+    except SQLAlchemyError:
+        content = {'skills': snapshot.skills, 'experience': [], 'education': snapshot.education, 'certifications': []}
+        status = 503
     return templates.TemplateResponse(
         request,
         'public/resume.html',
-        {'profile': snapshot.profile, 'links': snapshot.links, 'skills': repo.list_skills(), 'experience': repo.list_experience(), 'education': education_with_fallback(repo, snapshot, settings.fallback_profile_path), 'certifications': repo.list_certifications(), 'degraded': degraded},
+        {'profile': snapshot.profile, 'links': snapshot.links, **content, 'degraded': degraded, 'db_unavailable': status == 503},
+        status_code=status,
+    )
+
+
+def _projects_unavailable(request: Request, snapshot, degraded: bool):
+    return templates.TemplateResponse(
+        request,
+        'public/portfolio.html',
+        {'profile': snapshot.profile, 'projects': [], 'degraded': degraded, 'db_unavailable': True},
+        status_code=503,
     )
 
 
@@ -66,10 +90,14 @@ def resume(request: Request, db: Session = Depends(get_db)):
 def portfolio(request: Request, db: Session = Depends(get_db)):
     snapshot, degraded = get_profile_with_fallback(lambda: db, settings.fallback_profile_path)
     repo = ContentRepository(db)
+    try:
+        projects = repo.list_projects()
+    except SQLAlchemyError:
+        return _projects_unavailable(request, snapshot, degraded)
     return templates.TemplateResponse(
         request,
         'public/portfolio.html',
-        {'profile': snapshot.profile, 'projects': repo.list_projects(), 'degraded': degraded},
+        {'profile': snapshot.profile, 'projects': projects, 'degraded': degraded},
     )
 
 
@@ -77,7 +105,10 @@ def portfolio(request: Request, db: Session = Depends(get_db)):
 def project_detail(slug: str, request: Request, db: Session = Depends(get_db)):
     snapshot, degraded = get_profile_with_fallback(lambda: db, settings.fallback_profile_path)
     repo = ContentRepository(db)
-    project = repo.get_project(slug)
+    try:
+        project = repo.get_project(slug)
+    except SQLAlchemyError:
+        return _projects_unavailable(request, snapshot, degraded)
     if project is None:
         raise HTTPException(status_code=404, detail='Project not found')
     return templates.TemplateResponse(

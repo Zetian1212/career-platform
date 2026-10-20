@@ -57,7 +57,11 @@
 </section>
 {% endif %}
 
-{% if not education and not experience and not certifications %}
+{% if db_unavailable %}
+<section class="tile tile-full">
+  <p class="muted">Experience and certifications temporarily unavailable.</p>
+</section>
+{% elif not education and not experience and not certifications %}
 <section class="tile tile-full">
   <p class="muted">The full resume is being updated. Email for a current copy.</p>
 </section>
