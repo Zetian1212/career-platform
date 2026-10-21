@@ -51,7 +51,7 @@ From the requirements audit on 2026-10-20 (repo at `1e1fa9d`). Most urgent first
 ## 8. Engineering record
 
 - [x] Railway trial end date. Done 2026-10-21 from the Railway API: 16 days remaining, so it ends about 2026-11-06. README.md → "Costs, expiry and cleanup"
-- [ ] **Needs you:** record the Azure for Students credit balance (portal): README.md → "Costs, expiry and cleanup"
+- [x] Azure for Students credit: $95 of $100 left (portal, 2026-10-20): README.md → "Costs, expiry and cleanup"
 - [ ] **Needs you:** record the domain price (Namecheap order): README.md → "Costs, expiry and cleanup"
 - [x] Update PRODUCT.md. Done 2026-10-21: Railway + PostgreSQL, no admin, 503 outage behaviour, Privacy page, GA consent.
 - [x] SSH/NSG network failure: closed. It's row 4 of README.md → "Investigated failures", linked to the dated log entry, which is enough for an optional item.
