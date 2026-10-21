@@ -56,8 +56,8 @@ From the requirements audit on 2026-10-20 (repo at `1e1fa9d`). Most urgent first
 - [x] Update PRODUCT.md. Done 2026-10-21: Railway + PostgreSQL, no admin, 503 outage behaviour, Privacy page, GA consent.
 - [x] SSH/NSG network failure: closed. It's row 4 of README.md → "Investigated failures", linked to the dated log entry, which is enough for an optional item.
 - [ ] **Needs you:** read every agent-written claim in the README and fix anything you can't explain: README.md
-- [ ] **Needs you:** Decision 4 (your words) says you edit with `railway connect Postgres`. The public proxy that used is gone; the README's Editing content section now says `railway ssh`. Update your sentence if you want them to match.
-- [ ] **Needs you:** test the README's new `railway ssh` commands (psql, `pg_dump`, snapshot). They're marked untested. Running the project update below tests the first one.
+- [x] Decision 4 (your words) says you edit with `railway connect Postgres`. That matches the README again: it opens a temporary proxy for the session.
+- [ ] **Needs you:** test the README's proxy commands (psql, `pg_dump`, snapshot). They're marked untested. Running the project update below tests the first one.
 
 ## Last step (after every other change is committed)
 
@@ -65,11 +65,11 @@ From the requirements audit on 2026-10-20 (repo at `1e1fa9d`). Most urgent first
 
 ## Commands for you
 
-**Project entry "in progress" (task above).** Run this in your own terminal, in the repo folder. The first time, type `yes` to accept Railway's host key. It prints the old row (keep the output for rollback), updates one row in a transaction, and prints the new row:
+**Project entry "in progress" (task above).** Run this in your own terminal, in the repo folder. It opens a temporary proxy, prints the old row (keep the output for rollback), updates one row in a transaction, prints the new row, then closes the proxy:
 
 ```bash
-railway ssh --service Postgres -i ~/.ssh/railway_career_platform -- \
-  'psql -U "$PGUSER" -d "$PGDATABASE" -X' <<'SQL'
+railway tcp-proxy create --service Postgres
+railway connect Postgres <<'SQL'
 \pset pager off
 \x on
 \set ON_ERROR_STOP 1
@@ -84,6 +84,7 @@ WHERE slug = 'career-platform' AND title = 'Career Platform';
 SELECT id, slug, title, summary, updated_at FROM project WHERE slug = 'career-platform';
 COMMIT;
 SQL
+railway tcp-proxy delete --service Postgres
 ```
 
-Expected: `UPDATE 1` then `COMMIT`. `UPDATE 0` means the title had already changed, and nothing was modified. If the piped file doesn't reach psql, open a shell with `railway ssh --service Postgres -i ~/.ssh/railway_career_platform`, run `psql -U "$PGUSER" -d "$PGDATABASE"`, and paste the SQL between the `SQL` markers.
+Expected: `UPDATE 1` then `COMMIT`. `UPDATE 0` means the title had already changed, and nothing was modified. If `railway connect` doesn't accept piped input, run `railway connect Postgres` on its own and paste the lines between the `SQL` markers. Either way, run the last line to close the proxy.
