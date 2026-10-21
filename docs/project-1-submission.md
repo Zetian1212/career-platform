@@ -2,7 +2,7 @@
 
 - **Live site:** https://zetiantao.me
 - **Repository:** https://github.com/Zetian1212/career-platform
-- **Final commit:** *to be filled in at submission* (`git rev-parse HEAD` on `main`)
+- **Final commit:** [`33a452a6ecf7645bee5f9397bf508799def725f6`](https://github.com/Zetian1212/career-platform/commit/33a452a6ecf7645bee5f9397bf508799def725f6). The commit after it only records this SHA in this line.
 - **Name / email:** Zetian Tao, zetian@zetiantao.me
 
 Every link below points to a file, README section or commit in this repository. Anything not verified is marked in the linked record.
