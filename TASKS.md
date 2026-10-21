@@ -55,9 +55,9 @@ From the requirements audit on 2026-10-20 (repo at `1e1fa9d`). Most urgent first
 - [x] Domain price: free for the first year (2026-10-20); renewal price unverified: README.md → "Costs, expiry and cleanup"
 - [x] Update PRODUCT.md. Done 2026-10-21: Railway + PostgreSQL, no admin, 503 outage behaviour, Privacy page, GA consent.
 - [x] SSH/NSG network failure: closed. It's row 4 of README.md → "Investigated failures", linked to the dated log entry, which is enough for an optional item.
-- [ ] **Needs you:** read every agent-written claim in the README and fix anything you can't explain: README.md
+- [x] README reviewed by me (2026-10-20); no corrections needed.
 - [x] Decision 4 (your words) says you edit with `railway connect Postgres`, which matches the README.
 
 ## Last step (after every other change is committed)
 
-- [ ] Fill in the final commit SHA. A file can't contain the SHA of the commit that holds it, so: (1) commit and push all remaining work; (2) `git rev-parse HEAD` gives X; (3) in docs/project-1-submission.md, set "Final commit" to X, noting that the next commit only records this SHA; (4) commit and push that one-line change; (5) submit X in Brightspace, so the index and Brightspace match. Check: `git diff X HEAD` shows only that line.
+- [x] Fill in the final commit SHA (done 2026-10-21; the SHA is in docs/project-1-submission.md). A file can't contain the SHA of the commit that holds it, so: (1) commit and push all remaining work; (2) `git rev-parse HEAD` gives X; (3) in docs/project-1-submission.md, set "Final commit" to X, noting that the next commit only records this SHA; (4) commit and push that one-line change; (5) submit X in Brightspace, so the index and Brightspace match. Check: `git diff X HEAD` shows only that line.
