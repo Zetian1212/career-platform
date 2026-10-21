@@ -39,7 +39,7 @@ From the requirements audit on 2026-10-20 (repo at `1e1fa9d`). Most urgent first
 
 ## 6. Zoho email
 
-- [ ] **Needs you:** add the send date of the before-MX message (from the Office 365 Sent folder or the bounce headers): docs/evidence/ex06.md
+- [ ] **Needs you (partly done):** subject "Test 00: before setup" and a screenshot showing it are recorded. The send date is still missing: open the message in the Office 365 Sent folder (or the bounce's details) and read the date: docs/evidence/ex06.md
 - [x] Header check reuses the Oct 17 header: already stated in its first paragraph. docs/evidence/zoho-header-check.md
 - [ ] **Needs you (partly done):** one Microsoft DMARC report arrived (2026-10-19, covering Oct 17), recorded. Open its XML attachment in Zoho and note the SPF/DKIM results: docs/evidence/zoho-header-check.md → "What this proves"
 
