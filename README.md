@@ -239,17 +239,11 @@ To also run the Postgres copy test, point `TEST_POSTGRES_URL` at a throwaway dat
 
 ### Editing content
 
-There is no admin area; `/admin` was removed on 2026-10-10. Content lives in the Railway Postgres, and you edit it there directly.
-
-The Postgres service has no public TCP proxy by default (found 2026-10-21: `railway tcp-proxy list --service Postgres` lists none, and `DATABASE_PUBLIC_URL` is gone), so nothing outside Railway can reach the database. To edit, open a proxy for the session and close it afterwards:
+There is no admin area; `/admin` was removed on 2026-10-10. Content lives in the Railway Postgres, and you edit it there directly:
 
 ```bash
-railway tcp-proxy create --service Postgres   # shows a public host:port
-railway connect Postgres                      # psql through that proxy
-railway tcp-proxy delete --service Postgres   # close it again when done
+railway connect Postgres   # opens psql on the production database
 ```
-
-*Untested by me since the proxy was removed. If `railway connect` can't find a public URL, connect with `psql` to the host and port the first command shows, using the credentials from the Postgres service's Variables tab.*
 
 For example, the "Chinese" skill was added with:
 
@@ -264,13 +258,12 @@ INSERT INTO skill (name, category, state, sort_order) VALUES ('Chinese', 'langua
 
 ### Fallback snapshot
 
-`app/static/fallback/profile.json` is the cached core profile (name, headline, summary, links, top skills, education) that the site falls back on if the database can't be read. The `interests` list is edited in this file by hand. After changing the profile in the database, regenerate the file from the production data and commit it. The script needs a `DATABASE_URL` it can reach, so open the proxy as in [Editing content](#editing-content), then run:
+`app/static/fallback/profile.json` is the cached core profile (name, headline, summary, links, top skills, education) that the site falls back on if the database can't be read. The `interests` list is edited in this file by hand. After changing the profile in the database, regenerate the file from the production data and commit it:
 
 ```bash
-DATABASE_URL='postgresql://…@<proxy-host>:<port>/railway' uv run python -m scripts.generate_snapshot
+DATABASE_URL="$(railway variables --service Postgres --kv | sed -n 's/^DATABASE_PUBLIC_URL=//p')" \
+  uv run python -m scripts.generate_snapshot
 ```
-
-and delete the proxy afterwards. *Untested since the proxy was removed.*
 
 ## A reviewed change through Railway
 
@@ -305,23 +298,18 @@ Check afterwards: `railway deployment list` shows the expected SHA as `SUCCESS`,
 - **Data.** Before any manual edit, take a dump outside the repo:
 
   ```bash
-  mkdir -p ~/backups
-  railway tcp-proxy create --service Postgres
-  pg_dump 'postgresql://…@<proxy-host>:<port>/railway' --data-only --format=plain \
-    > ~/backups/career-$(date -u +%Y%m%dT%H%M%SZ).sql
-  railway tcp-proxy delete --service Postgres
+  PGURL="$(railway variables --service Postgres --kv | sed -n 's/^DATABASE_PUBLIC_URL=//p')"
+  pg_dump "$PGURL" --data-only --format=custom -f ~/backups/career-$(date -u +%Y%m%dT%H%M%SZ).dump
   ```
 
-  *Untested since the public proxy was removed.* The local `pg_dump` must be version 18 or newer to match the server. Check that the file starts with `-- PostgreSQL database dump` and contains a `COPY public.project` line.
-
-  To undo a bad edit, fix the rows directly in `psql` (one transaction). Or empty the tables (`TRUNCATE … RESTART IDENTITY CASCADE`) and replay the dump with `psql '<url>' -f <file>`, with the proxy open. Dumps hold personal data, so they stay out of git (`~/backups` is outside the repo folder).
+  To undo a bad edit, fix the rows directly in `railway connect Postgres` (one transaction). Or restore the dump into the emptied tables: `TRUNCATE … RESTART IDENTITY CASCADE`, then `pg_restore --data-only -d "$PGURL" <file>`. Dumps hold personal data, so they stay out of git (they aren't in the repo folder).
 
 ### Rolling the migration back to Azure
 
 Railway is the source of truth since 2026-10-10, and the VM's SQLite copy is frozen at the 2026-10-08 copy. Going back means carrying over anything written after the cutover:
 
 1. `az vm start -g rg-career-platform -n vm-career-platform`. The public IP is static, and systemd starts nginx and the app at boot (shown in the restart test). Check `curl -I --resolve zetiantao.me:443:172.183.16.158 https://zetiantao.me/`.
-2. Find rows written after cutover. Re-run the row-by-row comparison used for the migration (Railway vs. a fresh `.backup` of the VM DB) and list the differences. Known so far: one row, skill `Chinese` (id 10, 2026-10-10). Writes only happen through `psql` (`railway connect Postgres`), and only I have access, so there's no visitor data.
+2. Find rows written after cutover. Re-run the row-by-row comparison used for the migration (Railway vs. a fresh `.backup` of the VM DB) and list the differences. Known so far: one row, skill `Chinese` (id 10, 2026-10-10). Writes only happen through `railway connect Postgres`, and only I have access, so there's no visitor data.
 3. Apply those rows to the VM DB with `sqlite3`, after taking a `.backup` of it.
 4. In Cloudflare, replace the apex CNAME with `A zetiantao.me → 172.183.16.158`, DNS only. The VM's certbot certificate already covers `zetiantao.me` (until 2027-01-04). The `www` redirect rule doesn't change.
 5. Verify with `dig`, `curl` and `openssl` as in [Domain and HTTPS](#domain-and-https). Leave Railway running until the VM checks pass.
