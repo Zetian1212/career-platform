@@ -14,7 +14,7 @@ From the requirements audit on 2026-10-20 (repo at `1e1fa9d`). Most urgent first
 ## 1. Personal application
 
 - [x] Confirm the live site returns 503 + "Projects temporarily unavailable." on a DB failure. Done 2026-10-21 00:37 UTC: production Postgres restart gave 200 → 503 → 200 with the app unchanged. docs/evidence/db-outage-check.md → "On Railway, production"
-- [ ] **Needs you:** label the project entry as in progress. Checked 2026-10-21: the entry exists (live `/portfolio/career-platform`, read from the DB, no banner), but it isn't labelled "in progress" and still says SQLite, admin editor and Azure. Approved fix (title "Career Platform (in progress)" + new summary) is ready to run as one transaction; see "Commands for you" at the bottom. Then check that `/portfolio/career-platform` shows the new title.
+- [x] Project entry labelled "in progress". Done 2026-10-21 03:45 UTC (title "Career Platform (in progress)" + new summary, `UPDATE 1`, `COMMIT`); live `/portfolio/career-platform` shows it. Record: migration plan → Progress log, 2026-10-21.
 
 ## 2. Azure deployment
 
@@ -61,25 +61,3 @@ From the requirements audit on 2026-10-20 (repo at `1e1fa9d`). Most urgent first
 ## Last step (after every other change is committed)
 
 - [ ] Fill in the final commit SHA. A file can't contain the SHA of the commit that holds it, so: (1) commit and push all remaining work; (2) `git rev-parse HEAD` gives X; (3) in docs/project-1-submission.md, set "Final commit" to X, noting that the next commit only records this SHA; (4) commit and push that one-line change; (5) submit X in Brightspace, so the index and Brightspace match. Check: `git diff X HEAD` shows only that line.
-
-## Commands for you
-
-**Project entry "in progress" (task above).** Run `railway connect Postgres` in your own terminal, in the repo folder, then paste this. It prints the old row (keep the output for rollback), updates one row in a transaction, and prints the new row:
-
-```sql
-\pset pager off
-\x on
-\set ON_ERROR_STOP 1
-BEGIN;
--- Old values, kept in the terminal output for rollback
-SELECT id, slug, title, summary, updated_at FROM project WHERE slug = 'career-platform';
-UPDATE project
-SET title = 'Career Platform (in progress)',
-    summary = 'This website, and a project in progress. A FastAPI and Jinja resume and portfolio site, built in GitHub Codespaces, run on an Azure Ubuntu VM with SQLite, and now on Railway with PostgreSQL. Pages read from the database on every request, with a cached profile if the database is down. It will grow into a career platform through the semester.',
-    updated_at = now()
-WHERE slug = 'career-platform' AND title = 'Career Platform';
-SELECT id, slug, title, summary, updated_at FROM project WHERE slug = 'career-platform';
-COMMIT;
-```
-
-Expected: `UPDATE 1` then `COMMIT`. `UPDATE 0` means the title had already changed, and nothing was modified. Type `\q` to leave psql.
