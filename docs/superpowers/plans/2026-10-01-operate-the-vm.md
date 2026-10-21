@@ -265,6 +265,15 @@ Azure checks the rules from the lowest priority number upward and stops at the f
 
 There's no rule for port 8000, and none is needed.
 
+**Addendum (added 2026-10-21 from the Azure activity log and `az network nsg rule list`).** The table above is the 2026-10-05 snapshot. Two changes came after it, both made by my Azure account for the HTTPS setup on 2026-10-06:
+
+| Priority | Name | Allows | From | Changed | Why |
+|---|---|---|---|---|---|
+| 300 | `Allow-SSH-Laptop` | TCP 22 | two `/32` addresses I use (was one) | 2026-10-06 20:59 and 21:02 UTC | A second network I work from. |
+| 330 | `Allow-HTTPS-443` | TCP 443 | Any | created 2026-10-06 21:38 UTC | The encrypted website. nginx listens on 443 with the certbot certificate. |
+
+Read on 2026-10-21, the NSG has exactly these three custom rules (300, 320, 330), plus Azure's defaults. Still no rule for 8000.
+
 ## Full rollback
 
 Run these in reverse order: delete `Allow-HTTP-80` (undo 3.1), undo 2.3, undo 2.2, undo 2.1, then undo 1.3 and 1.2. The repo, `.venv`, `.env` and the database are never touched, so going back to the old `nohup` start (2026-09-24 plan, step 7.1) still works.

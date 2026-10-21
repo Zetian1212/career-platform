@@ -62,9 +62,36 @@ Starting the app while Postgres was already down:
 
 The throwaway database was dropped afterwards, and the Homebrew Postgres service was restarted as it was before.
 
-### On Railway
+### On Railway, production (2026-10-21, times UTC)
 
-Not tested by stopping the production Postgres, because that would take the live site's data offline. The live deploy of this change is recorded in the README's [reviewed change](../../README.md#a-reviewed-change-through-railway) section. On Railway, the pre-deploy `python -m scripts.init_db` still fails if the database is down. That is deliberate: the deploy stops and the previous version keeps serving.
+The live app is deployment `08f4c6f6` (`c298f5d`, which contains the fix `260d6c9`). I restarted the production Postgres service with `railway service restart --service Postgres` while polling `https://zetiantao.me/` from my laptop every half second. Each line shows the time, the HTTP status, and which outage text was on the page. Nothing was deleted; the data lives on Postgres's volume.
+
+```
+00:37:17.881 200
+00:37:18.501 200
+00:37:19.135 503 Cached profile is showing|Projects temporarily unavailable.|
+00:37:20.833 200
+00:37:21.594 200
+```
+
+The poll ran from 00:36:58 to 00:39:33: 31 × 200, then 1 × 503, then 203 × 200.
+
+Postgres's own log (`railway logs --service Postgres`) lines up with it:
+
+```
+00:37:18.938 LOG:  received fast shutdown request
+00:37:18.943 FATAL:  terminating connection due to administrator command   (×2, the app's pooled connections)
+00:37:19.002 LOG:  database system is shut down
+00:37:20.770 LOG:  starting PostgreSQL 18.6 …
+00:37:20.790 LOG:  database system is ready to accept connections
+```
+
+- **Failure:** the one request made while Postgres was down (00:37:19.1) got **503** with the cached profile and "Projects temporarily unavailable."
+- **Recovery without an app restart:** the next request after Postgres was ready (00:37:20.8) got **200**. The app deployment was `08f4c6f6` (`SUCCESS`) before and after, so only the database restarted.
+- **Data intact:** at 00:40 UTC, `/portfolio` listed the `career-platform` project again and `/resume` showed its Experience and Certifications sections.
+- **Limits:** the outage lasted about 2 seconds, so only one poll landed in it. `/resume` and `/portfolio` weren't polled during the outage; they were only covered by the local test. The CLI's `restart` command didn't return by itself and was stopped after the restart had finished.
+
+On Railway, the pre-deploy step `python -m scripts.init_db` still fails if the database is down when a deploy starts. That's deliberate: the deploy stops and the previous version keeps serving.
 
 ## Remaining limitations
 

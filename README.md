@@ -151,9 +151,9 @@ curl https://zetiantao.me/healthz
 | TXT | `_railway-verify` | `railway-verify=7253d9…` | DNS only | Proves to Railway that I control the domain. |
 | A | `www` | `172.183.16.158` | **Proxied** | Exists only so Cloudflare answers `www` and can apply the redirect rule. The redirect fires at Cloudflare's edge, so it keeps working while the VM is stopped. |
 
-**Redirect rule** (zone ruleset `http_request_dynamic_redirect`, "Redirect from WWW to root"): if `http.request.full_uri` matches `http*://www.*`, return **301** to `https://${2}`, keeping the path. Query strings aren't preserved by the rule's setting, although the check below shows `?x=1` kept because the wildcard copies the whole URI.
+**Redirect rule** (zone ruleset `http_request_dynamic_redirect`, "Redirect from WWW to root"; full export in [cloudflare-www-redirect.md](docs/evidence/cloudflare-www-redirect.md)): if `http.request.full_uri` matches `http*://www.*`, return **301** to `https://${2}`, keeping the path. Query strings aren't preserved by the rule's setting, although the check below shows `?x=1` kept because the wildcard copies the whole URI.
 
-**Verification (2026-10-20, 20:25 UTC, from my laptop):**
+**Verification (2026-10-20, 20:25 UTC, from my laptop; re-run 2026-10-21 00:44 UTC with identical results):**
 
 ```
 $ dig +short zetiantao.me A            → 69.46.46.100        (Railway, via the CNAME)
@@ -239,11 +239,16 @@ To also run the Postgres copy test, point `TEST_POSTGRES_URL` at a throwaway dat
 
 ### Editing content
 
-There is no admin area; `/admin` was removed on 2026-10-10. Content lives in the Railway Postgres, and you edit it there directly:
+There is no admin area; `/admin` was removed on 2026-10-10. Content lives in the Railway Postgres, and you edit it there directly.
+
+The Postgres service no longer has a public TCP proxy (found 2026-10-21; `railway tcp-proxy list --service Postgres` lists none, and `DATABASE_PUBLIC_URL` is gone). Nothing outside Railway can reach the database, which is safer. It also means `railway connect Postgres` from the laptop, used up to 2026-10-10, no longer has a public address to go through. Open `psql` inside the Postgres container instead, using an SSH key registered with Railway (`railway ssh keys add`; mine is `~/.ssh/railway_career_platform`, added 2026-10-21):
 
 ```bash
-railway connect Postgres   # opens psql on the production database
+railway ssh --service Postgres -i ~/.ssh/railway_career_platform   # accept the host key the first time
+psql -U "$PGUSER" -d "$PGDATABASE"                                # inside the container
 ```
+
+*Untested by me as of 2026-10-21. The first `railway ssh` stopped at host-key verification, which needs a person to accept it.*
 
 For example, the "Chinese" skill was added with:
 
@@ -258,21 +263,26 @@ INSERT INTO skill (name, category, state, sort_order) VALUES ('Chinese', 'langua
 
 ### Fallback snapshot
 
-`app/static/fallback/profile.json` is the cached core profile (name, headline, summary, links, top skills, education) that the site falls back on if the database can't be read. The `interests` list is edited in this file by hand. After changing the profile in the database, regenerate the file from the production data and commit it:
+`app/static/fallback/profile.json` is the cached core profile (name, headline, summary, links, top skills, education) that the site falls back on if the database can't be read. The `interests` list is edited in this file by hand. After changing the profile in the database, regenerate the file from the production data and commit it. The script needs a `DATABASE_URL` it can reach. Since the public proxy is gone, either add one for the duration (`railway tcp-proxy create --service Postgres`, use the URL it shows, then `railway tcp-proxy delete`) and run:
 
 ```bash
-DATABASE_URL="$(railway variables --service Postgres --kv | sed -n 's/^DATABASE_PUBLIC_URL=//p')" \
-  uv run python -m scripts.generate_snapshot
+DATABASE_URL='postgresql://…@<proxy-host>:<port>/railway' uv run python -m scripts.generate_snapshot
 ```
+
+or run `python -m scripts.generate_snapshot` inside the app container (`railway ssh --service career-platform`, which has the private `DATABASE_URL`), print the file with `cat app/static/fallback/profile.json`, and copy it into the repo. *Both routes untested since the proxy was removed.*
 
 ## A reviewed change through Railway
 
 **The change:** handle a database outage as requirement 1 asks (503 + "Projects temporarily unavailable.", profile from the snapshot, recovery on refresh, start even if the database is down). Before it, the same outage gave HTTP 500.
 
 - Reviewed: the diff (`app/routes/public.py`, `app/main.py`, three templates, two new tests) was read before committing. The new outage test failed on the old code and passed on the new code. The full suite passed (`30 passed, 1 skipped`), and a manual outage-and-recovery run against a real PostgreSQL 16 passed. All of it is recorded in [db-outage-check.md](docs/evidence/db-outage-check.md).
-- Commit, Railway deployment and live check: **pending push (2026-10-20)**. This section gets the commit SHA, the Railway deployment ID and the live result once it's deployed.
+- **Commit:** `260d6c9bd61d6483b40c27e0b7a13b8d58e7e45d` "Return 503 with the cached profile when the database is down", pushed to `main` on 2026-10-20 (in the push ending `1e1fa9d`).
+- **Railway deployment:** the push of `1e1fa9d` didn't start a deploy. The cause isn't visible from the CLI. The next push did, and each one after it too. The change went live in deployment `08f4c6f6-9f49-4d78-aba5-7392d9b45292`, built from `main` at `c298f5d` (which contains `260d6c9`; checked with `git merge-base --is-ancestor`). Status `SUCCESS`, created 2026-10-20 22:05 UTC. Its runtime log shows `Uvicorn running on http://0.0.0.0:8080`, two worker processes and `Application startup complete` twice, with no errors.
+- **Live check (2026-10-20, 23:57 UTC, `curl` from my laptop):** `/`, `/resume`, `/portfolio`, `/portfolio/career-platform`, `/contact`, `/privacy` and `/healthz` on https://zetiantao.me all returned **200**. None showed "Projects temporarily unavailable" or the cached-profile banner, so the new code serves the healthy path from the database as before.
+- **Outage path checked live (2026-10-21, 00:37 UTC):** I restarted the production Postgres while polling the site every half second. The request during the roughly 2-second outage got **503** with "Projects temporarily unavailable." and the cached profile. The next one got 200, with the app deployment unchanged ([db-outage-check.md](docs/evidence/db-outage-check.md#on-railway-production-2026-10-21-times-utc)).
+- **To restore the previous version:** redeploy `de654edf` (`8e71c76`) from the Railway dashboard, or `git revert 260d6c9` and push. No database change is involved. See [Rolling back](#rolling-back).
 
-An earlier change went through the same path: `630fbfe` "Privacy page: GA data retention is 2 months", deployed by Railway as `685e06f6` (branch `main`, 2026-10-17 18:36 UTC).
+An earlier change went through the same path: `630fbfe` "Privacy page: GA data retention is 2 months", deployed by Railway as `685e06f6` (branch `main`, 2026-10-17 18:36 UTC). It replaced the placeholder "[2 or 14] months" with "Google Analytics keeps event-level data for 2 months, then deletes it." I didn't record the live page at deploy time. Checked afterwards, on 2026-10-21 00:44 UTC: https://zetiantao.me/privacy returns 200 and shows that exact sentence, with no "[2 or 14]" placeholder.
 
 ## Rolling back
 
@@ -294,18 +304,22 @@ Check afterwards: `railway deployment list` shows the expected SHA as `SUCCESS`,
 - **Data.** Before any manual edit, take a dump outside the repo:
 
   ```bash
-  PGURL="$(railway variables --service Postgres --kv | sed -n 's/^DATABASE_PUBLIC_URL=//p')"
-  pg_dump "$PGURL" --data-only --format=custom -f ~/backups/career-$(date -u +%Y%m%dT%H%M%SZ).dump
+  mkdir -p ~/backups
+  railway ssh --service Postgres -i ~/.ssh/railway_career_platform -- \
+    'pg_dump -U "$PGUSER" -d "$PGDATABASE" --data-only --format=plain' \
+    > ~/backups/career-$(date -u +%Y%m%dT%H%M%SZ).sql
   ```
 
-  To undo a bad edit, fix the rows directly in `railway connect Postgres` (one transaction). Or restore the dump into the emptied tables: `TRUNCATE … RESTART IDENTITY CASCADE`, then `pg_restore --data-only -d "$PGURL" <file>`. Dumps hold personal data, so they stay out of git (they aren't in the repo folder).
+  Plain SQL format, because a binary dump could be corrupted by the SSH session. *Untested since the public proxy was removed.* Check that the file starts with `-- PostgreSQL database dump` and contains a `COPY public.project` line.
+
+  To undo a bad edit, fix the rows directly in `psql` inside the Postgres container (one transaction). Or empty the tables (`TRUNCATE … RESTART IDENTITY CASCADE`) and replay the dump with `psql -U "$PGUSER" -d "$PGDATABASE" -f <file>`, after copying it into the container or piping it through `railway ssh`. Dumps hold personal data, so they stay out of git (`~/backups` is outside the repo folder).
 
 ### Rolling the migration back to Azure
 
 Railway is the source of truth since 2026-10-10, and the VM's SQLite copy is frozen at the 2026-10-08 copy. Going back means carrying over anything written after the cutover:
 
 1. `az vm start -g rg-career-platform -n vm-career-platform`. The public IP is static, and systemd starts nginx and the app at boot (shown in the restart test). Check `curl -I --resolve zetiantao.me:443:172.183.16.158 https://zetiantao.me/`.
-2. Find rows written after cutover. Re-run the row-by-row comparison used for the migration (Railway vs. a fresh `.backup` of the VM DB) and list the differences. Known so far: one row, skill `Chinese` (id 10, 2026-10-10). Writes only happen through `railway connect Postgres`, and only I have access, so there's no visitor data.
+2. Find rows written after cutover. Re-run the row-by-row comparison used for the migration (Railway vs. a fresh `.backup` of the VM DB) and list the differences. Known so far: one row, skill `Chinese` (id 10, 2026-10-10). Writes only happen through `psql` (`railway connect Postgres` until 2026-10-10, `railway ssh` into the Postgres container after the public proxy was removed), and only I have access, so there's no visitor data.
 3. Apply those rows to the VM DB with `sqlite3`, after taking a `.backup` of it.
 4. In Cloudflare, replace the apex CNAME with `A zetiantao.me → 172.183.16.158`, DNS only. The VM's certbot certificate already covers `zetiantao.me` (until 2027-01-04). The `www` redirect rule doesn't change.
 5. Verify with `dig`, `curl` and `openssl` as in [Domain and HTTPS](#domain-and-https). Leave Railway running until the VM checks pass.
@@ -361,29 +375,37 @@ What I still own on Railway: the code and its tests, dependency pins, `railway.j
 
 ## Decisions
 
-*(written afterwards, 2026-10-20, from the plans and logs. I didn't keep the in-class versions.)*
+*(written afterwards, 2026-10-20, in my own words. I didn't keep the in-class versions.)*
 
-### 1. SQLite first, then PostgreSQL on Railway
+### 1. SQLite first, then PostgreSQL
 
-- **Choice:** SQLite for v1 (the [spec](docs/superpowers/specs/personal-career-platform.md) and [first plan](docs/superpowers/plans/2026-09-15-personal-career-platform.md)), kept for the Azure move, then Railway PostgreSQL.
-- **Alternatives:** Postgres from the start (on the VM or managed); SQLite on a Railway volume; staying on the VM.
-- **Reasons:** SQLite needs no server, works the same in Codespaces and on the VM, and the content is a few dozen rows written by one person. On the VM the database was just a local file next to the app, with no network port to secure. For Railway, containers are rebuilt on every deploy, so a SQLite file would vanish unless it sat on a volume. A volume can only attach to one service, which would block a second worker service later. Managed Postgres gives a real database server over the private network, and the course requires it. Cost of the switch: the compatibility changes listed above, plus a one-off data copy and comparison.
+SQLite requires no server and works equally in Codespaces and on the VM. The amount of my site content is dozens of rows written by me. In the VM, the database was a file sitting next to the app, thus no network port required for security.
+However, Railway rebuilds the whole container on each deploy, hence a SQLite file disappears, and I have to put it into Railway volume, which can be attached only to one service. Managed Postgres runs as a real DB on Railway's private network as required by the course.
 
-### 2. Moving from the VM to Railway
+### 2. Azure VM to Railway
 
-- **Choice:** Railway (PaaS) with GitHub auto-deploys from `main`.
-- **Alternatives:** keep operating the Azure VM; another PaaS.
-- **Reasons:** on the VM I was the operator for every layer in the table above. The logs show what that costs: SSH lost whenever my IP changed, a site outage after a reboot before systemd was set up, `pkill` killing my own SSH session, and manual `git pull` deploys with DB backups each time. Railway removes OS, nginx, certbot and systemd work, gives push-to-deploy with health-checked switchover, and is what the course uses next. Trade-offs: less control, a trial that ends (with a move to AWS planned), and the free plan allows only one custom domain, which is why `www` is a Cloudflare redirect.
+I deployed my site with Railway (PaaS), which comes with managed PostgreSQL and GitHub main-branch auto-deploys. Each push to main rebuilds, checks health, and swaps.
 
-### 3. Managed email (Zoho) instead of self-hosted
+Alternatives: Azure VM or other PaaS.
 
-- **Choice:** Zoho Mail Forever Free, with Cloudflare DNS.
-- **Alternatives:** run Postfix/Dovecot on the VM; keep Namecheap forwarding to a personal inbox; a paid provider (Google Workspace).
-- **Reasons:** self-hosting means owning deliverability: a cloud IP with no sending reputation, Azure restricting outbound port 25 on student subscriptions, reverse DNS, spam filtering, TLS, storage and 24/7 uptime. A stopped VM would also bounce mail. Forwarding can't *send* as `zetian@zetiantao.me`, and the before-MX test bounced. Zoho is free, signs with DKIM, and keeps mail separate from the web host, so moving the site (Azure → Railway → AWS) doesn't touch email. Trade-offs: a 5 GB limit, web-only access on the free plan (no IMAP), and dependence on Zoho.
+On VM, I managed the OS, Nginx, Certbot for HTTPS, and systemd. There were problems: losing SSH because of changing IPs, downtime after reboot until systemd, pkill ending SSH, and manually pulling git and backing up database when deploying. Railway handles all these things.
 
-### 4. Removing `/admin`
+In exchange for some loss of control, I get a limited-time trial. The plan allows one custom domain, hence I use Cloudflare to redirect www.zetiantao.me to zetiantao.me.
 
-On 2026-10-10 I found that the live Railway deployment had no `ADMIN_*` variables, so `/admin` accepted the code's default password. I removed the editor rather than adding secrets. Content is now edited with `psql`, which is enough for a single editor and removes a login surface ([log](docs/superpowers/plans/2026-10-08-railway-postgres-migration.md#progress-log)).
+### 3. Zoho Mail instead of a self-hosted mail server
+
+Zoho Mail Forever Free account for zetian@zetiantao.me. Cloudflare still acts as DNS and I added Zoho MX, SPF, DKIM, DMARC records.
+
+Alternatives: Postfix/Dovecot VM, continue forwarding with Namecheap, or Google Workspace. Forwarding cannot send emails as zetian@zetiantao.me and testing mail did not work until adding MX.
+
+Mail server requires deliverability management, getting a cloud IP without reputation, Azure limitations on students using outbound port 25, and reverse DNS, managing spam, TLS, storage, 24/7 availability, and possible bounce emails when VM crashes. Zoho email is separate from web host, thus the change of hosting does not impact emails.
+
+The free plan provides 5 GB limit and usage of Zoho web/mobile apps only (no IMAP). I use Zoho for emails.
+
+### 4. Removing /admin
+
+On Oct 10, I noticed the live Railway version has no admin password variables set, hence /admin uses default password in the code. Instead of adding secrets and a password protection, I decided to remove the admin editor since I am the only one editing.
+Now, I edit the content directly in production: I use railway connect Postgres to access psql and edit the database with SQL.
 
 ## Investigated failures
 
@@ -401,7 +423,7 @@ Checked 2026-10-20.
 
 | Service | What it is | Cost so far | Expiry / renewal | Cleanup plan |
 |---|---|---|---|---|
-| Railway (trial) | Compute (web service) + Postgres with a retained volume | **$0.9023** for the billing period 2026-10-06 to 2026-10-20 (`railway usage`); estimate $0.9147 | Trial ends after 30 days or $5, whichever comes first. The first billing period started **2026-10-06**, so the trial ends around **2026-11-05**. *Not confirmed in the dashboard.* | Move to AWS after the midterm and before the trial ends. Then take a final `pg_dump` and delete the `incredible-truth` project (the volume holds the data). |
+| Railway (trial) | Compute (web service) + Postgres with a retained volume | **$0.9023** for the billing period 2026-10-06 to 2026-10-20 (`railway usage`); estimate $0.9147 | Trial ends after 30 days or $5, whichever comes first. The Railway API (`railway api`, workspace `customer` fields, 2026-10-21 00:46 UTC) reports `isTrialing: true`, `trialDaysRemaining: 16`, `creditBalance: 5`, plan `HOBBY`. So the trial ends about **2026-11-06**, unless $5 is used first; $0.90 had been used. | Move to AWS after the midterm and before the trial ends. Then take a final `pg_dump` and delete the `incredible-truth` project (the volume holds the data). |
 | Azure for Students | VM `Standard_B2ats_v2` (compute), OS managed disk (storage), Standard static public IP, NSG/VNet/NIC (free) | Compute about $0.0094/h while running (Retail Prices API, [ex03](docs/evidence/ex03.md)). **None since 2026-10-13** (deallocated). The disk and static IP keep billing while stopped. Dollar totals aren't available from the CLI for this subscription. *Credit balance unverified.* | Student credit / subscription term: *unverified* | Keep until the instructor's cleanup directions. Then `az group delete -n rg-career-platform` (removes the disk and IP; can't be undone). The `www` record can stay, since the redirect doesn't need an origin, or be pointed at a placeholder. |
 | Namecheap | Domain `zetiantao.me` | *Price not recorded* | Registered 2026-10-05, **expires 2027-10-05** (WHOIS) | Decide on renewal before 2027-10. Turn off auto-renew if it's not needed. |
 | Cloudflare | DNS, `www` redirect, edge certificate | Free plan | — | Keep |
@@ -419,15 +441,15 @@ Checked 2026-10-20.
 - DMARC is `p=none` (monitor only), and no aggregate report has been reviewed yet.
 - `railway.json` must be migrated to `.railway/railway.ts` before 2026-12-01.
 - `career_platform.db` (empty) is still tracked in git and could mislead. `PRODUCT.md` still describes the VM and the admin area.
-- The Railway trial end date is inferred, not confirmed.
+- The Railway trial end date comes from `trialDaysRemaining` (16 on 2026-10-21), so it could be off by a day depending on when Railway counts the day.
 
 ## Reflection
 
-*(Draft written 2026-10-20 from the record. Edit this into your own words before submitting.)*
+In September, I had never deployed anything before, and I did not have a clue how to proceed. I did not have a GitHub account, and I did not know how to use Visual Studio Code effectively. Throughout this project, I got familiar with how various platforms interact with each other and learned how to use IaaS and PaaS solutions. At first, designing and developing a website seemed like a daunting task. Thanks to agentic coding, I found that designing and developing can be quite easy, but I still need to know how it works and audit the agent's actions.
 
-I understand much better now that "the site works" is several separate claims, and each needs its own check: DNS answers with the right target, TLS presents the right name, the proxy reaches the app, the app reaches the database, and the database holds the right rows. The empty-database incident (ex03) and the ex05 lab both looked like one thing and turned out to be another, and the fix came from checking layer by layer. Moving to Railway showed me what PaaS removes (nginx, certbot, systemd, OS patching) and what it doesn't (data, DNS, configuration, cost). The data copy was only convincing because I compared every row against a fresh snapshot, not because the script exited 0.
+The problem that helped me the most was the simulated problem from Exercise 5. It got me familiar with the vocabulary of the system and helped me understand the process behind this project. In particular, I learned what DNS and TLS are and how to diagnose a problem with them, which gave me an excellent basis for the rest of the project.
 
-What I'd change: write the failure behaviour (503 and recovery) as a test at the start rather than finding the 500 during the migration; keep evidence dated as I go instead of reconstructing it; set up a backup routine for Postgres from the first day; and not let an agent take unplanned steps (ex03 lists four) without stopping to approve them.
+Even though AI was a great help in the project, if I had more time, I would want to understand how the website is developed and coded, so that I could solve some problems in the code myself. Being able to solve problems with code is crucial for my future career.
 
 ## Docs and records
 

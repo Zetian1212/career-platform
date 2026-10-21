@@ -35,11 +35,12 @@ Every link below points to a file, README section or commit in this repository. 
 - systemd, nginx, NSG rules, SSH, public/private IPs, controlled reboot and crash tests (2026-10-05): [operate-the-VM plan → Restart check and Record](superpowers/plans/2026-10-01-operate-the-vm.md#restart-check)
 - Azure HTTPS, certificate and renewal (my Exercise 04 explanation): [how-this-site-is-secured.md](how-this-site-is-secured.md)
 - Summary and the VM's current (deallocated) state: [README → The Azure deployment](../README.md#the-azure-deployment)
-- Final DNS records, `www` redirect rule, and `dig`/`curl`/`openssl` checks of the apex and `www` over http and https (2026-10-20): [README → Domain and HTTPS](../README.md#domain-and-https)
+- Final DNS records, `www` redirect rule, and `dig`/`curl`/`openssl` checks of the apex and `www` over http and https (2026-10-20, re-run 2026-10-21): [README → Domain and HTTPS](../README.md#domain-and-https)
+- Cloudflare `www` redirect rule export: [cloudflare-www-redirect.md](evidence/cloudflare-www-redirect.md)
 
 ## 5. Reviewed change through Railway
 
-- [README → A reviewed change through Railway](../README.md#a-reviewed-change-through-railway): the database-outage fix, its review and local verification ([db-outage-check.md](evidence/db-outage-check.md)), then its commit SHA, Railway deployment ID and live result
+- [README → A reviewed change through Railway](../README.md#a-reviewed-change-through-railway): the database-outage fix `260d6c9`, its review and local verification, Railway deployment `08f4c6f6`, and the live checks, including a production database restart showing 503 then 200 ([db-outage-check.md](evidence/db-outage-check.md))
 - Earlier example: `630fbfe` → Railway deployment `685e06f6` (2026-10-17)
 - Recovering a previous version (code and data): [README → Rolling back](../README.md#rolling-back)
 
