@@ -34,5 +34,12 @@ Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP is
 
 - Mail sent from Zoho at my domain authenticates fully at a major receiver, and the receiver sees `zetian@zetiantao.me` as the sender (ex06 rows Test02 and Test03).
 - Incoming mail reaches Zoho through the MX records (ex06 row Test01). The before-MX bounce is in ex06 too.
-- **DMARC reports are arriving, but the content isn't reviewed yet.** Searched on 2026-10-21: the Zoho inbox holds one aggregate report, from `dmarcreport@microsoft.com` (submitter `enterprise.protection.outlook.com`), received 2026-10-19 15:41 UTC. It covers mail Microsoft received from my domain on 2026-10-17, the day of the ex06 tests. That shows the `rua` address in the DMARC record works. The per-message results are in the report's XML attachment, which I haven't opened yet, so its pass/fail counts are **unverified**. Also `p=none` only monitors. Moving to `p=quarantine` would let receivers act on spoofed mail and is the next step once the reports look clean.
+- **The DMARC report confirms both outgoing test messages passed.** On 2026-10-19 at 15:41 UTC, Zoho received an aggregate report from `dmarcreport@microsoft.com` (submitter `enterprise.protection.outlook.com`, report ID `9aec1283…`). It covers mail Microsoft received from my domain between 2026-10-17 00:00 and 2026-10-18 00:00 UTC. I downloaded the XML attachment and read it on 2026-10-21; it's committed as [dmarc-report-microsoft-2026-10-17.xml](dmarc-report-microsoft-2026-10-17.xml). That proves the `rua` address in the DMARC record works.
+
+  | Source IP | Messages | SPF | DKIM (`zmail`) | Disposition |
+  |---|---|---|---|---|
+  | `165.173.180.19` | 1 | pass | pass | none |
+  | `165.173.180.52` | 1 | pass | pass | none |
+
+  Both rows have `header_from` and `envelope_from` = `zetiantao.me` and `envelope_to` = `lion.lmu.edu`. Two messages fits the two outgoing ex06 tests that day (Test02 reply, Test03 new message). `165.173.180.52` is the IP in the Test03 header above. Matching `165.173.180.19` to Test02 is my inference: the report doesn't say which message came from which IP. Both IPs passed SPF, so `include:zohomail.com` authorises them. There were no failing rows, which means nobody else was sending mail as my domain to Microsoft that day. The report also echoes the published policy: `p=none`, `sp=none`, relaxed alignment (`adkim=r`, `aspf=r`), `pct=100`. `p=none` only monitors. Moving to `p=quarantine` would let receivers act on spoofed mail. One clean day of reports is a start, but I'd want a few weeks of them first.
 - The full raw header isn't committed because it contains private routing and mailbox details. Only the `Authentication-Results` line is quoted.

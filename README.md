@@ -190,7 +190,7 @@ X509v3 Subject Alternative Name: DNS:*.zetiantao.me, DNS:zetiantao.me
 `zetian@zetiantao.me` is hosted on Zoho Mail (Forever Free plan, 5 GB, US data center; account created 2026-10-13). Cloudflare is still the DNS provider. The zone has Zoho's MX records (`mx.zoho.com` 10, `mx2.zoho.com` 20, `mx3.zoho.com` 50), SPF `v=spf1 include:zohomail.com ~all`, a DKIM key under the `zmail` selector, DMARC `v=DMARC1; p=none; rua=mailto:zetian@zetiantao.me`, and a `zoho-verification` TXT record. They were published 2026-10-13 between 21:23 and 22:00 UTC. Before that, mail went to Namecheap forwarding; the old records are saved in [dns-before-zoho.md](docs/evidence/dns-before-zoho.md) in case they need restoring.
 
 - Delivery tests (before-MX bounce, inbound, reply, new outbound): [ex06.md](docs/evidence/ex06.md)
-- What each record does, and the SPF/DKIM/DMARC header analysis (all pass): [zoho-header-check.md](docs/evidence/zoho-header-check.md)
+- What each record does, and the SPF/DKIM/DMARC header analysis (all pass), and the first DMARC aggregate report (2 messages, both pass): [zoho-header-check.md](docs/evidence/zoho-header-check.md)
 
 ## Analytics and privacy
 
@@ -438,7 +438,7 @@ Checked 2026-10-20.
 - Production Postgres has no scheduled backups. Dumps are manual and taken before edits.
 - The fallback snapshot only covers the core profile and is refreshed by hand.
 - The migration rollback to Azure hasn't been rehearsed.
-- DMARC is `p=none` (monitor only), and no aggregate report has been reviewed yet.
+- DMARC is `p=none` (monitor only). Only one aggregate report has been reviewed so far (Microsoft, 2026-10-17: 2 messages, both pass), which is too few to justify `p=quarantine` yet.
 - `railway.json` must be migrated to `.railway/railway.ts` before 2026-12-01.
 - `career_platform.db` (empty) is still tracked in git and could mislead. `PRODUCT.md` still describes the VM and the admin area.
 - The Railway trial end date comes from `trialDaysRemaining` (16 on 2026-10-21), so it could be off by a day depending on when Railway counts the day.
