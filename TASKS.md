@@ -45,7 +45,8 @@ From the requirements audit on 2026-10-20 (repo at `1e1fa9d`). Most urgent first
 
 ## 7. GA4
 
-- [ ] **Needs you:** confirm the action you performed (accepted the banner, clicked LinkedIn and GitHub) and the date of the screenshots: README.md → "Analytics and privacy", docs/evidence/ex06.md §3
+- [x] Screenshot date: 2026-10-17, 11:50 and 12:28 PT (file metadata), committed in `8e71c76`: README.md → "Analytics and privacy"
+- [ ] **Needs you:** confirm the action described (accepted the banner, browsed, clicked LinkedIn and GitHub) is what you did: README.md → "Analytics and privacy"
 
 ## 8. Engineering record
 

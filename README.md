@@ -201,7 +201,7 @@ The site uses Google Analytics 4 (`G-3XLF72EHQC`), but only after a visitor agre
 - `/privacy` explains what is collected, why and who receives it. The `{# VERIFY #}` comments in `app/templates/public/privacy.html` list the GA property settings the page assumes (only page views, scrolls and outbound clicks in enhanced measurement, Google signals off, 2-month retention). If you change those settings in GA, update the page.
 - The stylesheet and the analytics script are linked with a `?v=` hash of their contents, so a deploy that changes them busts browser caches.
 
-**Verification (2026-10-17, GA4 Realtime; screenshots in [ex06.md](docs/evidence/ex06.md#3-google-analytics)).**
+**Verification (2026-10-17, GA4 Realtime; screenshots in [ex06.md](docs/evidence/ex06.md#3-google-analytics), files created 11:50 and 12:28 PT that day according to macOS file metadata, committed in `8e71c76` at 12:31 PT).**
 - *Action:* on https://zetiantao.me I accepted the banner, browsed a few pages, then clicked my LinkedIn and GitHub profile links.
 - *Observed:* Realtime "Event count by Event name" showed `page_view` 8, `scroll` 6, `user_engagement` 6, `click` 3, `first_visit` 1 and `session_start` 1. Drilling into `click` showed `link_domain` = `linkedin.com` and `github.com`, `link_url` = my two profile URLs, and `outbound` = `true`. That's GA4 enhanced measurement's outbound-click event, so it needed no custom code.
 - *Why it's useful:* the site exists so recruiters and others can find me. A page view says someone arrived. An outbound click to LinkedIn or GitHub says they went on to look at my work, which is the action I actually care about. Over time, `link_domain` shows which profile people choose.
