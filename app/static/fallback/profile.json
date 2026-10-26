@@ -2,10 +2,10 @@
   "profile": {
     "name": "Zetian Tao",
     "headline": "Student at Loyola Marymount University",
-    "summary": "A Bachelor of Business Administration student at Loyola Marymount University, majoring in Finance and Information Systems and Business Analysis, expected to graduate in June 2027.",
+    "summary": "A Bachelor of Business Administration student at Loyola Marymount University, majoring in Finance and Information Systems and Business Analytics, expected to graduate in May 2027.",
     "location": "Los Angeles, California, United States",
     "availability": null,
-    "bio": null
+    "bio": "I'm interested in both sides of a business: what the numbers say, and the systems that produce them. That's why I study Finance alongside Information Systems at LMU.\nMy internships run from IPO due diligence at Guotai Junan Securities and equity research at Tiger Brokers to demand forecasting at Jiaxing Xinchengda Fashion and data governance at Guardian Regulatory Consulting.\nI went to high school in Shanghai before moving to Los Angeles for college, and I built and run this website myself on Railway with PostgreSQL."
   },
   "links": [
     {
@@ -59,17 +59,17 @@
     }
   ],
   "highlights": [
-    "Career Platform"
+    "Career Platform (in progress)",
+    "SEC EDGAR Data Pipeline & Earnings Analytics"
   ],
-  "generated_at": "2026-09-29T22:16:50.949943+00:00",
   "education": [
     {
       "school": "Loyola Marymount University",
       "degree": "Bachelor of Business Administration",
-      "field_of_study": "Finance; Information Systems and Business Analysis",
+      "field_of_study": "Finance; Information Systems and Business Analytics",
       "start_date": "2022-08",
       "end_date": "2027-05",
-      "honors": null
+      "honors": "Activities: Secretary, Students and Scholars Association; International Business Society; Lion Investing Society; Finance Society"
     },
     {
       "school": "Shanghai American School",
@@ -80,8 +80,10 @@
       "honors": null
     }
   ],
+  "generated_at": "2026-10-26T23:12:02.875194+00:00",
   "interests": [
-    "Watching the NBA, especially the Lakers.",
-    "Trying new foods whenever I can."
+    "Watching NBA basketball.",
+    "Trying new restaurants.",
+    "Playing social deduction games."
   ]
 }
