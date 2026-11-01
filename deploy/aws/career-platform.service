@@ -1,0 +1,22 @@
+[Unit]
+Description=Career platform (uvicorn behind nginx)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=career
+Group=career
+WorkingDirectory=/opt/career-platform
+# DATABASE_URL lives here (root:career, 640), never in Git. Names only: deploy/aws/env.example
+EnvironmentFile=/etc/career-platform/env
+# 127.0.0.1 only: nginx is the sole public listener. Trust X-Forwarded-* from nginx alone.
+ExecStart=/opt/career-platform/.venv/bin/uvicorn app.main:create_app --factory --host 127.0.0.1 --port 8000 --workers 2 --proxy-headers --forwarded-allow-ips=127.0.0.1
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

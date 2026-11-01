@@ -1,6 +1,6 @@
 # career-platform
 
-A FastAPI + Jinja resume and portfolio site for Zetian Tao. Live at **https://zetiantao.me**, running on Railway with PostgreSQL. It started in Codespaces with SQLite, moved to an Azure Ubuntu VM (nginx + uvicorn + SQLite), and on 2026-10-10 moved to Railway + PostgreSQL. It is the starting point for the career platform built through the semester.
+A FastAPI + Jinja resume and portfolio site for Zetian Tao. Live at **https://zetiantao.me**, running on Railway with PostgreSQL. It started in Codespaces with SQLite, moved to an Azure Ubuntu VM (nginx + uvicorn + SQLite), and on 2026-10-10 moved to Railway + PostgreSQL. An AWS copy (EC2 + private Single-AZ RDS) is deployed and verified at https://aws.zetiantao.me; production was switched to it on 2026-11-01 and switched back to Railway 4.5 minutes later, so it's on standby. It is the starting point for the career platform built through the semester.
 
 The site shows my profile, education, experience, skills, certifications and links. Projects and the rest of the content are read from the database on every request. A cached copy of the core profile (`app/static/fallback/profile.json`) keeps the page useful when the database is down: the site returns **503** with "Projects temporarily unavailable." and recovers on the next refresh once the database is back ([check](docs/evidence/db-outage-check.md)).
 
@@ -20,6 +20,7 @@ The site shows my profile, education, experience, skills, certifications and lin
 - [Rolling back](#rolling-back): code and data
 - [The Azure deployment](#the-azure-deployment)
 - [The Railway migration](#the-railway-migration): data preservation and who manages what
+- [The AWS migration](#the-aws-migration): EC2 + RDS, backup and recovery, verification, cutover status
 - [Decisions](#decisions)
 - [Investigated failures](#investigated-failures)
 - [Costs, expiry and cleanup](#costs-expiry-and-cleanup)
@@ -56,6 +57,46 @@ http(s)://www.zetiantao.me ─▶ Cloudflare edge (cert *.zetiantao.me) ─▶ 3
                                (the redirect is answered at Cloudflare; the VM behind the www record isn't contacted)
 
 GitHub repo Zetian1212/career-platform ──push to main──▶ Railway build (Railpack) ─▶ pre-deploy init_db ─▶ /healthz check ─▶ live
+```
+
+### Standby: AWS EC2 + RDS (built 2026-11-01)
+
+Serves https://aws.zetiantao.me today. Dashed: the apex `zetiantao.me` record, which points at Railway (the diagram above) except during the 2026-11-01 01:56–02:00 UTC cutover rehearsal. `www` (proxied, Cloudflare redirect rule to the apex) isn't drawn.
+
+```mermaid
+flowchart TB
+  B["Visitor's browser"]
+  ME["My laptop<br/>~/.ssh/isba4775_aws, ~/backups (pg_dump exports, outside AWS)"]
+
+  subgraph CF["Cloudflare: DNS only for these records, no proxy, so Cloudflare never sees the traffic"]
+    DAWS["aws.zetiantao.me A 184.194.107.156"]
+    DAPEX["zetiantao.me: CNAME to Railway now; A 184.194.107.156 when cut over"]
+  end
+
+  RW["Railway: serves zetiantao.me (production)"]
+
+  subgraph AWS["AWS us-east-1, default VPC 172.31.0.0/16, AZ us-east-1a"]
+    subgraph WEB["Security group career-web: 22 from my /32, 80 and 443 from anywhere"]
+      NGINX["EC2 t3.small i-01ab553c3bd48aec2, Ubuntu 26.04<br/>Elastic IP 184.194.107.156<br/>Nginx: port 80 redirects to HTTPS, port 443 ends TLS (Let's Encrypt)"]
+      APP["uvicorn on 127.0.0.1:8000 only<br/>systemd career-platform, user career, 2 workers"]
+    end
+    subgraph DB["Security group career-db: 5432 only from career-web"]
+      RDS[("RDS PostgreSQL 18.6, db.t4g.micro, Single-AZ<br/>not publicly accessible, encrypted gp3 20 GB<br/>data persists here")]
+    end
+    SNAP[("RDS automated backups, 7 days")]
+  end
+
+  B -- "1. DNS lookup, port 53" --> CF
+  B -- "2. HTTPS, TCP 443" --> NGINX
+  NGINX -- "3. plain HTTP inside the instance" --> APP
+  APP -- "4. PostgreSQL TCP 5432, TLS verify-full, private IP 172.31.6.108" --> RDS
+  RDS -- "daily snapshot plus transaction logs" --> SNAP
+  ME -- "admin: SSH TCP 22, key only" --> NGINX
+  APP -. "pg_dump run on EC2, copied to the laptop with scp" .-> ME
+
+  classDef pending stroke-dasharray: 6 4
+  class DAPEX pending
+  B -. "zetiantao.me today" .-> RW
 ```
 
 ### Before: Azure VM (2026-09-29 to 2026-10-10)
@@ -363,6 +404,39 @@ Records: [migration plan + progress log](docs/superpowers/plans/2026-10-08-railw
 
 What I still own on Railway: the code and its tests, dependency pins, `railway.json`, the variables, the data and its backups, DNS (a wrong CNAME breaks both the site and certificate renewal), watching deploys, logs and spend, and moving off before the trial ends. PaaS takes over the OS, nginx, certbot and systemd. It doesn't take over what the app does or what's in the database.
 
+## The AWS migration
+
+Records: [AWS plan and progress log](docs/superpowers/plans/2026-10-31-aws-ec2-rds-migration.md) (branch `aws-migration`), [backup and restore test](docs/evidence/aws-backup-restore.md), [verification](docs/evidence/aws-verification.md). Server config in git: [`deploy/aws/`](deploy/aws/) (systemd unit, both Nginx sites, `env.example` with names only).
+
+**Decision** *(drafted with Claude Code; to be rewritten in my own words).* I chose EC2 + Single-AZ RDS over EC2 with PostgreSQL on the same instance because the database's backups and patching become AWS's job and the data no longer lives on the same disk as the app, and I accept a second billed service (≈ $34/month in total versus ≈ $20) and a database that is only reachable from inside the VPC. Lambda + API Gateway + RDS was cheaper to run (≈ $15) and less to operate, but needed app changes (an ASGI adapter, moving `create_all` out of startup) and was off the course's shared path.
+
+**What changed.** No Python code. The app reads `DATABASE_URL` from `/etc/career-platform/env` (root:career, 640) with `sslmode=verify-full` against the RDS CA bundle; uvicorn binds `127.0.0.1:8000` behind Nginx; the data was restored **before** the first start so `create_all` couldn't create empty tables first. The app connects as `career_app`, which owns the `career` database; the RDS master user `career_admin` is for administration only and its password is in my macOS Keychain, not on the server.
+
+| Resource | ID / value |
+|---|---|
+| EC2 | `i-01ab553c3bd48aec2`, t3.small, Ubuntu 26.04, us-east-1a, IMDSv2 required, 16 GB encrypted gp3, Standard CPU credits |
+| Elastic IP | `184.194.107.156` (`eipalloc-0a9d6a60e770b02f7`) |
+| RDS | `career-platform-db`, PostgreSQL 18.6, db.t4g.micro, Single-AZ, not public, encrypted 20 GB gp3, backups 7 days, deletion protection off |
+| Security groups | `career-web` `sg-04b446403ba8a13eb`, `career-db` `sg-06fcb589bdcc3b9f4` |
+| Key pair | `career-aws`; private key `~/.ssh/isba4775_aws` on my laptop |
+| IAM | `isba-student` with `SignInLocalDevelopmentAccess`, `AmazonEC2ReadOnlyAccess`, `ISBA4775EC2Migration`; CLI profile `isba-4775` |
+
+**Backup and recovery.**
+- *Backups:* RDS automated backups (daily snapshot plus transaction logs, 7-day retention, point-in-time restore). Independent copies outside AWS: `pg_dump` custom-format files in `~/backups` on my laptop (mode 600, never in git). Taken so far: 2026-10-31 21:20 UTC and 2026-11-01 01:51 UTC (final pre-cutover, identical data).
+- *Restore tested:* into a throwaway local PostgreSQL 18 (0.06 s) and into RDS (0.21 s), both identical to Railway table for table.
+- *Proposed RPO/RTO:* content changes only when I edit it, so take a dump after every edit plus weekly, keep the last 8: accept losing at most one week of edits (RDS point-in-time narrows that to minutes inside the 7 days). Recovery target 1 hour.
+- *Dump from RDS (it isn't reachable from the laptop):* `ssh ubuntu@184.194.107.156`, then `pg_dump "$(sudo sed -n 's#^DATABASE_URL=postgresql+psycopg://#postgresql://#p' /etc/career-platform/env)" -Fc -f ~/career-$(date -u +%Y%m%dT%H%M%SZ).dump`, then `scp` it to `~/backups` and delete it from the server.
+
+**Verification:** every check in [aws-verification.md](docs/evidence/aws-verification.md) passed on https://aws.zetiantao.me (pages, assets, redirects, data hashes, a test record across restart and reboot, SSH/RDS/port lockdown, IMDSv2) except actual spend, which `isba-student` can't read.
+
+**Cutover rehearsal and rollback (2026-11-01).** Before the switch: Elastic IP; production certificate for `zetiantao.me` issued by DNS-01 while the apex still pointed at Railway (a temporary `_acme-challenge` TXT created from my laptop, deleted afterwards); Nginx site tested through the Elastic IP; target-only test record deleted; final Railway dump identical to RDS; Railway writes frozen. Switch: at **01:56 UTC** I changed the apex record (`dc7eeacf…`) from `CNAME xuwtdiji.up.railway.app` to `A 184.194.107.156`, DNS only (Claude Code's auto-mode safety check blocked it from making this edit, so I ran it). Only that record changed (diffed against the saved snapshot; mail untouched). Checks while live: Cloudflare's NS, 1.1.1.1 and 8.8.8.8 returned 184.194.107.156; every page 200 from `server: nginx` with real content, `/nope` 404, http 301 to https, `www` 301 to the apex, certificate `CN=zetiantao.me`. **Rollback:** at **02:00:35 UTC** I set the apex back to the Railway CNAME. Public resolvers returned 69.46.46.100 again and Railway served 200 (`railway-hikari`). RDS was unchanged since the final Railway dump, so nothing written during the AWS window needed reconciling. That exercised both directions of the switch.
+
+**Renewal caveat while on standby:** the `zetiantao.me` certificate on EC2 (valid to 2027-01-30) renews by HTTP-01 webroot, which only works while the apex points at EC2. The renewal dry run fails now (`unauthorized`; the challenge goes to Railway) and `aws.zetiantao.me` renews fine. If the apex isn't on AWS by early January, re-issue by DNS-01 before cutting over again.
+
+**Next step:** decide before the Railway trial ends (about 2026-11-06): cut over again (one `cf dns records update` of the apex to `A 184.194.107.156`; take a fresh Railway dump first and compare it with RDS, restoring if Railway changed), or pay for Railway. After a lasting cutover, delete the `incredible-truth` project once a last dump is saved. At course end, delete the AWS resources (see Costs).
+
+**Rollback after cutover:** put the apex back to `CNAME zetiantao.me → xuwtdiji.up.railway.app` (DNS only). If anything was edited on AWS after cutover, dump those rows from RDS and apply them to Railway first; DNS doesn't move data.
+
 ## Decisions
 
 *(written afterwards, 2026-10-20, in my own words. I didn't keep the in-class versions.)*
@@ -415,6 +489,7 @@ Checked 2026-10-20.
 |---|---|---|---|---|
 | Railway (trial) | Compute (web service) + Postgres with a retained volume | **$0.9023** for the billing period 2026-10-06 to 2026-10-20 (`railway usage`); estimate $0.9147 | Trial ends after 30 days or $5, whichever comes first. The Railway API (`railway api`, workspace `customer` fields, 2026-10-21 00:46 UTC) reports `isTrialing: true`, `trialDaysRemaining: 16`, `creditBalance: 5`, plan `HOBBY`. So the trial ends about **2026-11-06**, unless $5 is used first; $0.90 had been used. | Move to AWS after the midterm and before the trial ends. Then take a final `pg_dump` and delete the `incredible-truth` project (the volume holds the data). |
 | Azure for Students | VM `Standard_B2ats_v2` (compute), OS managed disk (storage), Standard static public IP, NSG/VNet/NIC (free) | Compute about $0.0094/h while running (Retail Prices API, [ex03](docs/evidence/ex03.md)). **None since 2026-10-13** (deallocated). The disk and static IP keep billing while stopped. Dollar totals aren't available from the CLI for this subscription. **Credit: $95 of $100 remaining** (Azure portal, checked by me 2026-10-20), so about **$5 used** in total. | Student credit term: *unverified* (the expiry date wasn't recorded) | Keep until the instructor's cleanup directions. Then `az group delete -n rg-career-platform` (removes the disk and IP; can't be undone). The `www` record can stay, since the redirect doesn't need an origin, or be pointed at a placeholder. |
+| AWS (Free plan credits) | EC2 t3.small + 16 GB gp3, public IPv4 (Elastic IP), RDS db.t4g.micro + 20 GB gp3, backups | Estimate **≈ $34.09/month** (≈ $1.12/day) from the public us-east-1 price lists, 2026-10-31: EC2 $15.18, RDS $11.68, IPv4 $3.65, RDS storage $2.30, EBS $1.28, backups and transfer $0. Actual spend *unverified* (IAM user can't read billing) | $100 credits ≈ 2.9 months at this rate; credit balance and expiry *unverified* | At course end: `delete-db-instance` with a final snapshot (a stopped RDS instance restarts itself after 7 days), terminate EC2, release the Elastic IP (an unattached one still bills), delete the SGs and key pair, `aws logout --profile isba-4775` |
 | Namecheap | Domain `zetiantao.me` | **$0**: the first year was free (my account of the order, 2026-10-20) | Registered 2026-10-05, **expires 2027-10-05** (WHOIS). Renewal is paid; the renewal price is *unverified*. | Decide on renewal before 2027-10. Turn off auto-renew if it's not needed, so the card isn't charged. |
 | Cloudflare | DNS, `www` redirect, edge certificate | Free plan | — | Keep |
 | Zoho Mail | `zetian@zetiantao.me` | Forever Free (5 GB) | — | Keep. If the domain lapses, remove the account first. |
@@ -445,5 +520,6 @@ Even though AI was a great help in the project, if I had more time, I would want
 
 - [docs/project-1-submission.md](docs/project-1-submission.md): the Project 1 submission index
 - Spec and plans: [spec](docs/superpowers/specs/personal-career-platform.md), [build plan](docs/superpowers/plans/2026-09-15-personal-career-platform.md), [Azure migration](docs/superpowers/plans/2026-09-24-azure-vm-migration.md), [operate the VM](docs/superpowers/plans/2026-10-01-operate-the-vm.md), [Railway migration](docs/superpowers/plans/2026-10-08-railway-postgres-migration.md), [Railway implementation](docs/superpowers/plans/2026-10-08-railway-postgres-implementation.md)
+- AWS: [plan and log](docs/superpowers/plans/2026-10-31-aws-ec2-rds-migration.md), [backup and restore test](docs/evidence/aws-backup-restore.md), [verification](docs/evidence/aws-verification.md), [`deploy/aws/`](deploy/aws/)
 - [docs/how-this-site-is-secured.md](docs/how-this-site-is-secured.md): my HTTPS explanation (Exercise 04, written for the Azure VM)
 - [docs/evidence/](docs/evidence/): ex03, ex05, ex06, the Zoho header check, the DB outage check, DNS before Zoho; screenshots in `docs/evidence/img/`
