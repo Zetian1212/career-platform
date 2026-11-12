@@ -2,7 +2,7 @@
 
 **Goal:** Run the career platform on one EC2 instance (Nginx → uvicorn) with its data in a private Single-AZ RDS PostgreSQL database. The data must match Railway's. Railway keeps serving `zetiantao.me` until every check in section 7 passes.
 
-**Status:** **Rolled back to Railway at 2026-11-01 02:00:35 UTC** (by me, via `!`), about 4.5 minutes after the 01:56 cutover. AWS stays deployed and verified (EIP, both certificates, data identical). Waiting on my decision whether and when to cut over again.
+**Status:** **Live on AWS since 2026-11-05 21:40:43 UTC.** Railway is idle as the rollback target until its trial ends. Left: delete Railway after the trial, then the step 9 cleanup at course end.
 
 **Deadline:** the Railway trial ends about **2026-11-06** (README "Costs"). Cutover, or a decision to pay for Railway, has to happen before then.
 
@@ -175,3 +175,8 @@ Each step has **Run**, **Check** and **Undo**. Ticks and dated log entries go in
 - **2026-11-01** Cutover: apex switched to the EIP (01:56 UTC), production verified, apex certificate moved to webroot renewal. README updated to "Now: AWS".
 - **2026-11-01 02:00 UTC** Apex set back to `CNAME xuwtdiji.up.railway.app` (DNS only) by me. Cloudflare NS, 1.1.1.1 and 8.8.8.8 return 69.46.46.100, and Railway serves 200 (`railway-hikari`). RDS hashes are unchanged since the final Railway dump, so nothing written during the AWS window needs reconciling. The README was then corrected: Railway "Now", AWS "Standby", cutover recorded as a rehearsal plus rollback.
 - **2026-11-01** Renewal dry runs: `aws.zetiantao.me` succeeds; `zetiantao.me` fails `unauthorized` while the apex is on Railway (expected, since webroot needs the apex on EC2). Its certificate is valid to 2027-01-30.
+- **2026-11-01** Committed `b5d9ade` to `aws-migration` and pushed it (new remote branch). `main` is untouched, so Railway didn't redeploy.
+- **2026-11-05** The AWS session had expired, so I logged in again. The laptop IP changed, so the SSH rule moved from 184.81.59.2/32 to 157.242.208.200/32. Fresh Railway dump `20261105T213641Z` is identical to the 11-01 dump and to RDS (9/9 tables). Server healthy: up 4d19h, services active, commit `d79c0aa`, no reboot pending. The Railway edge IP had changed to 153.52.255.14 (the CNAME was unchanged).
+- **2026-11-05 21:40:43 UTC** Cutover: apex `A 184.194.107.156`, run by me. Verified: NS, 1.1.1.1 and 8.8.8.8 agree, 11 records with only the apex changed, MX intact, all pages 200 from nginx, 404/301 correct, `www` → apex, certificate valid. Renewal dry runs succeed for `zetiantao.me` (webroot) and `aws.zetiantao.me`.
+- **2026-11-08** Drafted `docs/evidence/ex07.md` (Exercise 07 results sheet). Decision sentence written: EC2 + RDS over Lambda (class path, policy covers it, no app changes; accept ≈ $34 vs ≈ $15 and a server to patch). DNS screenshot added (`img/ex07-dns.png`). Billing screenshot added (`img/ex07-billing.png`): November so far $8.00 (EC2 3.37, RDS 3.27, VPC 1.36); Credits page shows no active credits. Not committed yet.
+- **2026-11-12** Found the stack down: account suspended by AWS around 2026-11-07 (no Free plan, no credits). EC2 stopped and its root volume removed after an AWS-triggered snapshot; RDS `inaccessible-encryption-credentials-recoverable`; EIP, SGs, key pair unchanged. Nothing deleted, by my decision. November bill so far $8.00. `ex07.md` updated with the status and next step (resolve the suspension with AWS and the instructor).

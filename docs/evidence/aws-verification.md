@@ -21,3 +21,14 @@
 | RDS settings | **Pass** | Single-AZ, encrypted, 7-day backups, latest restorable time 2026-11-01 01:40:55 UTC |
 | IMDSv2 | **Pass** | A metadata request without a token returns 401 |
 | Actual costs | **Not verified** | `isba-student` can't read Cost Explorer, Budgets or Free Tier. The estimate is ≈ $34.09/month (plan step 1.2). To check: owner console → Billing → Credits and Bills |
+
+## Production cutover (2026-11-05)
+
+| Check | Result | Evidence |
+|---|---|---|
+| Data before the switch | **Pass** | Railway dump `career-railway-20261105T213641Z-final.dump` (sha256 `f6402303…`) hashes identical to RDS in all 9 tables |
+| DNS change | **Pass** | 21:40:43 UTC apex `CNAME xuwtdiji.up.railway.app` → `A 184.194.107.156`, DNS only. 11 records; only the apex changed; MX `mx/mx2/mx3.zoho.com` unchanged |
+| Resolution | **Pass** | `bailey`/`rudy.ns.cloudflare.com`, 1.1.1.1 and 8.8.8.8 all return 184.194.107.156 |
+| Pages | **Pass** | `/`, `/resume`, `/portfolio`, both project pages, `/contact`, `/privacy`, `/healthz`, `site.css`, `analytics.js` all 200 from 184.194.107.156, `server: nginx`, real resume content, no degraded banner; `/nope` 404 |
+| Redirects | **Pass** | `http://zetiantao.me/resume` and `https://www.zetiantao.me/resume` both 301 → `https://zetiantao.me/resume` |
+| Certificate | **Pass** | `CN=zetiantao.me`, Let's Encrypt YE2, valid to 2027-01-30. `certbot renew --dry-run` succeeds for `zetiantao.me` (webroot) and `aws.zetiantao.me` |

@@ -1,6 +1,6 @@
 # career-platform
 
-A FastAPI + Jinja resume and portfolio site for Zetian Tao. Live at **https://zetiantao.me**, running on Railway with PostgreSQL. It started in Codespaces with SQLite, moved to an Azure Ubuntu VM (nginx + uvicorn + SQLite), and on 2026-10-10 moved to Railway + PostgreSQL. An AWS copy (EC2 + private Single-AZ RDS) is deployed and verified at https://aws.zetiantao.me; production was switched to it on 2026-11-01 and switched back to Railway 4.5 minutes later, so it's on standby. It is the starting point for the career platform built through the semester.
+A FastAPI + Jinja resume and portfolio site for Zetian Tao. Live at **https://zetiantao.me**, running on AWS: an EC2 instance (Nginx + uvicorn) with a private Single-AZ RDS PostgreSQL database, since 2026-11-05. It started in Codespaces with SQLite, moved to an Azure Ubuntu VM (nginx + uvicorn + SQLite), on 2026-10-10 to Railway + PostgreSQL, and on 2026-11-05 to AWS (after a cutover rehearsal and rollback on 2026-11-01). It is the starting point for the career platform built through the semester.
 
 The site shows my profile, education, experience, skills, certifications and links. Projects and the rest of the content are read from the database on every request. A cached copy of the core profile (`app/static/fallback/profile.json`) keeps the page useful when the database is down: the site returns **503** with "Projects temporarily unavailable." and recovers on the next refresh once the database is back ([check](docs/evidence/db-outage-check.md)).
 
@@ -30,7 +30,7 @@ The site shows my profile, education, experience, skills, certifications and lin
 
 ## Architecture
 
-### Now: Railway (since 2026-10-10)
+### Before: Railway (2026-10-10 to 2026-11-05)
 
 ```
                          Cloudflare DNS (authoritative for zetiantao.me)
@@ -59,9 +59,9 @@ http(s)://www.zetiantao.me ─▶ Cloudflare edge (cert *.zetiantao.me) ─▶ 3
 GitHub repo Zetian1212/career-platform ──push to main──▶ Railway build (Railpack) ─▶ pre-deploy init_db ─▶ /healthz check ─▶ live
 ```
 
-### Standby: AWS EC2 + RDS (built 2026-11-01)
+### Now: AWS EC2 + RDS (since 2026-11-05)
 
-Serves https://aws.zetiantao.me today. Dashed: the apex `zetiantao.me` record, which points at Railway (the diagram above) except during the 2026-11-01 01:56–02:00 UTC cutover rehearsal. `www` (proxied, Cloudflare redirect rule to the apex) isn't drawn.
+Both `zetiantao.me` and `aws.zetiantao.me` point at the Elastic IP. Dashed: Railway, idle and unchanged as the rollback target until the trial ends. `www` (proxied, Cloudflare redirect rule to the apex) isn't drawn.
 
 ```mermaid
 flowchart TB
@@ -70,10 +70,10 @@ flowchart TB
 
   subgraph CF["Cloudflare: DNS only for these records, no proxy, so Cloudflare never sees the traffic"]
     DAWS["aws.zetiantao.me A 184.194.107.156"]
-    DAPEX["zetiantao.me: CNAME to Railway now; A 184.194.107.156 when cut over"]
+    DAPEX["zetiantao.me A 184.194.107.156 (since 2026-11-05 21:40 UTC)"]
   end
 
-  RW["Railway: serves zetiantao.me (production)"]
+  RW["Railway: idle rollback target, no DNS points at it"]
 
   subgraph AWS["AWS us-east-1, default VPC 172.31.0.0/16, AZ us-east-1a"]
     subgraph WEB["Security group career-web: 22 from my /32, 80 and 443 from anywhere"]
@@ -95,8 +95,7 @@ flowchart TB
   APP -. "pg_dump run on EC2, copied to the laptop with scp" .-> ME
 
   classDef pending stroke-dasharray: 6 4
-  class DAPEX pending
-  B -. "zetiantao.me today" .-> RW
+  class RW pending
 ```
 
 ### Before: Azure VM (2026-09-29 to 2026-10-10)
@@ -431,9 +430,9 @@ Records: [AWS plan and progress log](docs/superpowers/plans/2026-10-31-aws-ec2-r
 
 **Cutover rehearsal and rollback (2026-11-01).** Before the switch: Elastic IP; production certificate for `zetiantao.me` issued by DNS-01 while the apex still pointed at Railway (a temporary `_acme-challenge` TXT created from my laptop, deleted afterwards); Nginx site tested through the Elastic IP; target-only test record deleted; final Railway dump identical to RDS; Railway writes frozen. Switch: at **01:56 UTC** I changed the apex record (`dc7eeacf…`) from `CNAME xuwtdiji.up.railway.app` to `A 184.194.107.156`, DNS only (Claude Code's auto-mode safety check blocked it from making this edit, so I ran it). Only that record changed (diffed against the saved snapshot; mail untouched). Checks while live: Cloudflare's NS, 1.1.1.1 and 8.8.8.8 returned 184.194.107.156; every page 200 from `server: nginx` with real content, `/nope` 404, http 301 to https, `www` 301 to the apex, certificate `CN=zetiantao.me`. **Rollback:** at **02:00:35 UTC** I set the apex back to the Railway CNAME. Public resolvers returned 69.46.46.100 again and Railway served 200 (`railway-hikari`). RDS was unchanged since the final Railway dump, so nothing written during the AWS window needed reconciling. That exercised both directions of the switch.
 
-**Renewal caveat while on standby:** the `zetiantao.me` certificate on EC2 (valid to 2027-01-30) renews by HTTP-01 webroot, which only works while the apex points at EC2. The renewal dry run fails now (`unauthorized`; the challenge goes to Railway) and `aws.zetiantao.me` renews fine. If the apex isn't on AWS by early January, re-issue by DNS-01 before cutting over again.
+**Cutover (2026-11-05).** Before: Railway dump `career-railway-20261105T213641Z-final.dump` identical to the 11-01 one and to RDS in all 9 tables (no restore needed); Railway writes frozen; server healthy after 4 days up; SSH rule moved to my new laptop IP. At **21:40:43 UTC** I changed the apex record to `A 184.194.107.156`, DNS only (again run by me; the agent is blocked from editing it). After: both Cloudflare nameservers, 1.1.1.1 and 8.8.8.8 return 184.194.107.156; 11 records, only the apex changed; MX unchanged; `/`, `/resume`, `/portfolio`, both project pages, `/contact`, `/privacy`, `/healthz`, CSS and JS all 200 from `server: nginx` with real content and no degraded banner; `/nope` 404; http and `www` both 301 to `https://zetiantao.me`; certificate `CN=zetiantao.me` (Let's Encrypt YE2, to 2027-01-30). Renewal dry runs succeed for both certificates (`zetiantao.me` by webroot, which works again now that the apex points at EC2).
 
-**Next step:** decide before the Railway trial ends (about 2026-11-06): cut over again (one `cf dns records update` of the apex to `A 184.194.107.156`; take a fresh Railway dump first and compare it with RDS, restoring if Railway changed), or pay for Railway. After a lasting cutover, delete the `incredible-truth` project once a last dump is saved. At course end, delete the AWS resources (see Costs).
+**Next step:** after the Railway trial ends (about 2026-11-06), save a last Railway dump if anything changed and delete the `incredible-truth` project, then remove the `_railway-verify` TXT record. Schedule weekly RDS dumps to the laptop. At course end, delete the AWS resources (see Costs).
 
 **Rollback after cutover:** put the apex back to `CNAME zetiantao.me → xuwtdiji.up.railway.app` (DNS only). If anything was edited on AWS after cutover, dump those rows from RDS and apply them to Railway first; DNS doesn't move data.
 
