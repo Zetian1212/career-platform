@@ -2,6 +2,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 from sqlalchemy import create_engine
+from sqlalchemy.engine import make_url
 from sqlalchemy.orm import Session
 from app.config import get_settings
 from app.db import Base, connect_args_for
@@ -12,8 +13,11 @@ def seed_demo(reset: bool = False) -> None:
     settings = get_settings()
     if not settings.database_url.startswith('sqlite'):
         raise SystemExit('seed_demo only writes to local SQLite files; refusing to touch ' + settings.database_url.split('@')[-1])
-    database_path = Path.cwd() / settings.database_url.replace('sqlite:///./', '')
-    database_path.parent.mkdir(parents=True, exist_ok=True)
+    # make_url handles relative (sqlite:///./x.db) and absolute (sqlite:////tmp/x.db) paths;
+    # a plain string replace turned absolute URLs into a 'sqlite:' folder in the working directory.
+    database = make_url(settings.database_url).database
+    if database and database != ':memory:':
+        Path(database).parent.mkdir(parents=True, exist_ok=True)
     engine = create_engine(settings.database_url, connect_args=connect_args_for(settings.database_url))
     if reset:
         Base.metadata.drop_all(bind=engine)
