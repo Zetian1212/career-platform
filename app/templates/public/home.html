@@ -28,7 +28,7 @@
 
 <section class="tile tile-side tile-dark" aria-labelledby="status-title">
   <h2 id="status-title" class="tile-title"><span class="status-dot {{ 'is-cached' if degraded else 'is-live' }}" aria-hidden="true"></span>{{ 'Running on a cached copy' if degraded else 'This site is online' }}</h2>
-  <p>Self-hosted on an Azure Ubuntu VM, served over HTTPS by nginx, with a cached fallback if the database is down.</p>
+  <p>Self-hosted on an AWS EC2 server with a private RDS PostgreSQL database, served over HTTPS by nginx, with a cached fallback if the database is down.</p>
 </section>
 
 {% if edu %}

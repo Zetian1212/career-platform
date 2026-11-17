@@ -24,7 +24,7 @@
 {%- endmacro %}
 
 {% macro site_diagram() %}
-<svg class="diagram" viewBox="0 0 360 260" role="img" aria-label="How this site runs: a visitor reaches nginx over HTTPS, nginx passes requests to FastAPI, FastAPI reads SQLite, and a cached snapshot is served if the database fails. Everything runs on an Azure Ubuntu VM.">
+<svg class="diagram" viewBox="0 0 360 260" role="img" aria-label="How this site runs: a visitor reaches nginx over HTTPS, nginx passes requests to FastAPI, FastAPI reads PostgreSQL on Amazon RDS, and a cached snapshot is served if the database fails. The web server runs on Amazon EC2.">
   <g class="diagram-lines"><path d="M180 52v26M180 122v26M180 192v20M240 170h78v-48"/></g>
   <rect x="90" y="12" width="180" height="40" rx="12" class="node"/>
   <rect x="90" y="78" width="180" height="44" rx="12" class="node node-accent"/>
@@ -33,8 +33,8 @@
   <rect x="90" y="212" width="180" height="40" rx="12" class="node"/>
   <text x="108" y="37">Visitor · HTTPS</text>
   <text x="108" y="105" class="text-accent">nginx → FastAPI</text>
-  <text x="108" y="175" class="text-inverse">SQLite</text>
+  <text x="108" y="175" class="text-inverse">RDS PostgreSQL</text>
   <text x="289" y="105" class="text-muted">Snapshot</text>
-  <text x="108" y="237">Azure Ubuntu VM</text>
+  <text x="108" y="237">AWS EC2 · Ubuntu</text>
 </svg>
 {% endmacro %}

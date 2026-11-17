@@ -5,7 +5,7 @@
     "summary": "A Bachelor of Business Administration student at Loyola Marymount University, majoring in Finance and Information Systems and Business Analytics, expected to graduate in May 2027.",
     "location": "Los Angeles, California, United States",
     "availability": null,
-    "bio": "I'm interested in both sides of a business: what the numbers say, and the systems that produce them. That's why I study Finance alongside Information Systems at LMU.\nMy internships run from IPO due diligence at Guotai Junan Securities and equity research at Tiger Brokers to demand forecasting at Jiaxing Xinchengda Fashion and data governance at Guardian Regulatory Consulting.\nI went to high school in Shanghai before moving to Los Angeles for college, and I built and run this website myself on Railway with PostgreSQL."
+    "bio": "I'm interested in both sides of a business: what the numbers say, and the systems that produce them. That's why I study Finance alongside Information Systems at LMU.\nMy internships run from IPO due diligence at Guotai Junan Securities and equity research at Tiger Brokers to demand forecasting at Jiaxing Xinchengda Fashion and regulatory compliance at Guardian Regulatory Consulting.\nI went to high school in Shanghai before moving to Los Angeles for college, and I built and run this website myself on AWS, with an EC2 server and a PostgreSQL database on RDS."
   },
   "links": [
     {
@@ -69,7 +69,7 @@
       "field_of_study": "Finance; Information Systems and Business Analytics",
       "start_date": "2022-08",
       "end_date": "2027-05",
-      "honors": "Activities: Secretary, Students and Scholars Association; International Business Society; Lion Investing Society; Finance Society"
+      "honors": "GPA 3.63 / 4.00. Activities: Secretary, Students and Scholars Association; International Business Society; Lion Investing Society; Finance Society"
     },
     {
       "school": "Shanghai American School",
@@ -82,8 +82,9 @@
   ],
   "generated_at": "2026-10-26T23:12:02.875194+00:00",
   "interests": [
+    "Swimming.",
     "Watching NBA basketball.",
-    "Trying new restaurants.",
-    "Playing social deduction games."
+    "Playing social deduction games.",
+    "Trying new restaurants."
   ]
 }
